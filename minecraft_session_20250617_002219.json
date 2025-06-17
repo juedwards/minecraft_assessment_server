@@ -2,9 +2,9 @@
   "session_info": {
     "id": "minecraft_session_20250617_002219",
     "start_time": "2025-06-17T00:22:19.844648",
-    "last_update": "2025-06-17T00:24:18.268386",
-    "duration_seconds": 118.423738,
-    "total_events": 135,
+    "last_update": "2025-06-17T00:29:44.925420",
+    "duration_seconds": 445.080772,
+    "total_events": 137,
     "user": "juedwards",
     "status": "active"
   },
@@ -2240,6 +2240,33 @@
           "y": 79,
           "z": -89
         }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:24:19.097746",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 195.0855102539062,
+          "y": 79.62001037597656,
+          "z": -89.97795867919922
+        },
+        "estimated_block_position": {
+          "x": 195,
+          "y": 80,
+          "z": -89
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:29:44.925397",
+      "event_type": "player_leave",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE"
       }
     }
   ]
