@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Minecraft Education Edition - 3D Tracker with ChatGPT Assessment
+Minecraft Education - 3D Tracker with AI Assessment
 """
 
 import asyncio
@@ -147,7 +147,7 @@ def record_event(event_type, data):
             logger.debug(f"💾 Auto-saved session with {len(session_events)} events")
 
 async def analyze_player_data():
-    """Analyze current player data against rubric using ChatGPT"""
+    """Analyze current player data against rubric using AI"""
     try:
         # Read rubric
         rubric_path = os.path.join(os.path.dirname(__file__), 'rubric.md')
@@ -564,7 +564,7 @@ HTML_CONTENT = """
     
     <div id="assessmentControls">
         <h4 style="margin-top:0">AI Assessment</h4>
-        <button id="assessmentButton" onclick="analyzeWithChatGPT()">Analyze Players with ChatGPT</button>
+        <button id="assessmentButton" onclick="analyzeWithChatGPT()">Analyze Players with AI</button>
         <div style="font-size:11px; margin-top:5px; text-align:center;">
             Assess gameplay against rubric
         </div>
@@ -606,7 +606,7 @@ HTML_CONTENT = """
     
     <div id="assessmentResults">
         <button class="close-button" onclick="closeAssessment()">✕</button>
-        <h2>ChatGPT Player Assessment</h2>
+        <h2>AI Player Assessment</h2>
         <div id="assessmentContent"></div>
     </div>
     
@@ -955,7 +955,7 @@ HTML_CONTENT = """
             
             // Show results with loading spinner
             resultsDiv.classList.add('show');
-            contentDiv.innerHTML = '<div class="loading-spinner"></div><p style="text-align:center;">Analyzing player data with ChatGPT...</p>';
+            contentDiv.innerHTML = '<div class="loading-spinner"></div><p style="text-align:center;">Analyzing player data with AI...</p>';
             
             try {
                 // Send analysis request via WebSocket
@@ -969,7 +969,7 @@ HTML_CONTENT = """
             } catch (error) {
                 contentDiv.innerHTML = `<div style="color: #f44336;">Error: ${error.message}</div>`;
                 button.disabled = false;
-                button.textContent = 'Analyze Players with ChatGPT';
+                button.textContent = 'Analyze Players with AI';
             }
         }
 
@@ -978,7 +978,7 @@ HTML_CONTENT = """
             const contentDiv = document.getElementById('assessmentContent');
             
             button.disabled = false;
-            button.textContent = 'Analyze Players with ChatGPT';
+            button.textContent = 'Analyze Players with AI';
             
             if (data.error) {
                 contentDiv.innerHTML = `<div style="color: #f44336;">Error: ${data.error}</div>`;
@@ -1160,7 +1160,7 @@ async def handle_web_client(websocket):
                 msg = json.loads(message)
                 if msg.get('type') == 'analyze_request':
                     # Perform analysis
-                    logger.info("Received ChatGPT analysis request")
+                    logger.info("Received AI analysis request")
                     analysis_result = await analyze_player_data()
                     
                     # Send result back
@@ -1398,12 +1398,12 @@ def run_http_server():
 async def main():
     """Main function to run both servers"""
     logger.info("=" * 60)
-    logger.info("🎮 Minecraft 3D Live Tracker with ChatGPT Assessment")
+    logger.info("🎮 Minecraft 3D Live Tracker with AI Assessment")
     logger.info("=" * 60)
     
     # Check for OpenAI API key
     if not os.getenv('OPENAI_API_KEY'):
-        logger.warning("⚠️  OpenAI API key not found! ChatGPT assessment will not work.")
+        logger.warning("⚠️  OpenAI API key not found! AI assessment will not work.")
         logger.warning("   Set OPENAI_API_KEY in your .env file")
     
     # Start HTTP server in background thread
@@ -1427,7 +1427,7 @@ async def main():
     logger.info("")
     logger.info("📡 Minecraft: Connect with /connect localhost:19131")
     logger.info("🌐 3D Viewer: Open http://localhost:8080 in your browser")
-    logger.info("🤖 ChatGPT: Click 'Analyze Players with ChatGPT' button")
+    logger.info("🤖 AI: Click 'Analyze Players with AI' button")
     logger.info("💾 JSON file updates in real-time every 5 seconds")
     logger.info("=" * 60)
     
