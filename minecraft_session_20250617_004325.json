@@ -1,0 +1,1172 @@
+{
+  "session_info": {
+    "id": "minecraft_session_20250617_004325",
+    "start_time": "2025-06-17T00:43:25.034671",
+    "last_update": "2025-06-17T00:44:13.934903",
+    "duration_seconds": 48.900232,
+    "total_events": 69,
+    "user": "juedwards",
+    "status": "active"
+  },
+  "events": [
+    {
+      "timestamp": "2025-06-17T00:43:25.034671",
+      "event_type": "session_start",
+      "data": {
+        "session_id": "minecraft_session_20250617_004325",
+        "server_version": "1.0",
+        "user": "juedwards"
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:26.260202",
+      "event_type": "player_join",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "address": "127.0.0.1:52602"
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:26.894896",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 197.1288757324219,
+          "y": 84.69874572753906,
+          "z": -88.48551177978516
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:29.378004",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 194.9875946044922,
+          "y": 84.80762481689453,
+          "z": -87.01309204101562
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:30.079085",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 194.9897918701172,
+          "y": 84.80762481689453,
+          "z": -86.86660766601562
+        },
+        "estimated_block_position": {
+          "x": 194,
+          "y": 85,
+          "z": -86
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:30.578093",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 194.9897918701172,
+          "y": 84.80762481689453,
+          "z": -86.86660766601562
+        },
+        "estimated_block_position": {
+          "x": 194,
+          "y": 85,
+          "z": -86
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:31.143934",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 194.9897918701172,
+          "y": 84.80762481689453,
+          "z": -86.86660766601562
+        },
+        "estimated_block_position": {
+          "x": 194,
+          "y": 85,
+          "z": -86
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:31.677318",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 194.8309478759766,
+          "y": 84.80762481689453,
+          "z": -87.29964447021484
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:31.685639",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 194.8309478759766,
+          "y": 84.80762481689453,
+          "z": -87.29964447021484
+        },
+        "estimated_block_position": {
+          "x": 194,
+          "y": 85,
+          "z": -87
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:33.296098",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.5198669433594,
+          "y": 84.80762481689453,
+          "z": -88.00296783447266
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 85,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:34.010752",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 196.5198669433594,
+          "y": 84.80762481689453,
+          "z": -88.00296783447266
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:34.011998",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.5198669433594,
+          "y": 84.80762481689453,
+          "z": -88.00296783447266
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 85,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:35.247827",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 197.9309387207031,
+          "y": 84.80762481689453,
+          "z": -88.34942626953125
+        },
+        "estimated_block_position": {
+          "x": 197,
+          "y": 85,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:36.345556",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 197.9309387207031,
+          "y": 84.80762481689453,
+          "z": -88.34942626953125
+        },
+        "estimated_block_position": {
+          "x": 197,
+          "y": 85,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:36.346976",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 197.9309387207031,
+          "y": 84.80762481689453,
+          "z": -88.34942626953125
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:36.846156",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 198.1704559326172,
+          "y": 84.80762481689453,
+          "z": -88.48809051513672
+        },
+        "estimated_block_position": {
+          "x": 198,
+          "y": 85,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:37.810647",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 198.3308410644531,
+          "y": 84.80762481689453,
+          "z": -88.5809555053711
+        },
+        "estimated_block_position": {
+          "x": 198,
+          "y": 85,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:38.468876",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 198.3308410644531,
+          "y": 84.80762481689453,
+          "z": -88.5809555053711
+        },
+        "estimated_block_position": {
+          "x": 198,
+          "y": 85,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:38.470174",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 198.3308410644531,
+          "y": 84.80762481689453,
+          "z": -88.5809555053711
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:39.277475",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 198.3308410644531,
+          "y": 84.80762481689453,
+          "z": -88.5809555053711
+        },
+        "estimated_block_position": {
+          "x": 198,
+          "y": 85,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:40.712829",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 197.5269927978516,
+          "y": 84.80762481689453,
+          "z": -88.51707458496094
+        },
+        "estimated_block_position": {
+          "x": 197,
+          "y": 85,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:41.877066",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 197.5269927978516,
+          "y": 84.80762481689453,
+          "z": -88.51707458496094
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:41.882834",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 197.5269927978516,
+          "y": 84.80762481689453,
+          "z": -88.51707458496094
+        },
+        "estimated_block_position": {
+          "x": 197,
+          "y": 85,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:43.613398",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 197.3008270263672,
+          "y": 84.80762481689453,
+          "z": -88.9200439453125
+        },
+        "estimated_block_position": {
+          "x": 197,
+          "y": 85,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:44.799220",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 197.3008270263672,
+          "y": 86.2642593383789,
+          "z": -88.9200439453125
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:44.801495",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 197.3008270263672,
+          "y": 86.2642593383789,
+          "z": -88.9200439453125
+        },
+        "estimated_block_position": {
+          "x": 197,
+          "y": 87,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:46.345332",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.8354187011719,
+          "y": 87.03448486328125,
+          "z": -87.79753112792969
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 88,
+          "z": -87
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:47.496053",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 196.5080871582031,
+          "y": 87.03448486328125,
+          "z": -87.19983673095703
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:47.506712",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.5080871582031,
+          "y": 87.03448486328125,
+          "z": -87.19983673095703
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 88,
+          "z": -87
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:48.490997",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.5080871582031,
+          "y": 87.03448486328125,
+          "z": -87.19983673095703
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 88,
+          "z": -87
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:49.165307",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.5080871582031,
+          "y": 87.03448486328125,
+          "z": -87.19983673095703
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 88,
+          "z": -87
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:49.695306",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 196.5080871582031,
+          "y": 87.03448486328125,
+          "z": -87.19983673095703
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:49.696587",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.5080871582031,
+          "y": 87.03448486328125,
+          "z": -87.19983673095703
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 88,
+          "z": -87
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:51.195450",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 195.6611328125,
+          "y": 87.03448486328125,
+          "z": -87.74384307861328
+        },
+        "estimated_block_position": {
+          "x": 195,
+          "y": 88,
+          "z": -87
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:51.197552",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 195.6611328125,
+          "y": 87.03448486328125,
+          "z": -87.74384307861328
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:52.029538",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 195.69140625,
+          "y": 87.03448486328125,
+          "z": -87.72113800048828
+        },
+        "estimated_block_position": {
+          "x": 195,
+          "y": 88,
+          "z": -87
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:52.790345",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 195.192138671875,
+          "y": 87.03448486328125,
+          "z": -88.18590545654297
+        },
+        "estimated_block_position": {
+          "x": 195,
+          "y": 88,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:53.297253",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 194.7972869873047,
+          "y": 87.03448486328125,
+          "z": -87.94842529296875
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:53.527389",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 194.7965545654297,
+          "y": 87.03448486328125,
+          "z": -87.94801330566406
+        },
+        "estimated_block_position": {
+          "x": 194,
+          "y": 88,
+          "z": -87
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:53.965254",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 194.5935668945312,
+          "y": 87.03448486328125,
+          "z": -88.34721374511719
+        },
+        "estimated_block_position": {
+          "x": 194,
+          "y": 88,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:54.428885",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 194.3726501464844,
+          "y": 87.03448486328125,
+          "z": -88.78169250488281
+        },
+        "estimated_block_position": {
+          "x": 194,
+          "y": 88,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:55.226328",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 194.3726348876953,
+          "y": 87.03448486328125,
+          "z": -88.78173065185547
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:55.227700",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 194.3726348876953,
+          "y": 87.03448486328125,
+          "z": -88.78173065185547
+        },
+        "estimated_block_position": {
+          "x": 194,
+          "y": 88,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:55.761118",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 194.3726348876953,
+          "y": 87.03448486328125,
+          "z": -88.78173065185547
+        },
+        "estimated_block_position": {
+          "x": 194,
+          "y": 88,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:56.661357",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 195.8976593017578,
+          "y": 87.03448486328125,
+          "z": -88.30000305175781
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:56.662163",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 195.8976593017578,
+          "y": 87.03448486328125,
+          "z": -88.30000305175781
+        },
+        "estimated_block_position": {
+          "x": 195,
+          "y": 88,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:57.428612",
+      "event_type": "block_broken",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 195.9109191894531,
+          "y": 87.03448486328125,
+          "z": -88.30000305175781
+        },
+        "estimated_block_position": {
+          "x": 195,
+          "y": 87,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:57.896482",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 195.9109191894531,
+          "y": 87.03448486328125,
+          "z": -88.30000305175781
+        },
+        "estimated_block_position": {
+          "x": 195,
+          "y": 88,
+          "z": -88
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:43:59.223400",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 193.9850769042969,
+          "y": 87.03448486328125,
+          "z": -88.4605712890625
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:02.430424",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 193.0891571044922,
+          "y": 86.7504653930664,
+          "z": -89.29206848144531
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:03.095285",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 193.0891571044922,
+          "y": 80.34400177001953,
+          "z": -89.29206848144531
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:04.546607",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 195.4819183349609,
+          "y": 83.12032318115234,
+          "z": -90.69613647460938
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:05.013247",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.3217010498047,
+          "y": 83.12032318115234,
+          "z": -90.7553482055664
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 84,
+          "z": -90
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:05.380953",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.32177734375,
+          "y": 83.12032318115234,
+          "z": -90.75535583496094
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 84,
+          "z": -90
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:06.214162",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.2107086181641,
+          "y": 83.12032318115234,
+          "z": -91.63612365722656
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 84,
+          "z": -91
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:06.215148",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 196.2107086181641,
+          "y": 83.12032318115234,
+          "z": -91.63612365722656
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:06.681390",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.1673431396484,
+          "y": 83.12032318115234,
+          "z": -91.9581527709961
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 84,
+          "z": -91
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:07.015034",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.1673431396484,
+          "y": 83.12032318115234,
+          "z": -91.95817565917969
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 84,
+          "z": -91
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:08.208369",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.1673431396484,
+          "y": 83.12032318115234,
+          "z": -91.95817565917969
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 84,
+          "z": -91
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:08.216465",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 196.1673431396484,
+          "y": 83.12032318115234,
+          "z": -91.95817565917969
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:09.330502",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.33935546875,
+          "y": 83.12032318115234,
+          "z": -93.46231079101562
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 84,
+          "z": -93
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:10.664879",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.33935546875,
+          "y": 83.12032318115234,
+          "z": -93.46233367919922
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 84,
+          "z": -93
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:10.666187",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 196.33935546875,
+          "y": 83.12032318115234,
+          "z": -93.46233367919922
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:11.464681",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.7430267333984,
+          "y": 83.12032318115234,
+          "z": -92.63109588623047
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 84,
+          "z": -92
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:11.898985",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.7479248046875,
+          "y": 83.12032318115234,
+          "z": -92.62098693847656
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 84,
+          "z": -92
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:12.331716",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.7479248046875,
+          "y": 83.12032318115234,
+          "z": -92.62098693847656
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 84,
+          "z": -92
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:12.333033",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "position": {
+          "x": 196.7479248046875,
+          "y": 83.12032318115234,
+          "z": -92.62098693847656
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:12.913087",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 196.8084869384766,
+          "y": 83.12032318115234,
+          "z": -92.75006866455078
+        },
+        "estimated_block_position": {
+          "x": 196,
+          "y": 84,
+          "z": -92
+        }
+      }
+    },
+    {
+      "timestamp": "2025-06-17T00:44:13.934871",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "JustinE",
+        "block_type": "minecraft:oak_planks",
+        "player_position": {
+          "x": 197.2656860351562,
+          "y": 83.12032318115234,
+          "z": -93.71769714355469
+        },
+        "estimated_block_position": {
+          "x": 197,
+          "y": 84,
+          "z": -93
+        }
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Minecraft Education Edition - 3D Tracker with Fixed Legend Icons
+Minecraft Education Edition - 3D Tracker with ChatGPT Assessment
 """
 
 import asyncio
@@ -14,6 +14,14 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import threading
 import time
 import os
+from dotenv import load_dotenv
+import openai
+
+# Load environment variables
+load_dotenv()
+
+# Initialize OpenAI
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
@@ -138,12 +146,144 @@ def record_event(event_type, data):
             last_save_time = current_time
             logger.debug(f"💾 Auto-saved session with {len(session_events)} events")
 
-# HTML/JavaScript for 3D visualization with fixed legend
+async def analyze_player_data():
+    """Analyze current player data against rubric using ChatGPT"""
+    try:
+        # Read rubric
+        rubric_path = os.path.join(os.path.dirname(__file__), 'rubric.md')
+        if not os.path.exists(rubric_path):
+            return {"error": "Rubric file not found"}
+        
+        with open(rubric_path, 'r') as f:
+            rubric_content = f.read()
+        
+        # Prepare player data for analysis
+        player_analysis_data = {}
+        
+        # Extract relevant events for each player
+        for event in session_events:
+            if event['event_type'] in ['player_position', 'block_placed', 'block_broken', 'player_join', 'player_leave']:
+                player_id = event['data'].get('player_id')
+                player_name = event['data'].get('player_name', player_id)
+                
+                if player_name not in player_analysis_data:
+                    player_analysis_data[player_name] = {
+                        'positions': [],
+                        'blocks_placed': [],
+                        'blocks_broken': [],
+                        'join_time': None,
+                        'leave_time': None,
+                        'total_distance': 0
+                    }
+                
+                if event['event_type'] == 'player_position':
+                    player_analysis_data[player_name]['positions'].append(event['data']['position'])
+                elif event['event_type'] == 'block_placed':
+                    player_analysis_data[player_name]['blocks_placed'].append({
+                        'type': event['data']['block_type'],
+                        'position': event['data']['estimated_block_position'],
+                        'time': event['timestamp']
+                    })
+                elif event['event_type'] == 'block_broken':
+                    player_analysis_data[player_name]['blocks_broken'].append({
+                        'type': event['data']['block_type'],
+                        'position': event['data']['estimated_block_position'],
+                        'time': event['timestamp']
+                    })
+                elif event['event_type'] == 'player_join':
+                    player_analysis_data[player_name]['join_time'] = event['timestamp']
+                elif event['event_type'] == 'player_leave':
+                    player_analysis_data[player_name]['leave_time'] = event['timestamp']
+        
+        # Calculate additional metrics
+        for player_name, data in player_analysis_data.items():
+            # Calculate total distance traveled
+            positions = data['positions']
+            if len(positions) > 1:
+                total_distance = 0
+                for i in range(1, len(positions)):
+                    prev = positions[i-1]
+                    curr = positions[i]
+                    distance = ((curr['x'] - prev['x'])**2 + 
+                              (curr['y'] - prev['y'])**2 + 
+                              (curr['z'] - prev['z'])**2) ** 0.5
+                    total_distance += distance
+                data['total_distance'] = round(total_distance, 2)
+        
+        # Analyze each player
+        analyses = {}
+        
+        for player_name, player_data in player_analysis_data.items():
+            # Prepare summary for ChatGPT
+            summary = f"""
+Player Activity Summary:
+- Total positions recorded: {len(player_data['positions'])}
+- Total distance traveled: {player_data['total_distance']} blocks
+- Blocks placed: {len(player_data['blocks_placed'])}
+- Blocks broken: {len(player_data['blocks_broken'])}
+- Session duration: {player_data['join_time']} to {player_data['leave_time'] or 'still active'}
+
+Block Placement Details:
+"""
+            for block in player_data['blocks_placed'][:10]:  # Show first 10
+                summary += f"- {block['type']} at ({block['position']['x']}, {block['position']['y']}, {block['position']['z']})\n"
+            
+            if len(player_data['blocks_placed']) > 10:
+                summary += f"... and {len(player_data['blocks_placed']) - 10} more blocks\n"
+            
+            summary += "\nBlock Breaking Details:\n"
+            for block in player_data['blocks_broken'][:10]:  # Show first 10
+                summary += f"- {block['type']} at ({block['position']['x']}, {block['position']['y']}, {block['position']['z']})\n"
+            
+            if len(player_data['blocks_broken']) > 10:
+                summary += f"... and {len(player_data['blocks_broken']) - 10} more blocks\n"
+            
+            # Prepare prompt for ChatGPT
+            prompt = f"""
+Please analyze the following Minecraft player's gameplay data against the provided rubric.
+
+RUBRIC:
+{rubric_content}
+
+PLAYER: {player_name}
+
+{summary}
+
+Please provide a detailed assessment of this player's performance based on the rubric criteria. 
+Include specific examples from their gameplay data and suggestions for improvement.
+Format the response in a clear, structured way with sections for different rubric criteria.
+"""
+            
+            # Call OpenAI API
+            try:
+                response = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo",
+                    messages=[
+                        {"role": "system", "content": "You are a Minecraft gameplay assessment expert. Analyze player data against the provided rubric and give constructive feedback. Be specific and reference actual gameplay data."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    max_tokens=1000,
+                    temperature=0.7
+                )
+                
+                analysis = response.choices[0].message.content
+                analyses[player_name] = analysis
+                
+            except Exception as e:
+                analyses[player_name] = f"Error analyzing player: {str(e)}"
+        
+        return {"analyses": analyses}
+        
+    except Exception as e:
+        logger.error(f"Error in analyze_player_data: {str(e)}")
+        return {"error": str(e)}
+
+# HTML/JavaScript for 3D visualization with ChatGPT assessment
 HTML_CONTENT = """
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Minecraft Live 3D Tracker</title>
+    <title>Minecraft Live 3D Tracker with AI Assessment</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <style>
@@ -292,6 +432,92 @@ HTML_CONTENT = """
         .slider {
             width: 120px;
         }
+        
+        /* ChatGPT Assessment Styles */
+        #assessmentControls {
+            position: absolute;
+            top: 380px;
+            left: 320px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        #assessmentButton {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        #assessmentButton:hover {
+            background-color: #1976D2;
+        }
+        #assessmentButton:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #assessmentResults {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.95);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+        }
+        #assessmentResults.show {
+            display: block;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .assessment-player {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #2196F3;
+        }
+        .assessment-player h3 {
+            margin-top: 0;
+            color: #64B5F6;
+        }
+        .assessment-content {
+            white-space: pre-wrap;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2196F3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -336,6 +562,14 @@ HTML_CONTENT = """
         </div>
     </div>
     
+    <div id="assessmentControls">
+        <h4 style="margin-top:0">AI Assessment</h4>
+        <button id="assessmentButton" onclick="analyzeWithChatGPT()">Analyze Players with ChatGPT</button>
+        <div style="font-size:11px; margin-top:5px; text-align:center;">
+            Assess gameplay against rubric
+        </div>
+    </div>
+    
     <div id="legend">
         <h4 style="margin-top:0">Legend</h4>
         <div class="legend-item">
@@ -370,6 +604,12 @@ HTML_CONTENT = """
     
     <div id="saveIndicator">💾 Saved</div>
     
+    <div id="assessmentResults">
+        <button class="close-button" onclick="closeAssessment()">✕</button>
+        <h2>ChatGPT Player Assessment</h2>
+        <div id="assessmentContent"></div>
+    </div>
+    
     <div id="status" class="disconnected">WebSocket Disconnected</div>
     <div id="playerList"></div>
 
@@ -386,6 +626,7 @@ HTML_CONTENT = """
         let sessionStartTime = null;
         let sessionId = null;
         let totalEvents = 0;
+        let ws = null;
 
         function init() {
             // Scene
@@ -703,6 +944,68 @@ HTML_CONTENT = """
             blockEvents.length = 0;
         }
 
+        // ChatGPT Analysis Functions
+        async function analyzeWithChatGPT() {
+            const button = document.getElementById('assessmentButton');
+            const resultsDiv = document.getElementById('assessmentResults');
+            const contentDiv = document.getElementById('assessmentContent');
+            
+            button.disabled = true;
+            button.textContent = 'Analyzing...';
+            
+            // Show results with loading spinner
+            resultsDiv.classList.add('show');
+            contentDiv.innerHTML = '<div class="loading-spinner"></div><p style="text-align:center;">Analyzing player data with ChatGPT...</p>';
+            
+            try {
+                // Send analysis request via WebSocket
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    ws.send(JSON.stringify({
+                        type: 'analyze_request'
+                    }));
+                } else {
+                    throw new Error('WebSocket not connected');
+                }
+            } catch (error) {
+                contentDiv.innerHTML = `<div style="color: #f44336;">Error: ${error.message}</div>`;
+                button.disabled = false;
+                button.textContent = 'Analyze Players with ChatGPT';
+            }
+        }
+
+        function displayAnalysisResults(data) {
+            const button = document.getElementById('assessmentButton');
+            const contentDiv = document.getElementById('assessmentContent');
+            
+            button.disabled = false;
+            button.textContent = 'Analyze Players with ChatGPT';
+            
+            if (data.error) {
+                contentDiv.innerHTML = `<div style="color: #f44336;">Error: ${data.error}</div>`;
+                return;
+            }
+            
+            let html = '';
+            for (const [player, analysis] of Object.entries(data.analyses)) {
+                html += `
+                    <div class="assessment-player">
+                        <h3>${player}</h3>
+                        <div class="assessment-content">${analysis}</div>
+                    </div>
+                `;
+            }
+            
+            if (Object.keys(data.analyses).length === 0) {
+                html = '<p>No player data available for analysis.</p>';
+            }
+            
+            contentDiv.innerHTML = html;
+        }
+
+        function closeAssessment() {
+            document.getElementById('assessmentResults').classList.remove('show');
+        }
+
         function animate() {
             requestAnimationFrame(animate);
 
@@ -729,7 +1032,7 @@ HTML_CONTENT = """
 
         // WebSocket connection to get live updates
         function connectWebSocket() {
-            const ws = new WebSocket('ws://localhost:8081/live');
+            ws = new WebSocket('ws://localhost:8081/live');
             
             ws.onopen = () => {
                 console.log('Connected to live updates');
@@ -762,6 +1065,8 @@ HTML_CONTENT = """
                 } else if (data.type === 'disconnect') {
                     removePlayer(data.playerId);
                     totalEvents++;
+                } else if (data.type === 'analysis_result') {
+                    displayAnalysisResults(data);
                 }
             };
 
@@ -794,8 +1099,6 @@ HTML_CONTENT = """
 </body>
 </html>
 """
-
-# [Rest of the Python code remains the same - SimpleHTTPHandler, broadcast_to_web, etc.]
 
 class SimpleHTTPHandler(BaseHTTPRequestHandler):
     """Simple HTTP handler to serve the 3D visualization"""
@@ -851,10 +1154,22 @@ async def handle_web_client(websocket):
                 'z': pos['z']
             }))
         
-        # Keep connection alive
+        # Keep connection alive and handle messages
         async for message in websocket:
-            # Just keep the connection open, we don't expect messages from web client
-            pass
+            try:
+                msg = json.loads(message)
+                if msg.get('type') == 'analyze_request':
+                    # Perform analysis
+                    logger.info("Received ChatGPT analysis request")
+                    analysis_result = await analyze_player_data()
+                    
+                    # Send result back
+                    await websocket.send(json.dumps({
+                        'type': 'analysis_result',
+                        **analysis_result
+                    }))
+            except Exception as e:
+                logger.error(f"Error handling web client message: {e}")
             
     except websockets.exceptions.ConnectionClosed:
         pass
@@ -1083,8 +1398,13 @@ def run_http_server():
 async def main():
     """Main function to run both servers"""
     logger.info("=" * 60)
-    logger.info("🎮 Minecraft 3D Live Tracker with Real-time JSON Logging")
+    logger.info("🎮 Minecraft 3D Live Tracker with ChatGPT Assessment")
     logger.info("=" * 60)
+    
+    # Check for OpenAI API key
+    if not os.getenv('OPENAI_API_KEY'):
+        logger.warning("⚠️  OpenAI API key not found! ChatGPT assessment will not work.")
+        logger.warning("   Set OPENAI_API_KEY in your .env file")
     
     # Start HTTP server in background thread
     http_thread = threading.Thread(target=run_http_server, daemon=True)
@@ -1107,6 +1427,7 @@ async def main():
     logger.info("")
     logger.info("📡 Minecraft: Connect with /connect localhost:19131")
     logger.info("🌐 3D Viewer: Open http://localhost:8080 in your browser")
+    logger.info("🤖 ChatGPT: Click 'Analyze Players with ChatGPT' button")
     logger.info("💾 JSON file updates in real-time every 5 seconds")
     logger.info("=" * 60)
     
