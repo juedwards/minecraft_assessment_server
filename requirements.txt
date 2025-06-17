@@ -1,0 +1,23 @@
+# Minecraft 3D Tracker Requirements
+# Python 3.8+ required
+
+# WebSocket server for Minecraft and web client connections
+websockets==13.1
+
+# Core async functionality (included in Python 3.7+)
+# asyncio is built-in
+
+# JSON handling (built-in)
+# json is built-in
+
+# HTTP server (built-in)
+# http.server is built-in
+
+# Other standard library modules used:
+# - logging (built-in)
+# - threading (built-in)
+# - datetime (built-in)
+# - time (built-in)
+# - os (built-in)
+# - socket (built-in)
+# - uuid (built-in)
