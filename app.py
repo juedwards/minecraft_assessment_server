@@ -8,7 +8,7 @@ import json
 import logging
 import websockets
 from uuid import uuid4
-from datetime import datetime
+from datetime import datetime, timezone
 import socket
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import threading
@@ -44,7 +44,7 @@ last_save_time = time.time()
 def start_session():
     """Start a new recording session"""
     global session_start_time, session_id, session_events, session_file
-    session_start_time = datetime.utcnow()
+    session_start_time = datetime.now(timezone.utc)
     session_id = f"minecraft_session_{session_start_time.strftime('%Y%m%d_%H%M%S')}"
     session_events = []
     
@@ -74,7 +74,7 @@ def save_session_realtime():
     if not session_file:
         return
     
-    current_time = datetime.utcnow()
+    current_time = datetime.now(timezone.utc)
     
     # Create session data structure
     session_data = {
@@ -107,7 +107,7 @@ def end_session():
     if not session_id:
         return
     
-    session_end_time = datetime.utcnow()
+    session_end_time = datetime.now(timezone.utc)
     
     # Add session end event
     session_events.append({
@@ -131,7 +131,7 @@ def record_event(event_type, data):
     
     if session_id:  # Only record if session is active
         event = {
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "event_type": event_type,
             "data": data
         }
@@ -325,6 +325,10 @@ HTML_CONTENT = """
             padding: 5px;
             background: rgba(255,255,255,0.1);
             border-radius: 3px;
+            cursor: pointer;
+        }
+        .player-item:hover {
+            background: rgba(255,255,255,0.2);
         }
         #controls {
             position: absolute;
@@ -554,8 +558,8 @@ HTML_CONTENT = """
     <div id="groundControls">
         <h4 style="margin-top:0">Ground Settings</h4>
         <div class="slider-container">
-            <label>Opacity: <span id="opacityValue">0.8</span></label><br>
-            <input type="range" id="groundOpacity" class="slider" min="0" max="100" value="80">
+            <label>Opacity: <span id="opacityValue">0.3</span></label><br>
+            <input type="range" id="groundOpacity" class="slider" min="0" max="100" value="30">
         </div>
         <div class="control-item">
             <label><input type="checkbox" id="showGround" checked> Show Ground</label>
@@ -627,6 +631,7 @@ HTML_CONTENT = """
         let sessionId = null;
         let totalEvents = 0;
         let ws = null;
+        let firstPlayerPositioned = false;
 
         function init() {
             // Scene
@@ -637,6 +642,7 @@ HTML_CONTENT = """
             // Camera
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
             camera.position.set(30, 50, 30);
+            camera.lookAt(0, 0, 0);
 
             // Renderer
             renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -648,6 +654,7 @@ HTML_CONTENT = """
             controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.enableDamping = true;
             controls.dampingFactor = 0.05;
+            controls.target.set(0, 0, 0);
 
             // Lighting
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
@@ -663,7 +670,7 @@ HTML_CONTENT = """
             const groundMaterial = new THREE.MeshLambertMaterial({ 
                 color: 0x7CFC00,
                 transparent: true,
-                opacity: 0.8,
+                opacity: 0.3,
                 side: THREE.DoubleSide  // Visible from both sides
             });
             groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
@@ -677,7 +684,7 @@ HTML_CONTENT = """
             gridHelper.material.transparent = true;
             scene.add(gridHelper);
 
-            // Add axis helper
+            // Add axis helper (for debugging)
             const axesHelper = new THREE.AxesHelper(5);
             scene.add(axesHelper);
 
@@ -721,6 +728,8 @@ HTML_CONTENT = """
         }
 
         function createPlayer(playerId, playerName) {
+            console.log(`Creating player: ${playerName} (${playerId})`);
+            
             const geometry = new THREE.BoxGeometry(1, 2, 1);
             const color = playerColors[colorIndex % playerColors.length];
             const material = new THREE.MeshLambertMaterial({ color: color });
@@ -804,6 +813,22 @@ HTML_CONTENT = """
                 
                 // Update path line
                 updatePathLine(player);
+            }
+            
+            // Center camera on first player position
+            if (!firstPlayerPositioned && players.size === 1) {
+                firstPlayerPositioned = true;
+                console.log(`Centering camera on first player at (${worldX}, ${worldY}, ${worldZ})`);
+                
+                // Set camera target to player position
+                controls.target.copy(player.targetPos);
+                
+                // Position camera at a nice viewing angle
+                const offset = new THREE.Vector3(20, 30, 20);
+                const cameraPos = player.targetPos.clone().add(offset);
+                camera.position.copy(cameraPos);
+                
+                controls.update();
             }
             
             updatePlayerList();
@@ -916,18 +941,60 @@ HTML_CONTENT = """
 
         function updatePlayerList() {
             const playerListDiv = document.getElementById('playerList');
-            let html = '<h4 style="margin-top:0">Active Players</h4>';
+            playerListDiv.innerHTML = '<h4 style="margin-top:0">Active Players</h4>';
             
             players.forEach((player, playerId) => {
-                const pos = player.targetPos;
-                html += `<div class="player-item" style="border-left: 4px solid ${player.color}">
-                    <strong>${player.name}</strong><br>
-                    X: ${(pos.x + 200).toFixed(1)}, Y: ${(pos.y + 80).toFixed(1)}, Z: ${(-pos.z - 85).toFixed(1)}<br>
-                    Path Points: ${player.path.length}
-                </div>`;
+                const playerItem = document.createElement('div');
+                playerItem.className = 'player-item';
+                playerItem.innerHTML = `
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 12px; height: 12px; background-color: ${player.color}; margin-right: 8px; border-radius: 2px;"></div>
+                        <span>${player.name}</span>
+                    </div>
+                    <div style="font-size: 11px; color: #ccc; margin-left: 20px;">
+                        Pos: (${player.targetPos.x.toFixed(1)}, ${player.targetPos.y.toFixed(1)}, ${player.targetPos.z.toFixed(1)})
+                    </div>
+                `;
+                
+                // Add click handler to focus on player
+                playerItem.onclick = () => {
+                    // Animate camera to focus on player
+                    const targetPosition = player.targetPos.clone();
+                    controls.target.copy(targetPosition);
+                    
+                    // Move camera to a nice viewing angle
+                    const offset = new THREE.Vector3(20, 30, 20);
+                    const newCameraPosition = targetPosition.clone().add(offset);
+                    
+                    // Smooth camera transition
+                    const startPos = camera.position.clone();
+                    const startTarget = controls.target.clone();
+                    const duration = 1000; // 1 second
+                    const startTime = Date.now();
+                    
+                    function animateCamera() {
+                        const elapsed = Date.now() - startTime;
+                        const t = Math.min(elapsed / duration, 1);
+                        const easeT = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; // Ease in-out
+                        
+                        camera.position.lerpVectors(startPos, newCameraPosition, easeT);
+                        controls.target.lerpVectors(startTarget, targetPosition, easeT);
+                        controls.update();
+                        
+                        if (t < 1) {
+                            requestAnimationFrame(animateCamera);
+                        }
+                    }
+                    
+                    animateCamera();
+                };
+                
+                playerListDiv.appendChild(playerItem);
             });
             
-            playerListDiv.innerHTML = html;
+            if (players.size === 0) {
+                playerListDiv.innerHTML += '<div style="color: #999;">No players connected</div>';
+            }
         }
 
         function clearPath() {
@@ -1009,9 +1076,16 @@ HTML_CONTENT = """
         function animate() {
             requestAnimationFrame(animate);
 
-            // Smooth movement interpolation
+            // Smooth movement interpolation for all players
             players.forEach(player => {
-                player.mesh.position.lerp(player.targetPos, 0.1);
+                if (player.mesh && player.targetPos) {
+                    player.mesh.position.lerp(player.targetPos, 0.1);
+                }
+            });
+
+            // Update path visibility for all players
+            players.forEach(player => {
+                updatePathLine(player);
             });
 
             // Update block visibility
@@ -1043,6 +1117,7 @@ HTML_CONTENT = """
 
             ws.onmessage = (event) => {
                 const data = JSON.parse(event.data);
+                console.log('Received:', data.type, data);
                 
                 if (data.type === 'session_info') {
                     sessionId = data.sessionId;
@@ -1209,8 +1284,8 @@ async def handle_minecraft_client(websocket):
             "body": {"statusMessage": f"Connected! Recording to {session_file}"}
         }))
         
-        # Subscribe to BlockPlaced and BlockBroken events
-        for event_name in ["BlockPlaced", "BlockBroken"]:
+        # Subscribe to events including PlayerTravelled for position updates
+        for event_name in ["BlockPlaced", "BlockBroken", "PlayerTravelled"]:
             await websocket.send(json.dumps({
                 "header": {
                     "version": 1,
@@ -1235,21 +1310,68 @@ async def handle_minecraft_client(websocket):
                 header = msg.get('header', {})
                 body = msg.get('body', {})
                 
-                # Track player from any message that includes player data
-                if 'player' in body:
-                    player_data = body['player']
-                    if player_id is None:
-                        player_id = str(player_data.get('id', f"Player_{int(time.time()) % 1000}"))
-                        player_name = player_data.get('name', player_id)
-                        active_players.add(player_id)
-                        logger.info(f"🎯 Identified player: {player_name}")
+                # Handle PlayerTravelled event for continuous position updates
+                if header.get('eventName') == 'PlayerTravelled' and header.get('messagePurpose') == 'event':
+                    if 'player' in body:
+                        player_data = body['player']
+                        if player_id is None:
+                            player_id = str(player_data.get('id', f"Player_{int(time.time()) % 1000}"))
+                            player_name = player_data.get('name', player_id)
+                            active_players.add(player_id)
+                            logger.info(f"🎯 Identified player from movement: {player_name}")
+                            
+                            # Record player join event
+                            record_event("player_join", {
+                                "player_id": player_id,
+                                "player_name": player_name,
+                                "address": client_addr
+                            })
                         
-                        # Record player join event
-                        record_event("player_join", {
-                            "player_id": player_id,
-                            "player_name": player_name,
-                            "address": client_addr
-                        })
+                        if 'position' in player_data:
+                            pos = player_data['position']
+                            pos_x = float(pos['x'])
+                            pos_y = float(pos['y'])
+                            pos_z = float(pos['z'])
+                            
+                            player_positions[player_id] = {
+                                'x': pos_x,
+                                'y': pos_y,
+                                'z': pos_z,
+                                'name': player_name
+                            }
+                            
+                            # Only record position every 10 updates to avoid spam
+                            position_update_counter += 1
+                            if (position_update_counter % 10) == 0:
+                                record_event("player_position", {
+                                    "player_id": player_id,
+                                    "player_name": player_name,
+                                    "position": {"x": pos_x, "y": pos_y, "z": pos_z}
+                                })
+                            
+                            await broadcast_to_web({
+                                'type': 'position',
+                                'playerId': player_id,
+                                'playerName': player_name,
+                                'x': pos_x,
+                                'y': pos_y,
+                                'z': pos_z
+                            })
+                
+                # Also check for player data in any message (for initial position from block events)
+                elif 'player' in body and player_id is None:
+                    player_data = body['player']
+                    player_id = str(player_data.get('id', f"Player_{int(time.time()) % 1000}"))
+                    player_name = player_data.get('name', player_id)
+                    active_players.add(player_id)
+                    logger.info(f"🎯 Identified player: {player_name}")
+                    
+                    # Record player join event
+                    record_event("player_join", {
+                        "player_id": player_id,
+                        "player_name": player_name,
+                        "address": client_addr
+                    })
                     
                     if 'position' in player_data:
                         pos = player_data['position']
@@ -1263,15 +1385,6 @@ async def handle_minecraft_client(websocket):
                             'z': pos_z,
                             'name': player_name
                         }
-                        
-                        # Only record position every 10 updates to avoid spam
-                        position_update_counter += 1
-                        if position_update_counter % 10 == 0:
-                            record_event("player_position", {
-                                "player_id": player_id,
-                                "player_name": player_name,
-                                "position": {"x": pos_x, "y": pos_y, "z": pos_z}
-                            })
                         
                         await broadcast_to_web({
                             'type': 'position',
