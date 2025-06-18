@@ -12,6 +12,8 @@ let sessionId = null;
 let totalEvents = 0;
 let ws = null;
 let firstPlayerPositioned = false;
+let selectedPlayerId = null;
+let gridOffset = { x: 0, y: 0, z: 0 };
 
 // Fetch server info on load
 async function fetchServerInfo() {
@@ -345,17 +347,31 @@ function updatePlayerList() {
         const playerItem = document.createElement('div');
         playerItem.className = 'player-item';
         playerItem.innerHTML = `
-            <div style="display: flex; align-items: center;">
-                <div style="width: 12px; height: 12px; background-color: ${player.color}; margin-right: 8px; border-radius: 2px;"></div>
-                <span>${player.name}</span>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center;">
+                    <div style="width: 12px; height: 12px; background-color: ${player.color}; margin-right: 8px; border-radius: 2px;"></div>
+                    <span>${player.name}</span>
+                </div>
+                <button class="center-grid-btn" onclick="centerGridOnPlayer('${playerId}')" title="Center grid on player">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <line x1="12" y1="1" x2="12" y2="7"/>
+                        <line x1="12" y1="17" x2="12" y2="23"/>
+                        <line x1="1" y1="12" x2="7" y2="12"/>
+                        <line x1="17" y1="12" x2="23" y2="12"/>
+                    </svg>
+                </button>
             </div>
             <div style="font-size: 11px; color: #ccc; margin-left: 20px;">
                 Pos: (${player.targetPos.x.toFixed(1)}, ${player.targetPos.y.toFixed(1)}, ${player.targetPos.z.toFixed(1)})
             </div>
         `;
         
-        // Add click handler to focus on player
-        playerItem.onclick = () => {
+        // Add click handler to focus on player (existing functionality)
+        playerItem.onclick = (e) => {
+            // Don't trigger if clicking the center grid button
+            if (e.target.closest('.center-grid-btn')) return;
+            
             // Animate camera to focus on player
             const targetPosition = player.targetPos.clone();
             controls.target.copy(targetPosition);
@@ -393,6 +409,30 @@ function updatePlayerList() {
     if (players.size === 0) {
         playerListDiv.innerHTML += '<div style="color: #999;">No players connected</div>';
     }
+}
+
+function centerGridOnPlayer(playerId) {
+    const player = players.get(playerId);
+    if (!player) return;
+    
+    // Calculate the offset needed to center the grid on the player
+    gridOffset = {
+        x: player.targetPos.x,
+        y: player.targetPos.y,
+        z: player.targetPos.z
+    };
+    
+    // Move the ground and grid to the new position
+    if (groundMesh) {
+        groundMesh.position.set(gridOffset.x, gridOffset.y, gridOffset.z);
+    }
+    
+    if (gridHelper) {
+        gridHelper.position.set(gridOffset.x, gridOffset.y, gridOffset.z);
+    }
+    
+    // Visual feedback
+    addEventToLog(`<span style="color: #4CAF50;">✓</span> Grid centered on ${player.name}`);
 }
 
 function clearPath() {
@@ -533,6 +573,7 @@ async function saveRubric() {
 window.openRubricEditor = openRubricEditor;
 window.closeRubricEditor = closeRubricEditor;
 window.saveRubric = saveRubric;
+window.centerGridOnPlayer = centerGridOnPlayer;
 
 // Make functions available globally for onclick handlers
 window.clearPath = clearPath;

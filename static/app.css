@@ -207,6 +207,32 @@ body {
     transform: translateX(2px);
 }
 
+.center-grid-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+}
+
+.center-grid-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.center-grid-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
 .control-item {
     margin: 8px 0;
     font-size: 13px;
