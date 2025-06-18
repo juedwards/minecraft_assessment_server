@@ -527,6 +527,13 @@ async function openRubricEditor() {
     // Show modal
     modal.classList.add('show');
     
+    // Ensure textarea can accept paste events
+    textarea.removeAttribute('readonly');
+    textarea.removeAttribute('disabled');
+    
+    // Add paste event listener to handle paste operations
+    textarea.addEventListener('paste', handlePaste);
+    
     // Load current rubric
     try {
         const response = await fetch('/api/rubric');
@@ -540,10 +547,25 @@ async function openRubricEditor() {
         console.error('Error loading rubric:', error);
         textarea.value = 'Error loading rubric. Please try again.';
     }
+    
+    // Focus the textarea to make it ready for input
+    setTimeout(() => textarea.focus(), 100);
+}
+
+function handlePaste(e) {
+    // Allow default paste behavior
+    e.stopPropagation();
+    // Log for debugging
+    console.log('Paste event detected');
 }
 
 function closeRubricEditor() {
     const modal = document.getElementById('rubricEditor');
+    const textarea = document.getElementById('rubricContent');
+    
+    // Remove paste event listener when closing
+    textarea.removeEventListener('paste', handlePaste);
+    
     modal.classList.remove('show');
 }
 
