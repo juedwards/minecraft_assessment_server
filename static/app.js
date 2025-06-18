@@ -346,11 +346,17 @@ function updatePlayerList() {
     players.forEach((player, playerId) => {
         const playerItem = document.createElement('div');
         playerItem.className = 'player-item';
+        
+        // Convert back to Minecraft coordinates for display
+        const mcX = player.targetPos.x + 200;
+        const mcY = player.targetPos.y + 80;
+        const mcZ = -(player.targetPos.z) - 85;
+        
         playerItem.innerHTML = `
             <div style="display: flex; align-items: center; justify-content: space-between;">
-                <div style="display: flex; align-items: center;">
-                    <div style="width: 12px; height: 12px; background-color: ${player.color}; margin-right: 8px; border-radius: 2px;"></div>
-                    <span>${player.name}</span>
+                <div style="display: flex; align-items: center; flex: 1;">
+                    <div style="width: 12px; height: 12px; background-color: ${player.color}; margin-right: 8px; border-radius: 2px; flex-shrink: 0;"></div>
+                    <span style="flex: 1;">${player.name} <span style="color: #888; font-size: 11px;">(${mcX.toFixed(0)}, ${mcY.toFixed(0)}, ${mcZ.toFixed(0)})</span></span>
                 </div>
                 <button class="center-grid-btn" onclick="centerGridOnPlayer('${playerId}')" title="Center grid on player">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -361,9 +367,6 @@ function updatePlayerList() {
                         <line x1="17" y1="12" x2="23" y2="12"/>
                     </svg>
                 </button>
-            </div>
-            <div style="font-size: 11px; color: #ccc; margin-left: 20px;">
-                Pos: (${player.targetPos.x.toFixed(1)}, ${player.targetPos.y.toFixed(1)}, ${player.targetPos.z.toFixed(1)})
             </div>
         `;
         
@@ -407,7 +410,7 @@ function updatePlayerList() {
     });
     
     if (players.size === 0) {
-        playerListDiv.innerHTML += '<div style="color: #999;">No players connected</div>';
+        playerListDiv.innerHTML += '<div style="color: #999; font-size: 13px;">No players connected</div>';
     }
 }
 
