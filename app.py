@@ -326,6 +326,25 @@ class SimpleHTTPHandler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(info).encode())
             return
         
+        # Special endpoint for rubric
+        if self.path == '/api/rubric':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            
+            rubric_path = os.path.join(os.path.dirname(__file__), 'rubric.md')
+            try:
+                with open(rubric_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                response = {'content': content}
+            except FileNotFoundError:
+                response = {'content': '# Assessment Rubric\n\nNo rubric file found. Create your rubric here.'}
+            except Exception as e:
+                response = {'content': f'Error reading rubric: {str(e)}'}
+            
+            self.wfile.write(json.dumps(response).encode())
+            return
+        
         # Remove query string if present
         clean_path = self.path.split('?')[0]
         
@@ -360,6 +379,47 @@ class SimpleHTTPHandler(BaseHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
             self.wfile.write(b'File not found')
+    
+    def do_POST(self):
+        """Handle POST requests"""
+        if self.path == '/api/rubric':
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            
+            try:
+                data = json.loads(post_data.decode('utf-8'))
+                content = data.get('content', '')
+                
+                rubric_path = os.path.join(os.path.dirname(__file__), 'rubric.md')
+                
+                # Create backup of existing rubric
+                if os.path.exists(rubric_path):
+                    backup_path = rubric_path + '.backup'
+                    with open(rubric_path, 'r', encoding='utf-8') as f:
+                        backup_content = f.read()
+                    with open(backup_path, 'w', encoding='utf-8') as f:
+                        f.write(backup_content)
+                
+                # Save new rubric
+                with open(rubric_path, 'w', encoding='utf-8') as f:
+                    f.write(content)
+                
+                self.send_response(200)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({'success': True}).encode())
+                
+                logger.info("📝 Rubric updated successfully")
+                
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({'error': str(e)}).encode())
+                logger.error(f"Error saving rubric: {e}")
+        else:
+            self.send_response(404)
+            self.end_headers()
     
     def log_message(self, format, *args):
         # Suppress HTTP logs

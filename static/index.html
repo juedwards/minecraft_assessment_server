@@ -63,6 +63,7 @@
         <div id="assessmentControls" class="panel-section">
             <h4>AI Assessment</h4>
             <button id="assessmentButton" onclick="analyzeWithChatGPT()">Analyze Players with AI</button>
+            <button id="editRubricButton" onclick="openRubricEditor()" style="margin-top: 8px;">Edit Rubric</button>
             <div style="font-size:11px; margin-top:8px; text-align:center; opacity: 0.7;">
                 Assess gameplay against rubric
             </div>
@@ -114,6 +115,23 @@
         <button class="close-button" onclick="closeAssessment()">✕</button>
         <h2>AI Player Assessment</h2>
         <div id="assessmentContent"></div>
+    </div>
+
+    <!-- Rubric Editor Modal -->
+    <div id="rubricEditor" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Assessment Rubric</h2>
+                <button class="close-button" onclick="closeRubricEditor()">✕</button>
+            </div>
+            <div class="modal-body">
+                <textarea id="rubricContent" placeholder="Loading rubric..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="save-button" onclick="saveRubric()">Save Changes</button>
+                <button class="cancel-button" onclick="closeRubricEditor()">Cancel</button>
+            </div>
+        </div>
     </div>
 
     <script src="app.js"></script>

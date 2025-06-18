@@ -471,6 +471,75 @@ function closeAssessment() {
     document.getElementById('assessmentResults').classList.remove('show');
 }
 
+// Rubric Editor Functions
+async function openRubricEditor() {
+    const modal = document.getElementById('rubricEditor');
+    const textarea = document.getElementById('rubricContent');
+    
+    // Show modal
+    modal.classList.add('show');
+    
+    // Load current rubric
+    try {
+        const response = await fetch('/api/rubric');
+        if (response.ok) {
+            const data = await response.json();
+            textarea.value = data.content;
+        } else {
+            textarea.value = 'Error loading rubric. Please try again.';
+        }
+    } catch (error) {
+        console.error('Error loading rubric:', error);
+        textarea.value = 'Error loading rubric. Please try again.';
+    }
+}
+
+function closeRubricEditor() {
+    const modal = document.getElementById('rubricEditor');
+    modal.classList.remove('show');
+}
+
+async function saveRubric() {
+    const textarea = document.getElementById('rubricContent');
+    const content = textarea.value;
+    
+    try {
+        const response = await fetch('/api/rubric', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ content: content })
+        });
+        
+        if (response.ok) {
+            // Show save indicator
+            showSaveIndicator();
+            closeRubricEditor();
+            
+            // Optional: Show success message
+            addEventToLog('<span style="color: #4CAF50;">✓</span> Rubric updated successfully');
+        } else {
+            const error = await response.json();
+            alert('Error saving rubric: ' + (error.error || 'Unknown error'));
+        }
+    } catch (error) {
+        console.error('Error saving rubric:', error);
+        alert('Error saving rubric. Please try again.');
+    }
+}
+
+// Make functions available globally
+window.openRubricEditor = openRubricEditor;
+window.closeRubricEditor = closeRubricEditor;
+window.saveRubric = saveRubric;
+
+// Make functions available globally for onclick handlers
+window.clearPath = clearPath;
+window.clearBlocks = clearBlocks;
+window.analyzeWithChatGPT = analyzeWithChatGPT;
+window.closeAssessment = closeAssessment;
+
 function animate() {
     requestAnimationFrame(animate);
 
@@ -571,9 +640,3 @@ window.addEventListener('resize', () => {
 init();
 fetchServerInfo();  // Fetch server info including external IP
 connectWebSocket();
-
-// Make functions available globally for onclick handlers
-window.clearPath = clearPath;
-window.clearBlocks = clearBlocks;
-window.analyzeWithChatGPT = analyzeWithChatGPT;
-window.closeAssessment = closeAssessment;
