@@ -14,6 +14,7 @@ let ws = null;
 let firstPlayerPositioned = false;
 let selectedPlayerId = null;
 let gridOffset = { x: 0, y: 0, z: 0 };
+let axesHelper; // Add axesHelper as a global variable at the top with other globals
 
 // Fetch server info on load
 async function fetchServerInfo() {
@@ -71,7 +72,7 @@ function init() {
         color: 0x7CFC00,
         transparent: true,
         opacity: 0.3,
-        side: THREE.DoubleSide  // Visible from both sides
+        side: THREE.DoubleSide
     });
     groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
     groundMesh.rotation.x = -Math.PI / 2;
@@ -84,8 +85,8 @@ function init() {
     gridHelper.material.transparent = true;
     scene.add(gridHelper);
 
-    // Add axis helper (for debugging)
-    const axesHelper = new THREE.AxesHelper(5);
+    // Add axis helper (for debugging) - store reference in global variable
+    axesHelper = new THREE.AxesHelper(5);
     scene.add(axesHelper);
 
     // Setup ground opacity slider
@@ -425,13 +426,17 @@ function centerGridOnPlayer(playerId) {
         z: player.targetPos.z
     };
     
-    // Move the ground and grid to the new position
+    // Move the ground, grid, and axes helper to the new position
     if (groundMesh) {
         groundMesh.position.set(gridOffset.x, gridOffset.y, gridOffset.z);
     }
     
     if (gridHelper) {
         gridHelper.position.set(gridOffset.x, gridOffset.y, gridOffset.z);
+    }
+    
+    if (axesHelper) {
+        axesHelper.position.set(gridOffset.x, gridOffset.y, gridOffset.z);
     }
     
     // Visual feedback
@@ -572,11 +577,72 @@ async function saveRubric() {
     }
 }
 
+// Send message to all players
+async function sendMessageToPlayers() {
+    const input = document.getElementById('messageInput');
+    const button = document.getElementById('sendMessageButton');
+    const message = input.value.trim();
+    
+    if (!message) {
+        return;
+    }
+    
+    // Disable button and show sending state
+    button.disabled = true;
+    button.textContent = 'Sending...';
+    
+    try {
+        // Send message through WebSocket
+        if (ws && ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify({
+                type: 'send_message',
+                message: message
+            }));
+            
+            // Clear input and show success
+            input.value = '';
+            addEventToLog(`<span style="color: #4CAF50;">📢</span> Sent message: "${message}"`);
+            
+            // Flash the button green
+            button.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+            button.textContent = 'Sent!';
+            
+            setTimeout(() => {
+                button.style.background = '';
+                button.textContent = 'Send';
+                button.disabled = false;
+            }, 1500);
+        } else {
+            throw new Error('Not connected to server');
+        }
+    } catch (error) {
+        console.error('Failed to send message:', error);
+        addEventToLog(`<span style="color: #f44336;">❌</span> Failed to send message`);
+        
+        // Reset button
+        button.textContent = 'Send';
+        button.disabled = false;
+    }
+}
+
+// Add enter key support for message input
+document.addEventListener('DOMContentLoaded', function() {
+    const messageInput = document.getElementById('messageInput');
+    if (messageInput) {
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessageToPlayers();
+            }
+        });
+    }
+});
+
 // Make functions available globally
 window.openRubricEditor = openRubricEditor;
 window.closeRubricEditor = closeRubricEditor;
 window.saveRubric = saveRubric;
 window.centerGridOnPlayer = centerGridOnPlayer;
+window.sendMessageToPlayers = sendMessageToPlayers;
 
 // Make functions available globally for onclick handlers
 window.clearPath = clearPath;

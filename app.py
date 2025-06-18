@@ -436,6 +436,31 @@ async def broadcast_to_web(message):
     # Remove disconnected clients
     web_clients.difference_update(disconnected)
 
+async def send_message_to_minecraft(websocket, message):
+    """Send a chat message to all Minecraft players"""
+    # Format the message with color and styling
+    formatted_message = f"§e§l[Server]§r §f{message}"
+    
+    command = {
+        "header": {
+            "version": 1,
+            "requestId": str(uuid4()),
+            "messageType": "commandRequest",
+            "messagePurpose": "commandRequest"
+        },
+        "body": {
+            "origin": {"type": "player"},
+            "commandLine": f'tellraw @a {{"rawtext":[{{"text":"{formatted_message}"}}]}}',
+            "version": 1
+        }
+    }
+    
+    await websocket.send(json.dumps(command))
+    logger.info(f"📢 Sent message to players: {message}")
+
+# Store active Minecraft connections
+minecraft_connections = set()
+
 async def handle_web_client(websocket):
     """Handle web browser WebSocket connections for live updates"""
     logger.info("Web client connected for live updates")
@@ -448,7 +473,7 @@ async def handle_web_client(websocket):
                 'type': 'session_info',
                 'sessionId': session_id,
                 'startTime': session_start_time.isoformat(),
-                'fileName': os.path.basename(session_file)  # Send just the filename, not full path
+                'fileName': os.path.basename(session_file)
             }))
         
         # Send current player positions
@@ -466,6 +491,7 @@ async def handle_web_client(websocket):
         async for message in websocket:
             try:
                 msg = json.loads(message)
+                
                 if msg.get('type') == 'analyze_request':
                     # Perform analysis
                     logger.info("Received AI analysis request")
@@ -476,6 +502,30 @@ async def handle_web_client(websocket):
                         'type': 'analysis_result',
                         **analysis_result
                     }))
+                
+                elif msg.get('type') == 'send_message':
+                    # Send message to all Minecraft clients
+                    message_text = msg.get('message', '')
+                    if message_text:
+                        # Record the message event
+                        record_event("server_message", {
+                            "message": message_text,
+                            "sender": "web_interface"
+                        })
+                        
+                        # Send to all connected Minecraft clients
+                        disconnected = set()
+                        for mc_client in minecraft_connections:
+                            try:
+                                await send_message_to_minecraft(mc_client, message_text)
+                            except:
+                                disconnected.add(mc_client)
+                        
+                        # Remove disconnected clients
+                        minecraft_connections.difference_update(disconnected)
+                        
+                        logger.info(f"📨 Message sent to {len(minecraft_connections)} Minecraft clients")
+                        
             except Exception as e:
                 logger.error(f"Error handling web client message: {e}")
             
@@ -506,6 +556,9 @@ async def send_welcome_message(websocket):
 async def handle_minecraft_client(websocket):
     """Handle Minecraft Education Edition connections"""
     global active_players
+    
+    # Add this connection to the set
+    minecraft_connections.add(websocket)
     
     try:
         client_addr = f"{websocket.remote_address[0]}:{websocket.remote_address[1]}"
