@@ -41,6 +41,30 @@ session_file = None
 event_buffer = []  # Buffer for batch writing
 last_save_time = time.time()
 
+# Data directory
+DATA_DIR = "data"
+
+def ensure_data_directory():
+    """Ensure the data directory exists"""
+    if not os.path.exists(DATA_DIR):
+        os.makedirs(DATA_DIR)
+        logger.info(f"📁 Created data directory: {DATA_DIR}")
+
+def get_external_ip():
+    """Get the external IP address of this device"""
+    try:
+        # Try to connect to an external server to get our IP
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+            s.connect(("8.8.8.8", 80))
+            return s.getsockname()[0]
+    except:
+        # Fallback to hostname
+        try:
+            hostname = socket.gethostname()
+            return socket.gethostbyname(hostname)
+        except:
+            return "localhost"
+
 def start_session():
     """Start a new recording session"""
     global session_start_time, session_id, session_events, session_file
@@ -60,8 +84,8 @@ def start_session():
     }
     session_events.append(initial_event)
     
-    # Create initial JSON file
-    session_file = f"{session_id}.json"
+    # Create initial JSON file in data directory
+    session_file = os.path.join(DATA_DIR, f"{session_id}.json")
     save_session_realtime()
     
     logger.info(f"📝 Started new session: {session_id}")
@@ -278,915 +302,64 @@ Format the response in a clear, structured way with sections for different rubri
         logger.error(f"Error in analyze_player_data: {str(e)}")
         return {"error": str(e)}
 
-# HTML/JavaScript for 3D visualization with ChatGPT assessment
-HTML_CONTENT = """
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Minecraft Live 3D Tracker with AI Assessment</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    <style>
-        body { margin: 0; font-family: Arial; overflow: hidden; }
-        #info {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: white;
-            background: rgba(0,0,0,0.7);
-            padding: 15px;
-            border-radius: 5px;
-            z-index: 100;
-            max-width: 250px;
-        }
-        #status {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            z-index: 100;
-        }
-        .connected { background: #4CAF50; color: white; }
-        .disconnected { background: #f44336; color: white; }
-        #playerList {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            max-width: 300px;
-        }
-        .player-item {
-            margin: 5px 0;
-            padding: 5px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .player-item:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        #controls {
-            position: absolute;
-            top: 10px;
-            left: 320px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        .control-item {
-            margin: 5px 0;
-        }
-        #legend {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        .legend-item {
-            margin: 5px 0;
-            display: flex;
-            align-items: center;
-        }
-        .legend-icon {
-            width: 16px;
-            height: 16px;
-            margin-right: 8px;
-            border: 1px solid #333;
-            display: inline-block;
-        }
-        .legend-icon.player { background-color: #4169E1; }
-        .legend-icon.placed { background-color: #00FF00; }
-        .legend-icon.broken { background-color: #FF0000; }
-        .legend-icon.path { 
-            background-color: #FFFFFF; 
-            border-radius: 50%;
-            width: 8px;
-            height: 8px;
-            margin: 4px 8px 4px 4px;
-        }
-        #eventLog {
-            position: absolute;
-            top: 200px;
-            right: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            max-width: 300px;
-            max-height: 200px;
-            overflow-y: auto;
-            font-size: 12px;
-        }
-        .event-icon {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            margin-right: 5px;
-            border: 1px solid #333;
-        }
-        .event-icon.placed { background-color: #00FF00; }
-        .event-icon.broken { background-color: #FF0000; }
-        #sessionInfo {
-            position: absolute;
-            bottom: 10px;
-            left: 350px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 12px;
-        }
-        #saveIndicator {
-            position: absolute;
-            top: 60px;
-            right: 10px;
-            padding: 5px 10px;
-            background: rgba(0,0,0,0.7);
-            color: #0f0;
-            border-radius: 3px;
-            font-size: 11px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        #saveIndicator.show {
-            opacity: 1;
-        }
-        #groundControls {
-            position: absolute;
-            top: 250px;
-            left: 320px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 12px;
-        }
-        .slider-container {
-            margin: 5px 0;
-        }
-        .slider {
-            width: 120px;
-        }
-        
-        /* ChatGPT Assessment Styles */
-        #assessmentControls {
-            position: absolute;
-            top: 380px;
-            left: 320px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        #assessmentButton {
-            background-color: #2196F3;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
-        #assessmentButton:hover {
-            background-color: #1976D2;
-        }
-        #assessmentButton:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-        #assessmentResults {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.95);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 80%;
-            max-height: 80%;
-            overflow-y: auto;
-            display: none;
-            z-index: 1000;
-        }
-        #assessmentResults.show {
-            display: block;
-        }
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #f44336;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .assessment-player {
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border-left: 4px solid #2196F3;
-        }
-        .assessment-player h3 {
-            margin-top: 0;
-            color: #64B5F6;
-        }
-        .assessment-content {
-            white-space: pre-wrap;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-        .loading-spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #2196F3;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
-</head>
-<body>
-    <div id="info">
-        <h3 style="margin-top:0">Minecraft Live 3D Tracker</h3>
-        <div>Players: <span id="playerCount">0</span></div>
-        <div>Status: <span id="wsStatus">Connecting...</span></div>
-        <hr>
-        <div style="font-size:12px">
-            🖱️ Left-drag: Rotate | Scroll: Zoom | Right-drag: Pan<br>
-            📍 Connect from Minecraft: /connect localhost:19131
-        </div>
-    </div>
-    
-    <div id="controls">
-        <h4 style="margin-top:0">Controls</h4>
-        <div class="control-item">
-            <label><input type="checkbox" id="showPath" checked> Show Path</label>
-        </div>
-        <div class="control-item">
-            <label><input type="checkbox" id="showBlocks" checked> Show Block Events</label>
-        </div>
-        <div class="control-item">
-            <label><input type="checkbox" id="showGrid" checked> Show Grid</label>
-        </div>
-        <div class="control-item">
-            <button onclick="clearPath()">Clear Path</button>
-        </div>
-        <div class="control-item">
-            <button onclick="clearBlocks()">Clear Blocks</button>
-        </div>
-    </div>
-    
-    <div id="groundControls">
-        <h4 style="margin-top:0">Ground Settings</h4>
-        <div class="slider-container">
-            <label>Opacity: <span id="opacityValue">0.3</span></label><br>
-            <input type="range" id="groundOpacity" class="slider" min="0" max="100" value="30">
-        </div>
-        <div class="control-item">
-            <label><input type="checkbox" id="showGround" checked> Show Ground</label>
-        </div>
-    </div>
-    
-    <div id="assessmentControls">
-        <h4 style="margin-top:0">AI Assessment</h4>
-        <button id="assessmentButton" onclick="analyzeWithChatGPT()">Analyze Players with AI</button>
-        <div style="font-size:11px; margin-top:5px; text-align:center;">
-            Assess gameplay against rubric
-        </div>
-    </div>
-    
-    <div id="legend">
-        <h4 style="margin-top:0">Legend</h4>
-        <div class="legend-item">
-            <span class="legend-icon player"></span>
-            <span>Player</span>
-        </div>
-        <div class="legend-item">
-            <span class="legend-icon placed"></span>
-            <span>Placed Block</span>
-        </div>
-        <div class="legend-item">
-            <span class="legend-icon broken"></span>
-            <span>Broken Block</span>
-        </div>
-        <div class="legend-item">
-            <span class="legend-icon path"></span>
-            <span>Path Trail</span>
-        </div>
-    </div>
-    
-    <div id="eventLog">
-        <h4 style="margin-top:0">Recent Events</h4>
-        <div id="eventList"></div>
-    </div>
-    
-    <div id="sessionInfo">
-        <div>Session: <span id="sessionId">-</span></div>
-        <div>Duration: <span id="sessionDuration">00:00</span></div>
-        <div>Events: <span id="eventCount">0</span></div>
-        <div>File: <span id="fileName">-</span></div>
-    </div>
-    
-    <div id="saveIndicator">💾 Saved</div>
-    
-    <div id="assessmentResults">
-        <button class="close-button" onclick="closeAssessment()">✕</button>
-        <h2>AI Player Assessment</h2>
-        <div id="assessmentContent"></div>
-    </div>
-    
-    <div id="status" class="disconnected">WebSocket Disconnected</div>
-    <div id="playerList"></div>
-
-    <script>
-        // Three.js setup
-        let scene, camera, renderer, controls;
-        const players = new Map();
-        const playerColors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F'];
-        let colorIndex = 0;
-        const blockEvents = [];
-        let gridHelper;
-        let groundMesh;
-        const recentEvents = [];
-        let sessionStartTime = null;
-        let sessionId = null;
-        let totalEvents = 0;
-        let ws = null;
-        let firstPlayerPositioned = false;
-
-        function init() {
-            // Scene
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x87CEEB);
-            scene.fog = new THREE.Fog(0x87CEEB, 200, 500);
-
-            // Camera
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(30, 50, 30);
-            camera.lookAt(0, 0, 0);
-
-            // Renderer
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.shadowMap.enabled = true;
-            document.body.appendChild(renderer.domElement);
-
-            // Controls
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.05;
-            controls.target.set(0, 0, 0);
-
-            // Lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-            scene.add(ambientLight);
-
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            directionalLight.position.set(50, 100, 50);
-            directionalLight.castShadow = true;
-            scene.add(directionalLight);
-
-            // Ground - now with transparency
-            const groundGeometry = new THREE.PlaneGeometry(200, 200);
-            const groundMaterial = new THREE.MeshLambertMaterial({ 
-                color: 0x7CFC00,
-                transparent: true,
-                opacity: 0.3,
-                side: THREE.DoubleSide  // Visible from both sides
-            });
-            groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
-            groundMesh.rotation.x = -Math.PI / 2;
-            groundMesh.receiveShadow = true;
-            scene.add(groundMesh);
-
-            // Grid
-            gridHelper = new THREE.GridHelper(200, 40, 0x000000, 0x000000);
-            gridHelper.material.opacity = 0.2;
-            gridHelper.material.transparent = true;
-            scene.add(gridHelper);
-
-            // Add axis helper (for debugging)
-            const axesHelper = new THREE.AxesHelper(5);
-            scene.add(axesHelper);
-
-            // Setup ground opacity slider
-            const opacitySlider = document.getElementById('groundOpacity');
-            const opacityValue = document.getElementById('opacityValue');
-            
-            opacitySlider.addEventListener('input', (e) => {
-                const opacity = e.target.value / 100;
-                groundMesh.material.opacity = opacity;
-                opacityValue.textContent = opacity.toFixed(2);
-            });
-
-            // Setup ground visibility checkbox
-            const showGroundCheckbox = document.getElementById('showGround');
-            showGroundCheckbox.addEventListener('change', (e) => {
-                groundMesh.visible = e.target.checked;
-            });
-
-            // Start animation
-            animate();
-        }
-
-        function showSaveIndicator() {
-            const indicator = document.getElementById('saveIndicator');
-            indicator.classList.add('show');
-            setTimeout(() => {
-                indicator.classList.remove('show');
-            }, 1000);
-        }
-
-        function updateSessionInfo() {
-            if (sessionStartTime) {
-                const duration = Math.floor((Date.now() - sessionStartTime) / 1000);
-                const minutes = Math.floor(duration / 60);
-                const seconds = duration % 60;
-                document.getElementById('sessionDuration').textContent = 
-                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }
-            document.getElementById('eventCount').textContent = totalEvents;
-        }
-
-        function createPlayer(playerId, playerName) {
-            console.log(`Creating player: ${playerName} (${playerId})`);
-            
-            const geometry = new THREE.BoxGeometry(1, 2, 1);
-            const color = playerColors[colorIndex % playerColors.length];
-            const material = new THREE.MeshLambertMaterial({ color: color });
-            const mesh = new THREE.Mesh(geometry, material);
-            mesh.castShadow = true;
-            mesh.position.y = 1;
-
-            // Add player label
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            canvas.width = 256;
-            canvas.height = 64;
-            context.fillStyle = color;
-            context.fillRect(0, 0, 256, 64);
-            context.fillStyle = 'white';
-            context.font = 'bold 36px Arial';
-            context.textAlign = 'center';
-            context.fillText(playerName || playerId, 128, 45);
-
-            const texture = new THREE.CanvasTexture(canvas);
-            const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
-            const sprite = new THREE.Sprite(spriteMaterial);
-            sprite.scale.set(5, 1.25, 1);
-            sprite.position.y = 3;
-            mesh.add(sprite);
-
-            // Create path line
-            const pathGeometry = new THREE.BufferGeometry();
-            const pathMaterial = new THREE.LineBasicMaterial({ 
-                color: color, 
-                linewidth: 2,
-                opacity: 0.8,
-                transparent: true 
-            });
-            const pathLine = new THREE.Line(pathGeometry, pathMaterial);
-            scene.add(pathLine);
-
-            players.set(playerId, {
-                mesh: mesh,
-                targetPos: new THREE.Vector3(),
-                name: playerName || playerId,
-                color: color,
-                lastUpdate: Date.now(),
-                path: [],
-                pathLine: pathLine,
-                maxPathPoints: 500 // Limit path length
-            });
-
-            scene.add(mesh);
-            colorIndex++;
-            
-            updatePlayerCount();
-            updatePlayerList();
-        }
-
-        function updatePlayer(playerId, playerName, x, y, z) {
-            if (!players.has(playerId)) {
-                createPlayer(playerId, playerName);
-            }
-            
-            const player = players.get(playerId);
-            
-            // Convert Minecraft coords to Three.js coords
-            const worldX = x - 200;
-            const worldY = y - 80;
-            const worldZ = -(z + 85);
-            
-            player.targetPos.set(worldX, worldY, worldZ);
-            player.lastUpdate = Date.now();
-            
-            // Add to path if moved significantly
-            if (player.path.length === 0 || 
-                player.path[player.path.length - 1].distanceTo(player.targetPos) > 0.5) {
-                
-                player.path.push(new THREE.Vector3(worldX, worldY, worldZ));
-                
-                // Limit path length
-                if (player.path.length > player.maxPathPoints) {
-                    player.path.shift();
-                }
-                
-                // Update path line
-                updatePathLine(player);
-            }
-            
-            // Center camera on first player position
-            if (!firstPlayerPositioned && players.size === 1) {
-                firstPlayerPositioned = true;
-                console.log(`Centering camera on first player at (${worldX}, ${worldY}, ${worldZ})`);
-                
-                // Set camera target to player position
-                controls.target.copy(player.targetPos);
-                
-                // Position camera at a nice viewing angle
-                const offset = new THREE.Vector3(20, 30, 20);
-                const cameraPos = player.targetPos.clone().add(offset);
-                camera.position.copy(cameraPos);
-                
-                controls.update();
-            }
-            
-            updatePlayerList();
-        }
-
-        function updatePathLine(player) {
-            if (!document.getElementById('showPath').checked) {
-                player.pathLine.visible = false;
-                return;
-            }
-            
-            player.pathLine.visible = true;
-            const positions = [];
-            player.path.forEach(point => {
-                positions.push(point.x, point.y + 0.1, point.z); // Slightly above ground
-            });
-            
-            player.pathLine.geometry.setAttribute('position', 
-                new THREE.Float32BufferAttribute(positions, 3));
-        }
-
-        function addBlockEvent(type, x, y, z, blockType, playerName, blockPos) {
-            // Use the block's actual position
-            const worldX = blockPos.x - 200;
-            const worldY = blockPos.y - 80;
-            const worldZ = -(blockPos.z + 85);
-            
-            // Create block visualization
-            const geometry = new THREE.BoxGeometry(1, 1, 1);
-            const material = new THREE.MeshLambertMaterial({
-                color: type === 'place' ? 0x00ff00 : 0xff0000,
-                transparent: true,
-                opacity: 0.7
-            });
-            const mesh = new THREE.Mesh(geometry, material);
-            mesh.position.set(worldX, worldY, worldZ);
-            mesh.castShadow = true;
-            
-            // Add wireframe
-            const wireframe = new THREE.LineSegments(
-                new THREE.EdgesGeometry(geometry),
-                new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 2 })
-            );
-            mesh.add(wireframe);
-            
-            scene.add(mesh);
-            
-            blockEvents.push({
-                mesh: mesh,
-                type: type,
-                blockType: blockType,
-                position: { x: worldX, y: worldY, z: worldZ },
-                timestamp: Date.now()
-            });
-            
-            // Add to event log with colored squares
-            const iconClass = type === 'place' ? 'placed' : 'broken';
-            const actionText = type === 'place' ? 'placed' : 'broke';
-            addEventToLog(`<span class="event-icon ${iconClass}"></span>${playerName || 'Player'} ${actionText} ${blockType} at (${blockPos.x.toFixed(0)}, ${blockPos.y.toFixed(0)}, ${blockPos.z.toFixed(0)})`);
-            
-            // Fade out animation
-            const fadeOut = () => {
-                mesh.material.opacity -= 0.01;
-                if (mesh.material.opacity > 0.1) {
-                    setTimeout(fadeOut, 100);
-                }
-            };
-            setTimeout(fadeOut, 30000); // Start fading after 30 seconds
-        }
-
-        function addEventToLog(message) {
-            recentEvents.unshift({
-                message: message,
-                timestamp: new Date().toLocaleTimeString()
-            });
-            
-            // Keep only last 10 events
-            if (recentEvents.length > 10) {
-                recentEvents.pop();
-            }
-            
-            updateEventLog();
-        }
-
-        function updateEventLog() {
-            const eventListDiv = document.getElementById('eventList');
-            let html = '';
-            
-            recentEvents.forEach(event => {
-                html += `<div style="margin: 2px 0;">${event.timestamp} - ${event.message}</div>`;
-            });
-            
-            eventListDiv.innerHTML = html;
-        }
-
-        function removePlayer(playerId) {
-            const player = players.get(playerId);
-            if (player) {
-                scene.remove(player.mesh);
-                scene.remove(player.pathLine);
-                players.delete(playerId);
-                updatePlayerCount();
-                updatePlayerList();
-            }
-        }
-
-        function updatePlayerCount() {
-            document.getElementById('playerCount').textContent = players.size;
-        }
-
-        function updatePlayerList() {
-            const playerListDiv = document.getElementById('playerList');
-            playerListDiv.innerHTML = '<h4 style="margin-top:0">Active Players</h4>';
-            
-            players.forEach((player, playerId) => {
-                const playerItem = document.createElement('div');
-                playerItem.className = 'player-item';
-                playerItem.innerHTML = `
-                    <div style="display: flex; align-items: center;">
-                        <div style="width: 12px; height: 12px; background-color: ${player.color}; margin-right: 8px; border-radius: 2px;"></div>
-                        <span>${player.name}</span>
-                    </div>
-                    <div style="font-size: 11px; color: #ccc; margin-left: 20px;">
-                        Pos: (${player.targetPos.x.toFixed(1)}, ${player.targetPos.y.toFixed(1)}, ${player.targetPos.z.toFixed(1)})
-                    </div>
-                `;
-                
-                // Add click handler to focus on player
-                playerItem.onclick = () => {
-                    // Animate camera to focus on player
-                    const targetPosition = player.targetPos.clone();
-                    controls.target.copy(targetPosition);
-                    
-                    // Move camera to a nice viewing angle
-                    const offset = new THREE.Vector3(20, 30, 20);
-                    const newCameraPosition = targetPosition.clone().add(offset);
-                    
-                    // Smooth camera transition
-                    const startPos = camera.position.clone();
-                    const startTarget = controls.target.clone();
-                    const duration = 1000; // 1 second
-                    const startTime = Date.now();
-                    
-                    function animateCamera() {
-                        const elapsed = Date.now() - startTime;
-                        const t = Math.min(elapsed / duration, 1);
-                        const easeT = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; // Ease in-out
-                        
-                        camera.position.lerpVectors(startPos, newCameraPosition, easeT);
-                        controls.target.lerpVectors(startTarget, targetPosition, easeT);
-                        controls.update();
-                        
-                        if (t < 1) {
-                            requestAnimationFrame(animateCamera);
-                        }
-                    }
-                    
-                    animateCamera();
-                };
-                
-                playerListDiv.appendChild(playerItem);
-            });
-            
-            if (players.size === 0) {
-                playerListDiv.innerHTML += '<div style="color: #999;">No players connected</div>';
-            }
-        }
-
-        function clearPath() {
-            players.forEach(player => {
-                player.path = [];
-                updatePathLine(player);
-            });
-        }
-
-        function clearBlocks() {
-            blockEvents.forEach(event => {
-                scene.remove(event.mesh);
-            });
-            blockEvents.length = 0;
-        }
-
-        // ChatGPT Analysis Functions
-        async function analyzeWithChatGPT() {
-            const button = document.getElementById('assessmentButton');
-            const resultsDiv = document.getElementById('assessmentResults');
-            const contentDiv = document.getElementById('assessmentContent');
-            
-            button.disabled = true;
-            button.textContent = 'Analyzing...';
-            
-            // Show results with loading spinner
-            resultsDiv.classList.add('show');
-            contentDiv.innerHTML = '<div class="loading-spinner"></div><p style="text-align:center;">Analyzing player data with AI...</p>';
-            
-            try {
-                // Send analysis request via WebSocket
-                if (ws && ws.readyState === WebSocket.OPEN) {
-                    ws.send(JSON.stringify({
-                        type: 'analyze_request'
-                    }));
-                } else {
-                    throw new Error('WebSocket not connected');
-                }
-            } catch (error) {
-                contentDiv.innerHTML = `<div style="color: #f44336;">Error: ${error.message}</div>`;
-                button.disabled = false;
-                button.textContent = 'Analyze Players with AI';
-            }
-        }
-
-        function displayAnalysisResults(data) {
-            const button = document.getElementById('assessmentButton');
-            const contentDiv = document.getElementById('assessmentContent');
-            
-            button.disabled = false;
-            button.textContent = 'Analyze Players with AI';
-            
-            if (data.error) {
-                contentDiv.innerHTML = `<div style="color: #f44336;">Error: ${data.error}</div>`;
-                return;
-            }
-            
-            let html = '';
-            for (const [player, analysis] of Object.entries(data.analyses)) {
-                html += `
-                    <div class="assessment-player">
-                        <h3>${player}</h3>
-                        <div class="assessment-content">${analysis}</div>
-                    </div>
-                `;
-            }
-            
-            if (Object.keys(data.analyses).length === 0) {
-                html = '<p>No player data available for analysis.</p>';
-            }
-            
-            contentDiv.innerHTML = html;
-        }
-
-        function closeAssessment() {
-            document.getElementById('assessmentResults').classList.remove('show');
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-
-            // Smooth movement interpolation for all players
-            players.forEach(player => {
-                if (player.mesh && player.targetPos) {
-                    player.mesh.position.lerp(player.targetPos, 0.1);
-                }
-            });
-
-            // Update path visibility for all players
-            players.forEach(player => {
-                updatePathLine(player);
-            });
-
-            // Update block visibility
-            const showBlocks = document.getElementById('showBlocks').checked;
-            blockEvents.forEach(event => {
-                event.mesh.visible = showBlocks;
-            });
-
-            // Update grid visibility
-            gridHelper.visible = document.getElementById('showGrid').checked;
-
-            // Update session info
-            updateSessionInfo();
-
-            controls.update();
-            renderer.render(scene, camera);
-        }
-
-        // WebSocket connection to get live updates
-        function connectWebSocket() {
-            ws = new WebSocket('ws://localhost:8081/live');
-            
-            ws.onopen = () => {
-                console.log('Connected to live updates');
-                document.getElementById('wsStatus').textContent = 'Connected';
-                document.getElementById('status').className = 'connected';
-                document.getElementById('status').textContent = 'WebSocket Connected';
-            };
-
-            ws.onmessage = (event) => {
-                const data = JSON.parse(event.data);
-                console.log('Received:', data.type, data);
-                
-                if (data.type === 'session_info') {
-                    sessionId = data.sessionId;
-                    sessionStartTime = new Date(data.startTime).getTime();
-                    document.getElementById('sessionId').textContent = sessionId.split('_').slice(-2).join('_');
-                    document.getElementById('fileName').textContent = data.fileName;
-                } else if (data.type === 'save_notification') {
-                    showSaveIndicator();
-                } else if (data.type === 'position') {
-                    updatePlayer(data.playerId, data.playerName, data.x, data.y, data.z);
-                    totalEvents++;
-                } else if (data.type === 'block_place') {
-                    addBlockEvent('place', data.x, data.y, data.z, data.blockType, data.playerName, data.blockPos);
-                    console.log(`Block placed: ${data.blockType} at (${data.blockPos.x}, ${data.blockPos.y}, ${data.blockPos.z})`);
-                    totalEvents++;
-                } else if (data.type === 'block_break') {
-                    addBlockEvent('break', data.x, data.y, data.z, data.blockType, data.playerName, data.blockPos);
-                    console.log(`Block broken: ${data.blockType} at (${data.blockPos.x}, ${data.blockPos.y}, ${data.blockPos.z})`);
-                    totalEvents++;
-                } else if (data.type === 'disconnect') {
-                    removePlayer(data.playerId);
-                    totalEvents++;
-                } else if (data.type === 'analysis_result') {
-                    displayAnalysisResults(data);
-                }
-            };
-
-            ws.onclose = () => {
-                console.log('Disconnected from live updates');
-                document.getElementById('wsStatus').textContent = 'Disconnected';
-                document.getElementById('status').className = 'disconnected';
-                document.getElementById('status').textContent = 'WebSocket Disconnected';
-                
-                // Reconnect after 2 seconds
-                setTimeout(connectWebSocket, 2000);
-            };
-
-            ws.onerror = (error) => {
-                console.error('WebSocket error:', error);
-            };
-        }
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // Initialize
-        init();
-        connectWebSocket();
-    </script>
-</body>
-</html>
-"""
-
 class SimpleHTTPHandler(BaseHTTPRequestHandler):
-    """Simple HTTP handler to serve the 3D visualization"""
+    """Simple HTTP handler to serve the static files"""
     
     def do_GET(self):
+        # Map paths to files
+        static_dir = os.path.join(os.path.dirname(__file__), 'static')
+        
         if self.path == '/':
+            self.path = '/index.html'
+        
+        # Special endpoint for server info
+        if self.path == '/api/server-info':
             self.send_response(200)
-            self.send_header('Content-type', 'text/html')
+            self.send_header('Content-type', 'application/json')
             self.end_headers()
-            self.wfile.write(HTML_CONTENT.encode())
-        else:
+            external_ip = get_external_ip()
+            info = {
+                'external_ip': external_ip,
+                'minecraft_port': 19131,
+                'connection_string': f'/connect {external_ip}:19131'
+            }
+            self.wfile.write(json.dumps(info).encode())
+            return
+        
+        # Remove query string if present
+        clean_path = self.path.split('?')[0]
+        
+        # Security: prevent directory traversal
+        if '..' in clean_path:
+            self.send_response(403)
+            self.end_headers()
+            return
+        
+        # Determine content type
+        content_types = {
+            '.html': 'text/html',
+            '.css': 'text/css',
+            '.js': 'application/javascript',
+            '.json': 'application/json'
+        }
+        
+        file_ext = os.path.splitext(clean_path)[1]
+        content_type = content_types.get(file_ext, 'text/plain')
+        
+        # Try to serve the file
+        file_path = os.path.join(static_dir, clean_path.lstrip('/'))
+        
+        try:
+            with open(file_path, 'rb') as f:
+                content = f.read()
+            self.send_response(200)
+            self.send_header('Content-type', content_type)
+            self.end_headers()
+            self.wfile.write(content)
+        except FileNotFoundError:
             self.send_response(404)
             self.end_headers()
+            self.wfile.write(b'File not found')
     
     def log_message(self, format, *args):
         # Suppress HTTP logs
@@ -1215,7 +388,7 @@ async def handle_web_client(websocket):
                 'type': 'session_info',
                 'sessionId': session_id,
                 'startTime': session_start_time.isoformat(),
-                'fileName': session_file
+                'fileName': os.path.basename(session_file)  # Send just the filename, not full path
             }))
         
         # Send current player positions
@@ -1252,6 +425,24 @@ async def handle_web_client(websocket):
         web_clients.discard(websocket)
         logger.info("Web client disconnected")
 
+async def send_welcome_message(websocket):
+    """Send welcome message to all players when they join"""
+    welcome_command = {
+        "header": {
+            "version": 1,
+            "requestId": str(uuid4()),
+            "messageType": "commandRequest",
+            "messagePurpose": "commandRequest"
+        },
+        "body": {
+            "origin": {"type": "player"},
+            "commandLine": 'tellraw @a {"rawtext":[{"text":"§6§l======\\n§r§e§lWelcome to Playtrace AI\\n§r§eYour play data is being recorded.\\n§eIf you do not want this please exit now.\\n§6§l======"}]}',
+            "version": 1
+        }
+    }
+    await websocket.send(json.dumps(welcome_command))
+    logger.info(f"📢 Sent welcome message")
+
 async def handle_minecraft_client(websocket):
     """Handle Minecraft Education Edition connections"""
     global active_players
@@ -1265,6 +456,7 @@ async def handle_minecraft_client(websocket):
     
     player_id = None
     player_name = None
+    welcome_sent = False
     
     # Start session when first player connects
     if len(active_players) == 0:
@@ -1274,14 +466,14 @@ async def handle_minecraft_client(websocket):
             'type': 'session_info',
             'sessionId': session_id,
             'startTime': session_start_time.isoformat(),
-            'fileName': session_file
+            'fileName': os.path.basename(session_file)  # Send just the filename
         })
     
     try:
-        # Send welcome message
+        # Send initial connection confirmation
         await websocket.send(json.dumps({
             "header": {"messagePurpose": "commandResponse"},
-            "body": {"statusMessage": f"Connected! Recording to {session_file}"}
+            "body": {"statusMessage": f"Connected to Playtrace AI! Session: {os.path.basename(session_file)}"}
         }))
         
         # Subscribe to events including PlayerTravelled for position updates
@@ -1319,6 +511,11 @@ async def handle_minecraft_client(websocket):
                             player_name = player_data.get('name', player_id)
                             active_players.add(player_id)
                             logger.info(f"🎯 Identified player from movement: {player_name}")
+                            
+                            # Send welcome message
+                            if not welcome_sent:
+                                await send_welcome_message(websocket)
+                                welcome_sent = True
                             
                             # Record player join event
                             record_event("player_join", {
@@ -1365,6 +562,11 @@ async def handle_minecraft_client(websocket):
                     player_name = player_data.get('name', player_id)
                     active_players.add(player_id)
                     logger.info(f"🎯 Identified player: {player_name}")
+                    
+                    # Send welcome message
+                    if not welcome_sent:
+                        await send_welcome_message(websocket)
+                        welcome_sent = True
                     
                     # Record player join event
                     record_event("player_join", {
@@ -1504,7 +706,7 @@ async def handle_minecraft_client(websocket):
 
 def run_http_server():
     """Run HTTP server in a separate thread"""
-    server = HTTPServer(('localhost', 8080), SimpleHTTPHandler)
+    server = HTTPServer(('0.0.0.0', 8080), SimpleHTTPHandler)  # Bind to all interfaces
     logger.info("🌐 Web interface running at http://localhost:8080")
     server.serve_forever()
 
@@ -1513,6 +715,12 @@ async def main():
     logger.info("=" * 60)
     logger.info("🎮 Minecraft 3D Live Tracker with AI Assessment")
     logger.info("=" * 60)
+    
+    # Ensure data directory exists
+    ensure_data_directory()
+    
+    # Get external IP
+    external_ip = get_external_ip()
     
     # Check for OpenAI API key
     if not os.getenv('OPENAI_API_KEY'):
@@ -1526,22 +734,23 @@ async def main():
     # Start WebSocket servers
     minecraft_server = await websockets.serve(
         handle_minecraft_client, 
-        '0.0.0.0', 
+        '0.0.0.0',  # Bind to all interfaces
         19131  # Minecraft port
     )
     
     web_server = await websockets.serve(
         handle_web_client,
-        'localhost',
+        '0.0.0.0',  # Bind to all interfaces
         8081  # Web updates port
     )
     
     logger.info("✅ Servers started successfully!")
     logger.info("")
-    logger.info("📡 Minecraft: Connect with /connect localhost:19131")
-    logger.info("🌐 3D Viewer: Open http://localhost:8080 in your browser")
+    logger.info(f"📡 Minecraft: Connect with /connect {external_ip}:19131")
+    logger.info(f"🌐 3D Viewer: Open http://{external_ip}:8080 in your browser")
+    logger.info(f"   Local: http://localhost:8080")
     logger.info("🤖 AI: Click 'Analyze Players with AI' button")
-    logger.info("💾 JSON file updates in real-time every 5 seconds")
+    logger.info("💾 JSON files saved to: {DATA_DIR}/ directory")
     logger.info("=" * 60)
     
     # Run forever

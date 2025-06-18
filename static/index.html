@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minecraft Live 3D Tracker with AI Assessment</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <!-- Left Panel Container -->
+    <div class="left-panel">
+        <!-- Info Section -->
+        <div id="info" class="panel-section">
+            <h3>Minecraft Live 3D Tracker</h3>
+            <div>Players: <span id="playerCount">0</span></div>
+            <div>Status: <span id="wsStatus">Connecting...</span></div>
+            <hr style="margin: 10px 0; opacity: 0.2;">
+            <div style="font-size:12px; opacity: 0.8;">
+                Left-drag: Rotate | Scroll: Zoom<br>
+                Connect: /connect localhost:19131
+            </div>
+        </div>
+        
+        <!-- Player List -->
+        <div id="playerList" class="panel-section">
+            <h4>Active Players</h4>
+            <div style="color: #999; font-size: 13px;">No players connected</div>
+        </div>
+        
+        <!-- Controls -->
+        <div id="controls" class="panel-section">
+            <h4>View Controls</h4>
+            <div class="control-item">
+                <label><input type="checkbox" id="showPath" checked> Show Path</label>
+            </div>
+            <div class="control-item">
+                <label><input type="checkbox" id="showBlocks" checked> Show Block Events</label>
+            </div>
+            <div class="control-item">
+                <label><input type="checkbox" id="showGrid" checked> Show Grid</label>
+            </div>
+            <div class="control-item">
+                <button onclick="clearPath()">Clear Path</button>
+            </div>
+            <div class="control-item">
+                <button onclick="clearBlocks()">Clear Blocks</button>
+            </div>
+        </div>
+        
+        <!-- Ground Controls -->
+        <div id="groundControls" class="panel-section">
+            <h4>Ground Settings</h4>
+            <div class="slider-container">
+                <label>Opacity: <span id="opacityValue">0.3</span></label>
+                <input type="range" id="groundOpacity" class="slider" min="0" max="100" value="30">
+            </div>
+            <div class="control-item">
+                <label><input type="checkbox" id="showGround" checked> Show Ground</label>
+            </div>
+        </div>
+        
+        <!-- AI Assessment -->
+        <div id="assessmentControls" class="panel-section">
+            <h4>AI Assessment</h4>
+            <button id="assessmentButton" onclick="analyzeWithChatGPT()">Analyze Players with AI</button>
+            <div style="font-size:11px; margin-top:8px; text-align:center; opacity: 0.7;">
+                Assess gameplay against rubric
+            </div>
+        </div>
+        
+        <!-- Session Info -->
+        <div id="sessionInfo" class="panel-section">
+            <h4>Session Info</h4>
+            <div>Session: <span id="sessionId">-</span></div>
+            <div>Duration: <span id="sessionDuration">00:00</span></div>
+            <div>Events: <span id="eventCount">0</span></div>
+            <div>File: <span id="fileName">-</span></div>
+        </div>
+        
+        <!-- Legend -->
+        <div id="legend" class="panel-section">
+            <h4>Legend</h4>
+            <div class="legend-item">
+                <span class="legend-icon player"></span>
+                <span>Player</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-icon placed"></span>
+                <span>Placed Block</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-icon broken"></span>
+                <span>Broken Block</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-icon path"></span>
+                <span>Path Trail</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Right Side Elements -->
+    <div id="status" class="disconnected">WebSocket Disconnected</div>
+    
+    <div id="eventLog">
+        <h4 style="margin-top:0">Recent Events</h4>
+        <div id="eventList"></div>
+    </div>
+    
+    <div id="saveIndicator">💾 Saved</div>
+    
+    <!-- Assessment Modal -->
+    <div id="assessmentResults">
+        <button class="close-button" onclick="closeAssessment()">✕</button>
+        <h2>AI Player Assessment</h2>
+        <div id="assessmentContent"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
