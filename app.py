@@ -436,7 +436,7 @@ async def send_welcome_message(websocket):
         },
         "body": {
             "origin": {"type": "player"},
-            "commandLine": 'tellraw @a {"rawtext":[{"text":"§6§l======\\n§r§e§lWelcome to Playtrace AI\\n§r§eYour play data is being recorded.\\n§eIf you do not want this please exit now.\\n§6§l======"}]}',
+            "commandLine": 'tellraw @a {"rawtext":[{"text":"§6§l======\\n§r§e§lWelcome to Playtrace AI 1.0\\n§r§eYour play data is being recorded.\\n§eIf you do not want this please exit now.\\n§6§l======"}]}',
             "version": 1
         }
     }
