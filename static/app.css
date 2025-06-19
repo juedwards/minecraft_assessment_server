@@ -655,3 +655,21 @@ body {
     transform: none;
     box-shadow: none;
 }
+
+/* Logo styling */
+.logo-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.app-logo {
+    height: 125px;
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.logo-header h3 {
+    margin: 0;
+    flex: 1;
+}
