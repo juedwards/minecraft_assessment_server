@@ -672,6 +672,56 @@ window.clearBlocks = clearBlocks;
 window.analyzeWithChatGPT = analyzeWithChatGPT;
 window.closeAssessment = closeAssessment;
 
+// Export session data
+function exportSessionData() {
+    if (!sessionId) {
+        alert('No active session to export. Start a session by connecting a Minecraft player first.');
+        return;
+    }
+    
+    // Disable button temporarily to prevent multiple clicks
+    const exportButton = document.getElementById('exportButton');
+    const originalText = exportButton.textContent;
+    exportButton.disabled = true;
+    exportButton.textContent = 'Exporting...';
+    
+    // Create a download link for the current session JSON
+    const fileName = sessionId + '.json';
+    const downloadUrl = `/api/export-session/${sessionId}`;
+    
+    // Create temporary link and trigger download
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = fileName;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    
+    // Handle the download
+    link.onclick = function() {
+        // Re-enable button after a short delay
+        setTimeout(() => {
+            exportButton.disabled = false;
+            exportButton.textContent = originalText;
+        }, 2000);
+    };
+    
+    link.click();
+    document.body.removeChild(link);
+    
+    console.log(`Exporting session: ${fileName}`);
+    
+    // Show a brief success message
+    const fileName_display = document.getElementById('fileName');
+    const originalFileName = fileName_display.textContent;
+    fileName_display.textContent = '✓ Exported';
+    fileName_display.style.color = '#4CAF50';
+    
+    setTimeout(() => {
+        fileName_display.textContent = originalFileName;
+        fileName_display.style.color = '';
+    }, 3000);
+}
+
 function animate() {
     requestAnimationFrame(animate);
 
@@ -725,6 +775,13 @@ function connectWebSocket() {
             sessionStartTime = new Date(data.startTime).getTime();
             document.getElementById('sessionId').textContent = sessionId.split('_').slice(-2).join('_');
             document.getElementById('fileName').textContent = data.fileName;
+            
+            // Enable export button when session is active
+            const exportButton = document.getElementById('exportButton');
+            if (exportButton) {
+                exportButton.disabled = false;
+                exportButton.title = `Export ${data.fileName}`;
+            }
         } else if (data.type === 'save_notification') {
             showSaveIndicator();
         } else if (data.type === 'position') {
@@ -771,4 +828,11 @@ window.addEventListener('resize', () => {
 // Initialize
 init();
 fetchServerInfo();  // Fetch server info including external IP
+
+// Initialize export button as disabled until session starts
+const exportButton = document.getElementById('exportButton');
+if (exportButton) {
+    exportButton.disabled = true;
+}
+
 connectWebSocket();

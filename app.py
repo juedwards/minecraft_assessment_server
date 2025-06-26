@@ -326,6 +326,37 @@ class SimpleHTTPHandler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(info).encode())
             return
         
+        # Special endpoint for session export
+        if self.path.startswith('/api/export-session/'):
+            session_name = self.path.split('/')[-1]
+            session_file_path = os.path.join(DATA_DIR, f"{session_name}.json")
+            
+            try:
+                if os.path.exists(session_file_path):
+                    self.send_response(200)
+                    self.send_header('Content-type', 'application/json')
+                    self.send_header('Content-Disposition', f'attachment; filename="{session_name}.json"')
+                    self.end_headers()
+                    
+                    with open(session_file_path, 'rb') as f:
+                        self.wfile.write(f.read())
+                    
+                    logger.info(f"📁 Exported session file: {session_name}.json")
+                    return
+                else:
+                    self.send_response(404)
+                    self.send_header('Content-type', 'application/json')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({'error': 'Session file not found'}).encode())
+                    return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({'error': str(e)}).encode())
+                logger.error(f"Error exporting session: {e}")
+                return
+
         # Special endpoint for rubric
         if self.path == '/api/rubric':
             self.send_response(200)
