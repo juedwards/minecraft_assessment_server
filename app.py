@@ -15,13 +15,17 @@ import threading
 import time
 import os
 from dotenv import load_dotenv
-import openai
+from openai import AzureOpenAI
 
 # Load environment variables
 load_dotenv()
 
-# Initialize OpenAI
-openai.api_key = os.getenv('OPENAI_API_KEY')
+# Initialize Azure OpenAI
+client = AzureOpenAI(
+    api_version=os.getenv('AZURE_OPENAI_API_VERSION', '2024-12-01-preview'),
+    azure_endpoint=os.getenv('AZURE_OPENAI_ENDPOINT'),
+    api_key=os.getenv('AZURE_OPENAI_API_KEY'),
+)
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
@@ -278,10 +282,10 @@ Include specific examples from their gameplay data and suggestions for improveme
 Format the response in a clear, structured way with sections for different rubric criteria.
 """
             
-            # Call OpenAI API
+            # Call Azure OpenAI API
             try:
-                response = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",
+                response = client.chat.completions.create(
+                    model=os.getenv('AZURE_OPENAI_DEPLOYMENT_NAME', 'gpt-4o'),
                     messages=[
                         {"role": "system", "content": "You are a Minecraft gameplay assessment expert. Analyze player data against the provided rubric and give constructive feedback. Be specific and reference actual gameplay data."},
                         {"role": "user", "content": prompt}
@@ -866,10 +870,10 @@ async def main():
     # Get external IP
     external_ip = get_external_ip()
     
-    # Check for OpenAI API key
-    if not os.getenv('OPENAI_API_KEY'):
-        logger.warning("⚠️  OpenAI API key not found! AI assessment will not work.")
-        logger.warning("   Set OPENAI_API_KEY in your .env file")
+    # Check for Azure OpenAI API key
+    if not os.getenv('AZURE_OPENAI_API_KEY'):
+        logger.warning("⚠️  Azure OpenAI API key not found! AI assessment will not work.")
+        logger.warning("   Set AZURE_OPENAI_API_KEY in your .env file")
     
     # Start HTTP server in background thread
     http_thread = threading.Thread(target=run_http_server, daemon=True)
