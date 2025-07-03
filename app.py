@@ -538,6 +538,42 @@ async def handle_web_client(websocket):
                         **analysis_result
                     }))
                 
+                elif msg.get('type') == 'clear_session':
+                    # Handle clear session request
+                    logger.info("Received clear session request")
+                    
+                    # End current session if active
+                    if session_id and active_players:
+                        end_session()
+                    
+                    # Clear global data
+                    global session_events, event_buffer, last_save_time
+                    session_events = []
+                    event_buffer = []
+                    last_save_time = time.time()
+                    
+                    # Start new session if there are active players
+                    if active_players:
+                        start_session()
+                        
+                        # Send new session info to all web clients
+                        await broadcast_to_web({
+                            'type': 'session_cleared',
+                            'sessionId': session_id,
+                            'startTime': session_start_time.isoformat() if session_start_time else None,
+                            'fileName': os.path.basename(session_file) if session_file else None
+                        })
+                    else:
+                        # No active players, just reset
+                        await broadcast_to_web({
+                            'type': 'session_cleared',
+                            'sessionId': None,
+                            'startTime': None,
+                            'fileName': None
+                        })
+                    
+                    logger.info("✨ Session cleared and ready for new recording")
+                
                 elif msg.get('type') == 'send_message':
                     # Send message to all Minecraft clients
                     message_text = msg.get('message', '')

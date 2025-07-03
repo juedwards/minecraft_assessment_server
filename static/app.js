@@ -457,6 +457,51 @@ function clearBlocks() {
     blockEvents.length = 0;
 }
 
+// Add this function to handle clearing session data
+function clearSessionData() {
+    if (confirm('Are you sure you want to clear the current session data? This will start a new recording session.')) {
+        // Send clear request to server
+        if (ws && ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify({
+                type: 'clear_session'
+            }));
+            
+            // Clear local data
+            players.clear();
+            paths.clear();
+            blockEvents = [];
+            
+            // Clear 3D scene
+            // Remove all player meshes
+            scene.children = scene.children.filter(child => {
+                if (child.userData && (child.userData.isPlayer || child.userData.isPath || child.userData.isBlock)) {
+                    return false;
+                }
+                return true;
+            });
+            
+            // Clear event log
+            document.getElementById('eventList').innerHTML = '';
+            
+            // Reset counters
+            document.getElementById('playerCount').textContent = '0';
+            document.getElementById('eventCount').textContent = '0';
+            
+            // Show notification
+            const indicator = document.getElementById('saveIndicator');
+            indicator.textContent = '🔄 Session Cleared';
+            indicator.style.display = 'block';
+            setTimeout(() => {
+                indicator.style.display = 'none';
+            }, 2000);
+            
+            console.log('Session data cleared');
+        } else {
+            alert('WebSocket is not connected. Cannot clear session.');
+        }
+    }
+}
+
 // ChatGPT Analysis Functions
 async function analyzeWithChatGPT() {
     const button = document.getElementById('assessmentButton');
@@ -671,6 +716,7 @@ window.clearPath = clearPath;
 window.clearBlocks = clearBlocks;
 window.analyzeWithChatGPT = analyzeWithChatGPT;
 window.closeAssessment = closeAssessment;
+window.clearSessionData = clearSessionData;
 
 // Export session data
 function exportSessionData() {
@@ -798,6 +844,16 @@ function connectWebSocket() {
         } else if (data.type === 'disconnect') {
             removePlayer(data.playerId);
             totalEvents++;
+        } else if (data.type === 'session_cleared') {
+            // Update session info display
+            document.getElementById('sessionId').textContent = data.sessionId || '-';
+            document.getElementById('fileName').textContent = data.fileName || '-';
+            sessionStartTime = data.startTime ? new Date(data.startTime) : null;
+            
+            // Reset duration
+            document.getElementById('sessionDuration').textContent = '00:00';
+            
+            console.log('Session cleared, new session:', data.sessionId);
         } else if (data.type === 'analysis_result') {
             displayAnalysisResults(data);
         }
