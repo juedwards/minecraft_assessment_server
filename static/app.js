@@ -511,6 +511,12 @@ async function analyzeWithChatGPT() {
     button.disabled = true;
     button.textContent = 'Analyzing...';
     
+    // Reset display to block before adding show class
+    resultsDiv.style.display = 'block';
+    
+    // Force a reflow to ensure the display change is applied
+    resultsDiv.offsetHeight;
+    
     // Show results with loading spinner
     resultsDiv.classList.add('show');
     contentDiv.innerHTML = '<div class="loading-spinner"></div><p style="text-align:center;">Analyzing player data with AI...</p>';
@@ -534,6 +540,7 @@ async function analyzeWithChatGPT() {
 function displayAnalysisResults(data) {
     const button = document.getElementById('assessmentButton');
     const contentDiv = document.getElementById('assessmentContent');
+    const resultsDiv = document.getElementById('assessmentResults');
     
     button.disabled = false;
     button.textContent = 'Analyze Players with AI';
@@ -543,7 +550,29 @@ function displayAnalysisResults(data) {
         return;
     }
     
-    let html = '';
+    // Check if there's any player data
+    if (!data.analyses || Object.keys(data.analyses).length === 0) {
+        contentDiv.innerHTML = '<p>No player data available for analysis.</p>';
+        // Make sure the modal is still properly displayed
+        resultsDiv.style.display = 'block';
+        resultsDiv.classList.add('show');
+        return;
+    }
+    
+    // Add download button at the top
+    let html = `
+        <div style="text-align: center; margin-bottom: 20px;">
+            <button id="downloadAssessmentBtn" class="download-assessment-btn" onclick="downloadAssessment()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download as Word Document
+            </button>
+        </div>
+    `;
+    
     for (const [player, analysis] of Object.entries(data.analyses)) {
         html += `
             <div class="assessment-player">
@@ -553,170 +582,53 @@ function displayAnalysisResults(data) {
         `;
     }
     
-    if (Object.keys(data.analyses).length === 0) {
-        html = '<p>No player data available for analysis.</p>';
-    }
-    
     contentDiv.innerHTML = html;
 }
 
 function closeAssessment() {
-    document.getElementById('assessmentResults').classList.remove('show');
+    const resultsDiv = document.getElementById('assessmentResults');
+    resultsDiv.classList.remove('show');
+    
+    // Wait for transition to complete before hiding
+    setTimeout(() => {
+        resultsDiv.style.display = 'none';
+        // Clear the opacity to ensure clean state
+        resultsDiv.style.opacity = '';
+    }, 300);
 }
 
-// Rubric Editor Functions
-async function openRubricEditor() {
-    const modal = document.getElementById('rubricEditor');
-    const textarea = document.getElementById('rubricContent');
+function downloadAssessment() {
+    const button = document.getElementById('downloadAssessmentBtn');
+    const originalText = button.innerHTML;
     
-    // Show modal
-    modal.classList.add('show');
-    
-    // Ensure textarea can accept paste events
-    textarea.removeAttribute('readonly');
-    textarea.removeAttribute('disabled');
-    
-    // Add paste event listener to handle paste operations
-    textarea.addEventListener('paste', handlePaste);
-    
-    // Load current rubric
-    try {
-        const response = await fetch('/api/rubric');
-        if (response.ok) {
-            const data = await response.json();
-            textarea.value = data.content;
-        } else {
-            textarea.value = 'Error loading rubric. Please try again.';
-        }
-    } catch (error) {
-        console.error('Error loading rubric:', error);
-        textarea.value = 'Error loading rubric. Please try again.';
-    }
-    
-    // Focus the textarea to make it ready for input
-    setTimeout(() => textarea.focus(), 100);
-}
-
-function handlePaste(e) {
-    // Allow default paste behavior
-    e.stopPropagation();
-    // Log for debugging
-    console.log('Paste event detected');
-}
-
-function closeRubricEditor() {
-    const modal = document.getElementById('rubricEditor');
-    const textarea = document.getElementById('rubricContent');
-    
-    // Remove paste event listener when closing
-    textarea.removeEventListener('paste', handlePaste);
-    
-    modal.classList.remove('show');
-}
-
-async function saveRubric() {
-    const textarea = document.getElementById('rubricContent');
-    const content = textarea.value;
-    
-    try {
-        const response = await fetch('/api/rubric', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ content: content })
-        });
-        
-        if (response.ok) {
-            // Show save indicator
-            showSaveIndicator();
-            closeRubricEditor();
-            
-            // Optional: Show success message
-            addEventToLog('<span style="color: #4CAF50;">✓</span> Rubric updated successfully');
-        } else {
-            const error = await response.json();
-            alert('Error saving rubric: ' + (error.error || 'Unknown error'));
-        }
-    } catch (error) {
-        console.error('Error saving rubric:', error);
-        alert('Error saving rubric. Please try again.');
-    }
-}
-
-// Send message to all players
-async function sendMessageToPlayers() {
-    const input = document.getElementById('messageInput');
-    const button = document.getElementById('sendMessageButton');
-    const message = input.value.trim();
-    
-    if (!message) {
-        return;
-    }
-    
-    // Disable button and show sending state
+    // Update button state
     button.disabled = true;
-    button.textContent = 'Sending...';
+    button.innerHTML = `
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px; animation: spin 1s linear infinite;">
+            <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <path d="M9 12l2 2 4-4"></path>
+        </svg>
+        Generating Document...
+    `;
     
-    try {
-        // Send message through WebSocket
-        if (ws && ws.readyState === WebSocket.OPEN) {
-            ws.send(JSON.stringify({
-                type: 'send_message',
-                message: message
-            }));
-            
-            // Clear input and show success
-            input.value = '';
-            addEventToLog(`<span style="color: #4CAF50;">📢</span> Sent message: "${message}"`);
-            
-            // Flash the button green
-            button.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
-            button.textContent = 'Sent!';
-            
-            setTimeout(() => {
-                button.style.background = '';
-                button.textContent = 'Send';
-                button.disabled = false;
-            }, 1500);
-        } else {
-            throw new Error('Not connected to server');
-        }
-    } catch (error) {
-        console.error('Failed to send message:', error);
-        addEventToLog(`<span style="color: #f44336;">❌</span> Failed to send message`);
-        
-        // Reset button
-        button.textContent = 'Send';
-        button.disabled = false;
-    }
+    // Create download link
+    const link = document.createElement('a');
+    link.href = '/api/download-assessment';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    
+    // Handle download completion
+    link.onclick = function() {
+        setTimeout(() => {
+            button.disabled = false;
+            button.innerHTML = originalText;
+            document.body.removeChild(link);
+        }, 1000);
+    };
+    
+    // Trigger download
+    link.click();
 }
-
-// Add enter key support for message input
-document.addEventListener('DOMContentLoaded', function() {
-    const messageInput = document.getElementById('messageInput');
-    if (messageInput) {
-        messageInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessageToPlayers();
-            }
-        });
-    }
-});
-
-// Make functions available globally
-window.openRubricEditor = openRubricEditor;
-window.closeRubricEditor = closeRubricEditor;
-window.saveRubric = saveRubric;
-window.centerGridOnPlayer = centerGridOnPlayer;
-window.sendMessageToPlayers = sendMessageToPlayers;
-
-// Make functions available globally for onclick handlers
-window.clearPath = clearPath;
-window.clearBlocks = clearBlocks;
-window.analyzeWithChatGPT = analyzeWithChatGPT;
-window.closeAssessment = closeAssessment;
-window.clearSessionData = clearSessionData;
 
 // Export session data
 function exportSessionData() {
@@ -892,3 +804,8 @@ if (exportButton) {
 }
 
 connectWebSocket();
+
+// Make functions available globally
+window.analyzeWithChatGPT = analyzeWithChatGPT;
+window.closeAssessment = closeAssessment;
+window.downloadAssessment = downloadAssessment;

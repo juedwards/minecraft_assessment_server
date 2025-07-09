@@ -611,77 +611,50 @@ body {
     z-index: 1000;
     color: white;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 #assessmentResults.show {
-    display: block;
+    opacity: 1;
 }
 
 #assessmentResults h2 {
     margin-top: 0;
     margin-bottom: 20px;
-    color: #333;
+    color: white; /* Changed from #333 to white for better visibility */
     padding-right: 60px; /* Add padding to prevent overlap with close button */
 }
 
-/* Message Controls */
-.message-input-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 8px;
-}
-
-#messageInput {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 13px;
-    transition: all 0.2s;
-}
-
-#messageInput:focus {
-    outline: none;
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-#messageInput::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-#sendMessageButton {
-    width: 100%;
-    background: linear-gradient(135deg, #4CAF50, #45a049);
+/* Ensure close button is properly positioned and styled */
+#assessmentResults .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ff4444;
     color: white;
     border: none;
-    padding: 10px 16px;
     border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.3s;
-    white-space: nowrap;
+    padding: 6px 12px;
+    transition: all 0.2s ease;
+    z-index: 10;
 }
 
-#sendMessageButton:hover {
-    background: linear-gradient(135deg, #45a049, #3d8b40);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+#assessmentResults .close-button:hover {
+    background: #cc0000;
 }
 
-#sendMessageButton:active {
-    transform: translateY(0);
+#assessmentResults .close-button:active {
+    transform: scale(0.95);
 }
 
-#sendMessageButton:disabled {
-    background: #555;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+/* Spin animation for loading */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Logo styling */
