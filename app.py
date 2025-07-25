@@ -753,7 +753,7 @@ async def send_welcome_message(websocket):
         },
         "body": {
             "origin": {"type": "player"},
-            "commandLine": 'tellraw @a {"rawtext":[{"text":"§6§l======\\n§r§e§lWelcome to Playtrace AI 1.0\\n§r§eYour play data is being recorded.\\n§eIf you do not want this please exit now.\\n§6§l======"}]}',
+            "commandLine": 'tellraw @a {"rawtext":[{"text":"§6§l======\\n§r§e§lWelcome to Playtrace AI 1.1\\n§r§eYour game data is being recorded.\\n§eIf you do not want this please exit now.\\n§6§l======"}]}',
             "version": 1
         }
     }
@@ -796,8 +796,8 @@ async def handle_minecraft_client(websocket):
             "body": {"statusMessage": f"Connected to Playtrace AI! Session: {os.path.basename(session_file)}"}
         }))
         
-        # Subscribe to events including PlayerTravelled for position updates
-        for event_name in ["BlockPlaced", "BlockBroken", "PlayerTravelled"]:
+        # Subscribe to events including PlayerTravelled for position updates and PlayerMessage for chat
+        for event_name in ["BlockPlaced", "BlockBroken", "PlayerTravelled", "PlayerMessage"]:
             await websocket.send(json.dumps({
                 "header": {
                     "version": 1,
@@ -822,8 +822,43 @@ async def handle_minecraft_client(websocket):
                 header = msg.get('header', {})
                 body = msg.get('body', {})
                 
+                # Handle PlayerMessage event for chat
+                if header.get('eventName') == 'PlayerMessage' and header.get('messagePurpose') == 'event':
+                    message_type = body.get('type', '')
+                    message_text = body.get('message', '')
+                    sender = body.get('sender', 'Unknown')
+                    
+                    # Try to get player info if available
+                    if 'player' in body:
+                        player_data = body['player']
+                        chat_player_id = str(player_data.get('id', sender))
+                        chat_player_name = player_data.get('name', sender)
+                    else:
+                        # Use the sender field or current player info
+                        chat_player_id = player_id or sender
+                        chat_player_name = player_name or sender
+                    
+                    # Record chat event
+                    record_event("player_chat", {
+                        "player_id": chat_player_id,
+                        "player_name": chat_player_name,
+                        "message": message_text,
+                        "message_type": message_type,
+                        "sender": sender
+                    })
+                    
+                    # Broadcast to web clients
+                    await broadcast_to_web({
+                        'type': 'player_chat',
+                        'playerId': chat_player_id,
+                        'playerName': chat_player_name,
+                        'message': message_text
+                    })
+                    
+                    logger.info(f"💬 Chat from {chat_player_name}: {message_text}")
+                
                 # Handle PlayerTravelled event for continuous position updates
-                if header.get('eventName') == 'PlayerTravelled' and header.get('messagePurpose') == 'event':
+                elif header.get('eventName') == 'PlayerTravelled' and header.get('messagePurpose') == 'event':
                     if 'player' in body:
                         player_data = body['player']
                         if player_id is None:

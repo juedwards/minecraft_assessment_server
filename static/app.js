@@ -756,6 +756,10 @@ function connectWebSocket() {
         } else if (data.type === 'disconnect') {
             removePlayer(data.playerId);
             totalEvents++;
+        } else if (data.type === 'player_chat') {
+            // Add chat message to event log
+            addEventToLog(`<span style="color: #9C27B0;">💬</span> ${data.playerName}: "${data.message}"`);
+            totalEvents++;
         } else if (data.type === 'session_cleared') {
             // Update session info display
             document.getElementById('sessionId').textContent = data.sessionId || '-';
@@ -809,3 +813,105 @@ connectWebSocket();
 window.analyzeWithChatGPT = analyzeWithChatGPT;
 window.closeAssessment = closeAssessment;
 window.downloadAssessment = downloadAssessment;
+
+// Rubric Editor Functions
+async function openRubricEditor() {
+    const modal = document.getElementById('rubricEditor');
+    const textarea = document.getElementById('rubricContent');
+    
+    // Show modal
+    modal.style.display = 'block';
+    
+    // Load current rubric
+    try {
+        const response = await fetch('/api/rubric');
+        const data = await response.json();
+        textarea.value = data.content || '';
+        textarea.disabled = false;
+    } catch (error) {
+        textarea.value = 'Error loading rubric: ' + error.message;
+        textarea.disabled = true;
+    }
+}
+
+function closeRubricEditor() {
+    const modal = document.getElementById('rubricEditor');
+    modal.style.display = 'none';
+}
+
+async function saveRubric() {
+    const textarea = document.getElementById('rubricContent');
+    const saveButton = document.querySelector('.save-button');
+    
+    saveButton.disabled = true;
+    saveButton.textContent = 'Saving...';
+    
+    try {
+        const response = await fetch('/api/rubric', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                content: textarea.value
+            })
+        });
+        
+        if (response.ok) {
+            // Show success message
+            addEventToLog('<span style="color: #4CAF50;">✓</span> Rubric saved successfully');
+            closeRubricEditor();
+        } else {
+            throw new Error('Failed to save rubric');
+        }
+    } catch (error) {
+        alert('Error saving rubric: ' + error.message);
+    } finally {
+        saveButton.disabled = false;
+        saveButton.textContent = 'Save Changes';
+    }
+}
+
+// Send message to players function
+function sendMessageToPlayers() {
+    const input = document.getElementById('messageInput');
+    const message = input.value.trim();
+    
+    if (!message) {
+        return;
+    }
+    
+    if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+            type: 'send_message',
+            message: message
+        }));
+        
+        // Clear input
+        input.value = '';
+        
+        // Show confirmation
+        addEventToLog(`<span style="color: #2196F3;">📨</span> Message sent: "${message}"`);
+    } else {
+        alert('WebSocket not connected. Cannot send message.');
+    }
+}
+
+// Make rubric functions available globally
+window.openRubricEditor = openRubricEditor;
+window.closeRubricEditor = closeRubricEditor;
+window.saveRubric = saveRubric;
+window.sendMessageToPlayers = sendMessageToPlayers;
+window.centerGridOnPlayer = centerGridOnPlayer;
+window.clearPath = clearPath;
+window.clearBlocks = clearBlocks;
+window.clearSessionData = clearSessionData;
+window.exportSessionData = exportSessionData;
+
+// Close modal when clicking outside of it
+window.onclick = function(event) {
+    const rubricModal = document.getElementById('rubricEditor');
+    if (event.target === rubricModal) {
+        closeRubricEditor();
+    }
+}
