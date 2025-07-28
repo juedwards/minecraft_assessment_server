@@ -507,9 +507,13 @@ async function analyzeWithChatGPT() {
     const button = document.getElementById('assessmentButton');
     const resultsDiv = document.getElementById('assessmentResults');
     const contentDiv = document.getElementById('assessmentContent');
+    const backdrop = document.getElementById('assessmentBackdrop');
     
     button.disabled = true;
     button.textContent = 'Analyzing...';
+    
+    // Show backdrop
+    backdrop.classList.add('show');
     
     // Reset display to block before adding show class
     resultsDiv.style.display = 'block';
@@ -535,6 +539,50 @@ async function analyzeWithChatGPT() {
         button.disabled = false;
         button.textContent = 'Analyze Players with AI';
     }
+}
+
+function parseMarkdownToHTML(text) {
+    // Basic Markdown parsing
+    let html = text;
+    
+    // Headers
+    html = html.replace(/^#### (.*?)$/gm, '<h4>$1</h4>');
+    html = html.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
+    html = html.replace(/^## (.*?)$/gm, '<h2>$1</h2>');
+    html = html.replace(/^# (.*?)$/gm, '<h1>$1</h1>');
+    
+    // Bold and italic
+    html = html.replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>');
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    
+    // Code blocks
+    html = html.replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>');
+    html = html.replace(/`(.*?)`/g, '<code>$1</code>');
+    
+    // Lists
+    html = html.replace(/^\* (.*?)$/gm, '<li>$1</li>');
+    html = html.replace(/^- (.*?)$/gm, '<li>$1</li>');
+    html = html.replace(/^\d+\. (.*?)$/gm, '<li>$1</li>');
+    
+    // Wrap consecutive list items in ul/ol tags
+    html = html.replace(/(<li>.*?<\/li>\s*)+/gs, function(match) {
+        return '<ul>' + match + '</ul>';
+    });
+    
+    // Paragraphs
+    html = html.split('\n\n').map(para => {
+        if (!para.trim()) return '';
+        if (para.includes('<h') || para.includes('<ul') || para.includes('<ol')) {
+            return para;
+        }
+        return '<p>' + para + '</p>';
+    }).join('\n');
+    
+    // Line breaks
+    html = html.replace(/\n/g, '<br>');
+    
+    return html;
 }
 
 function displayAnalysisResults(data) {
@@ -574,10 +622,11 @@ function displayAnalysisResults(data) {
     `;
     
     for (const [player, analysis] of Object.entries(data.analyses)) {
+        const parsedContent = parseMarkdownToHTML(analysis);
         html += `
             <div class="assessment-player">
                 <h3>${player}</h3>
-                <div class="assessment-content">${analysis}</div>
+                <div class="assessment-content">${parsedContent}</div>
             </div>
         `;
     }
@@ -587,7 +636,10 @@ function displayAnalysisResults(data) {
 
 function closeAssessment() {
     const resultsDiv = document.getElementById('assessmentResults');
+    const backdrop = document.getElementById('assessmentBackdrop');
+    
     resultsDiv.classList.remove('show');
+    backdrop.classList.remove('show');
     
     // Wait for transition to complete before hiding
     setTimeout(() => {
@@ -911,7 +963,15 @@ window.exportSessionData = exportSessionData;
 // Close modal when clicking outside of it
 window.onclick = function(event) {
     const rubricModal = document.getElementById('rubricEditor');
+    const assessmentModal = document.getElementById('assessmentResults');
+    const backdrop = document.getElementById('assessmentBackdrop');
+    
     if (event.target === rubricModal) {
         closeRubricEditor();
+    }
+    
+    // Close assessment modal when clicking on backdrop
+    if (event.target === backdrop) {
+        closeAssessment();
     }
 }
