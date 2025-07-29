@@ -629,6 +629,46 @@ async def send_message_to_minecraft(websocket, message):
     await websocket.send(json.dumps(command))
     logger.info(f"📢 Sent message to players: {message}")
 
+async def send_command_to_minecraft(websocket, command, target_players=None, is_player_specific=False):
+    """Send a command to Minecraft"""
+    # Prepare the command
+    if is_player_specific and target_players:
+        # For player-specific commands, we need to run the command for each player
+        for player_name in target_players:
+            player_command = command.replace('@t', f'@a[name={player_name}]')
+            cmd = {
+                "header": {
+                    "version": 1,
+                    "requestId": str(uuid4()),
+                    "messageType": "commandRequest",
+                    "messagePurpose": "commandRequest"
+                },
+                "body": {
+                    "origin": {"type": "player"},
+                    "commandLine": player_command,
+                    "version": 1
+                }
+            }
+            await websocket.send(json.dumps(cmd))
+            logger.info(f"🎮 Sent command for {player_name}: {player_command}")
+    else:
+        # For global commands, send once
+        cmd = {
+            "header": {
+                "version": 1,
+                "requestId": str(uuid4()),
+                "messageType": "commandRequest",
+                "messagePurpose": "commandRequest"
+            },
+            "body": {
+                "origin": {"type": "player"},
+                "commandLine": command,
+                "version": 1
+            }
+        }
+        await websocket.send(json.dumps(cmd))
+        logger.info(f"🎮 Sent command: {command}")
+
 # Store active Minecraft connections
 minecraft_connections = set()
 
@@ -732,6 +772,47 @@ async def handle_web_client(websocket):
                         minecraft_connections.difference_update(disconnected)
                         
                         logger.info(f"📨 Message sent to {len(minecraft_connections)} Minecraft clients")
+                
+                elif msg.get('type') == 'game_command':
+                    # Handle game command request
+                    command = msg.get('command', '')
+                    target_mode = msg.get('targetMode', 'all')
+                    target_players = msg.get('targetPlayers', [])
+                    is_player_specific = msg.get('isPlayerSpecific', False)
+                    
+                    if command:
+                        # Record the command event
+                        record_event("game_command", {
+                            "command": command,
+                            "target_mode": target_mode,
+                            "target_players": target_players,
+                            "sender": "web_interface"
+                        })
+                        
+                        # Send to all connected Minecraft clients
+                        disconnected = set()
+                        
+                        # Get player names for selected players
+                        selected_player_names = []
+                        if target_mode == 'selected' and target_players:
+                            for player_id in target_players:
+                                for pid, pos in player_positions.items():
+                                    if pid == player_id:
+                                        selected_player_names.append(pos.get('name', player_id))
+                        
+                        for mc_client in minecraft_connections:
+                            try:
+                                if target_mode == 'all' or not is_player_specific:
+                                    await send_command_to_minecraft(mc_client, command)
+                                else:
+                                    await send_command_to_minecraft(mc_client, command, selected_player_names, is_player_specific)
+                            except:
+                                disconnected.add(mc_client)
+                        
+                        # Remove disconnected clients
+                        minecraft_connections.difference_update(disconnected)
+                        
+                        logger.info(f"🎮 Command sent to {len(minecraft_connections)} Minecraft clients")
                         
             except Exception as e:
                 logger.error(f"Error handling web client message: {e}")

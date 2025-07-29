@@ -949,29 +949,115 @@ function sendMessageToPlayers() {
     }
 }
 
-// Make rubric functions available globally
-window.openRubricEditor = openRubricEditor;
-window.closeRubricEditor = closeRubricEditor;
-window.saveRubric = saveRubric;
-window.sendMessageToPlayers = sendMessageToPlayers;
-window.centerGridOnPlayer = centerGridOnPlayer;
-window.clearPath = clearPath;
-window.clearBlocks = clearBlocks;
-window.clearSessionData = clearSessionData;
-window.exportSessionData = exportSessionData;
+// Game Controls Functions
+function openGameControls() {
+    const modal = document.getElementById('gameControlsModal');
+    modal.style.display = 'block';
+    
+    // Update player selection list
+    updatePlayerSelectionList();
+    
+    // Reset to "All Players" selection
+    document.querySelector('input[name="targetPlayers"][value="all"]').checked = true;
+    document.getElementById('playerSelectionList').style.display = 'none';
+}
+
+function closeGameControls() {
+    const modal = document.getElementById('gameControlsModal');
+    modal.style.display = 'none';
+}
+
+function updatePlayerSelectionList() {
+    const listDiv = document.getElementById('playerSelectionList');
+    listDiv.innerHTML = '';
+    
+    players.forEach((player, playerId) => {
+        const checkbox = document.createElement('label');
+        checkbox.className = 'player-checkbox';
+        checkbox.innerHTML = `
+            <input type="checkbox" value="${playerId}" checked>
+            <span style="background-color: ${player.color}"></span>
+            ${player.name}
+        `;
+        listDiv.appendChild(checkbox);
+    });
+    
+    if (players.size === 0) {
+        listDiv.innerHTML = '<div style="color: #999; font-size: 13px;">No players connected</div>';
+    }
+}
+
+function sendGameCommand(command, isPlayerSpecific = false) {
+    const targetMode = document.querySelector('input[name="targetPlayers"]:checked').value;
+    let targetPlayers = [];
+    
+    if (targetMode === 'selected') {
+        // Get selected players
+        const checkboxes = document.querySelectorAll('#playerSelectionList input[type="checkbox"]:checked');
+        targetPlayers = Array.from(checkboxes).map(cb => cb.value);
+        
+        if (targetPlayers.length === 0) {
+            alert('Please select at least one player');
+            return;
+        }
+    }
+    
+    // Send command via WebSocket
+    if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+            type: 'game_command',
+            command: command,
+            targetMode: targetMode,
+            targetPlayers: targetPlayers,
+            isPlayerSpecific: isPlayerSpecific
+        }));
+        
+        // Show confirmation
+        addEventToLog(`<span style="color: #9C27B0;">🎮</span> Command sent: ${command}`);
+        
+        // Visual feedback
+        event.target.style.background = 'rgba(76, 175, 80, 0.3)';
+        setTimeout(() => {
+            event.target.style.background = '';
+        }, 500);
+    } else {
+        alert('WebSocket not connected. Cannot send command.');
+    }
+}
+
+// Update radio button change handler
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listeners for target player radio buttons
+    const radioButtons = document.querySelectorAll('input[name="targetPlayers"]');
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', function() {
+            const playerSelectionList = document.getElementById('playerSelectionList');
+            if (this.value === 'selected') {
+                playerSelectionList.style.display = 'block';
+                updatePlayerSelectionList();
+            } else {
+                playerSelectionList.style.display = 'none';
+            }
+        });
+    });
+});
 
 // Close modal when clicking outside of it
 window.onclick = function(event) {
     const rubricModal = document.getElementById('rubricEditor');
     const assessmentModal = document.getElementById('assessmentResults');
     const backdrop = document.getElementById('assessmentBackdrop');
+    const gameControlsModal = document.getElementById('gameControlsModal');
     
     if (event.target === rubricModal) {
         closeRubricEditor();
     }
     
-    // Close assessment modal when clicking on backdrop
     if (event.target === backdrop) {
         closeAssessment();
+    }
+    
+    if (event.target === gameControlsModal) {
+        closeGameControls();
     }
 }
