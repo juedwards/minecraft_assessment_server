@@ -812,6 +812,28 @@ function connectWebSocket() {
             // Add chat message to event log
             addEventToLog(`<span style="color: #9C27B0;">💬</span> ${data.playerName}: "${data.message}"`);
             totalEvents++;
+        } else if (data.type === 'player_event') {
+            // Handle special player events (death, achievements, etc.)
+            let icon = '📌';
+            let color = '#2196F3';
+            
+            switch(data.eventType) {
+                case 'death':
+                    icon = '💀';
+                    color = '#F44336';
+                    break;
+                case 'achievement':
+                    icon = '🏆';
+                    color = '#FFD700';
+                    break;
+                case 'combat':
+                    icon = '⚔️';
+                    color = '#FF5722';
+                    break;
+            }
+            
+            addEventToLog(`<span style="color: ${color};">${icon}</span> ${data.playerName} ${data.details}`);
+            totalEvents++;
         } else if (data.type === 'session_cleared') {
             // Update session info display
             document.getElementById('sessionId').textContent = data.sessionId || '-';

@@ -877,8 +877,33 @@ async def handle_minecraft_client(websocket):
             "body": {"statusMessage": f"Connected to Playtrace AI! Session: {os.path.basename(session_file)}"}
         }))
         
-        # Subscribe to events including PlayerTravelled for position updates and PlayerMessage for chat
-        for event_name in ["BlockPlaced", "BlockBroken", "PlayerTravelled", "PlayerMessage"]:
+        # Subscribe to a comprehensive list of events
+        events_to_subscribe = [
+            # Core events we already have
+            "BlockPlaced", "BlockBroken", "PlayerTravelled", "PlayerMessage",
+            # Additional player events
+            "ItemUsed", "ItemInteracted", "ItemCrafted", "ItemSmelted",
+            "ItemEquipped", "ItemDropped", "ItemPickedUp",
+            # Combat and damage events
+            "PlayerDied", "MobKilled", "PlayerHurt", "PlayerAttack",
+            # World interaction events
+            "DoorUsed", "ChestOpened", "ContainerClosed", "ButtonPressed",
+            "LeverUsed", "PressurePlateActivated", 
+            # Movement events
+            "PlayerJump", "PlayerSneak", "PlayerSprint", "PlayerSwim",
+            "PlayerClimb", "PlayerGlide", "PlayerTeleport",
+            # Achievement/advancement events
+            "AwardAchievement", "PlayerTransform",
+            # Entity events
+            "EntitySpawned", "EntityRemoved", "EntityInteracted",
+            # World events
+            "WeatherChanged", "TimeChanged", "GameRulesUpdated",
+            # Other useful events
+            "PlayerEat", "PlayerSleep", "PlayerWake", "CameraUsed",
+            "BookEdited", "BossKilled", "RaidCompleted", "TradeCompleted"
+        ]
+        
+        for event_name in events_to_subscribe:
             await websocket.send(json.dumps({
                 "header": {
                     "version": 1,
@@ -890,7 +915,8 @@ async def handle_minecraft_client(websocket):
                     "eventName": event_name
                 }
             }))
-            logger.info(f"📋 Subscribed to {event_name}")
+        
+        logger.info(f"📋 Subscribed to {len(events_to_subscribe)} event types")
         
         # Position update counter for throttling
         position_update_counter = 0
@@ -902,97 +928,10 @@ async def handle_minecraft_client(websocket):
                 # Extract header and body
                 header = msg.get('header', {})
                 body = msg.get('body', {})
+                event_name = header.get('eventName', '')
                 
-                # Handle PlayerMessage event for chat
-                if header.get('eventName') == 'PlayerMessage' and header.get('messagePurpose') == 'event':
-                    message_type = body.get('type', '')
-                    message_text = body.get('message', '')
-                    sender = body.get('sender', 'Unknown')
-                    
-                    # Try to get player info if available
-                    if 'player' in body:
-                        player_data = body['player']
-                        chat_player_id = str(player_data.get('id', sender))
-                        chat_player_name = player_data.get('name', sender)
-                    else:
-                        # Use the sender field or current player info
-                        chat_player_id = player_id or sender
-                        chat_player_name = player_name or sender
-                    
-                    # Record chat event
-                    record_event("player_chat", {
-                        "player_id": chat_player_id,
-                        "player_name": chat_player_name,
-                        "message": message_text,
-                        "message_type": message_type,
-                        "sender": sender
-                    })
-                    
-                    # Broadcast to web clients
-                    await broadcast_to_web({
-                        'type': 'player_chat',
-                        'playerId': chat_player_id,
-                        'playerName': chat_player_name,
-                        'message': message_text
-                    })
-                    
-                    logger.info(f"💬 Chat from {chat_player_name}: {message_text}")
-                
-                # Handle PlayerTravelled event for continuous position updates
-                elif header.get('eventName') == 'PlayerTravelled' and header.get('messagePurpose') == 'event':
-                    if 'player' in body:
-                        player_data = body['player']
-                        if player_id is None:
-                            player_id = str(player_data.get('id', f"Player_{int(time.time()) % 1000}"))
-                            player_name = player_data.get('name', player_id)
-                            active_players.add(player_id)
-                            logger.info(f"🎯 Identified player from movement: {player_name}")
-                            
-                            # Send welcome message
-                            if not welcome_sent:
-                                await send_welcome_message(websocket)
-                                welcome_sent = True
-                            
-                            # Record player join event
-                            record_event("player_join", {
-                                "player_id": player_id,
-                                "player_name": player_name,
-                                "address": client_addr
-                            })
-                        
-                        if 'position' in player_data:
-                            pos = player_data['position']
-                            pos_x = float(pos['x'])
-                            pos_y = float(pos['y'])
-                            pos_z = float(pos['z'])
-                            
-                            player_positions[player_id] = {
-                                'x': pos_x,
-                                'y': pos_y,
-                                'z': pos_z,
-                                'name': player_name
-                            }
-                            
-                            # Only record position every 10 updates to avoid spam
-                            position_update_counter += 1
-                            if (position_update_counter % 10) == 0:
-                                record_event("player_position", {
-                                    "player_id": player_id,
-                                    "player_name": player_name,
-                                    "position": {"x": pos_x, "y": pos_y, "z": pos_z}
-                                })
-                            
-                            await broadcast_to_web({
-                                'type': 'position',
-                                'playerId': player_id,
-                                'playerName': player_name,
-                                'x': pos_x,
-                                'y': pos_y,
-                                'z': pos_z
-                            })
-                
-                # Also check for player data in any message (for initial position from block events)
-                elif 'player' in body and player_id is None:
+                # Get player info if available
+                if 'player' in body and player_id is None:
                     player_data = body['player']
                     player_id = str(player_data.get('id', f"Player_{int(time.time()) % 1000}"))
                     player_name = player_data.get('name', player_id)
@@ -1010,101 +949,302 @@ async def handle_minecraft_client(websocket):
                         "player_name": player_name,
                         "address": client_addr
                     })
+                
+                # Handle all events
+                if header.get('messagePurpose') == 'event':
+                    # Extract common player data
+                    player_data = body.get('player', {})
+                    current_player_id = str(player_data.get('id', player_id)) if player_data else player_id
+                    current_player_name = player_data.get('name', player_name) if player_data else player_name
                     
-                    if 'position' in player_data:
-                        pos = player_data['position']
-                        pos_x = float(pos['x'])
-                        pos_y = float(pos['y'])
-                        pos_z = float(pos['z'])
+                    # Handle PlayerMessage event for chat
+                    if event_name == 'PlayerMessage':
+                        message_type = body.get('type', '')
+                        message_text = body.get('message', '')
+                        sender = body.get('sender', 'Unknown')
                         
-                        player_positions[player_id] = {
-                            'x': pos_x,
-                            'y': pos_y,
-                            'z': pos_z,
-                            'name': player_name
-                        }
+                        # Record chat event
+                        record_event("player_chat", {
+                            "player_id": current_player_id,
+                            "player_name": current_player_name,
+                            "message": message_text,
+                            "message_type": message_type,
+                            "sender": sender
+                        })
+                        
+                        # Broadcast to web clients
+                        await broadcast_to_web({
+                            'type': 'player_chat',
+                            'playerId': current_player_id,
+                            'playerName': current_player_name,
+                            'message': message_text
+                        })
+                        
+                        logger.info(f"💬 Chat from {current_player_name}: {message_text}")
+                    
+                    # Handle PlayerTravelled event
+                    elif event_name == 'PlayerTravelled':
+                        if 'position' in player_data:
+                            pos = player_data['position']
+                            pos_x = float(pos['x'])
+                            pos_y = float(pos['y'])
+                            pos_z = float(pos['z'])
+                            
+                            player_positions[current_player_id] = {
+                                'x': pos_x,
+                                'y': pos_y,
+                                'z': pos_z,
+                                'name': current_player_name
+                            }
+                            
+                            # Only record position every 10 updates to avoid spam
+                            position_update_counter += 1
+                            if (position_update_counter % 10) == 0:
+                                record_event("player_position", {
+                                    "player_id": current_player_id,
+                                    "player_name": current_player_name,
+                                    "position": {"x": pos_x, "y": pos_y, "z": pos_z},
+                                    "dimension": player_data.get('dimension', 'overworld')
+                                })
                         
                         await broadcast_to_web({
                             'type': 'position',
-                            'playerId': player_id,
-                            'playerName': player_name,
+                            'playerId': current_player_id,
+                            'playerName': current_player_name,
                             'x': pos_x,
                             'y': pos_y,
                             'z': pos_z
                         })
-                
-                # Handle block events
-                if header.get('eventName') == 'BlockPlaced' and header.get('messagePurpose') == 'event':
-                    player_pos = body.get('player', {}).get('position', {})
-                    block_x = int(player_pos.get('x', 0))
-                    block_y = int(player_pos.get('y', 0))
-                    block_z = int(player_pos.get('z', 0))
                     
-                    block_info = body.get('block', {})
-                    block_id = block_info.get('id', 'unknown')
-                    block_namespace = block_info.get('namespace', 'minecraft')
-                    block_type = f"{block_namespace}:{block_id}"
+                    # Handle block events (existing code)
+                    elif event_name == 'BlockPlaced':
+                        player_pos = body.get('player', {}).get('position', {})
+                        block_x = int(player_pos.get('x', 0))
+                        block_y = int(player_pos.get('y', 0))
+                        block_z = int(player_pos.get('z', 0))
+                        
+                        block_info = body.get('block', {})
+                        block_id = block_info.get('id', 'unknown')
+                        block_namespace = block_info.get('namespace', 'minecraft')
+                        block_type = f"{block_namespace}:{block_id}"
+                        
+                        # Record block placed event
+                        record_event("block_placed", {
+                            "player_id": player_id,
+                            "player_name": player_name,
+                            "block_type": block_type,
+                            "player_position": {"x": player_pos.get('x', 0), "y": player_pos.get('y', 0), "z": player_pos.get('z', 0)},
+                            "estimated_block_position": {"x": block_x, "y": block_y + 1, "z": block_z}
+                        })
+                        
+                        await broadcast_to_web({
+                            'type': 'block_place',
+                            'x': player_pos.get('x', 0),
+                            'y': player_pos.get('y', 0),
+                            'z': player_pos.get('z', 0),
+                            'blockPos': {
+                                'x': block_x,
+                                'y': block_y + 1,
+                                'z': block_z
+                            },
+                            'blockType': block_type,
+                            'playerName': player_name or 'Unknown'
+                        })
+                        
+                        logger.info(f"🟩 Block placed: {block_type} near ({block_x}, {block_y}, {block_z}) by {player_name}")
                     
-                    # Record block placed event
-                    record_event("block_placed", {
-                        "player_id": player_id,
-                        "player_name": player_name,
-                        "block_type": block_type,
-                        "player_position": {"x": player_pos.get('x', 0), "y": player_pos.get('y', 0), "z": player_pos.get('z', 0)},
-                        "estimated_block_position": {"x": block_x, "y": block_y + 1, "z": block_z}
-                    })
+                    elif event_name == 'BlockBroken':
+                        player_pos = body.get('player', {}).get('position', {})
+                        block_x = int(player_pos.get('x', 0))
+                        block_y = int(player_pos.get('y', 0))
+                        block_z = int(player_pos.get('z', 0))
+                        
+                        block_info = body.get('block', {})
+                        block_id = block_info.get('id', 'unknown')
+                        block_namespace = block_info.get('namespace', 'minecraft')
+                        block_type = f"{block_namespace}:{block_id}"
+                        
+                        # Record block broken event
+                        record_event("block_broken", {
+                            "player_id": player_id,
+                            "player_name": player_name,
+                            "block_type": block_type,
+                            "player_position": {"x": player_pos.get('x', 0), "y": player_pos.get('y', 0), "z": player_pos.get('z', 0)},
+                            "estimated_block_position": {"x": block_x, "y": block_y, "z": block_z}
+                        })
+                        
+                        await broadcast_to_web({
+                            'type': 'block_break',
+                            'x': player_pos.get('x', 0),
+                            'y': player_pos.get('y', 0),
+                            'z': player_pos.get('z', 0),
+                            'blockPos': {
+                                'x': block_x,
+                                'y': block_y,
+                                'z': block_z
+                            },
+                            'blockType': block_type,
+                            'playerName': player_name or 'Unknown'
+                        })
+                        
+                        logger.info(f"🟥 Block broken: {block_type} near ({block_x}, {block_y}, {block_z}) by {player_name}")
                     
-                    await broadcast_to_web({
-                        'type': 'block_place',
-                        'x': player_pos.get('x', 0),
-                        'y': player_pos.get('y', 0),
-                        'z': player_pos.get('z', 0),
-                        'blockPos': {
-                            'x': block_x,
-                            'y': block_y + 1,
-                            'z': block_z
-                        },
-                        'blockType': block_type,
-                        'playerName': player_name or 'Unknown'
-                    })
+                    # Handle item events
+                    elif event_name == 'ItemUsed':
+                        item_data = body.get('item', {})
+                        record_event("item_used", {
+                            "player_id": current_player_id,
+                            "player_name": current_player_name,
+                            "item": f"{item_data.get('namespace', 'minecraft')}:{item_data.get('id', 'unknown')}",
+                            "count": body.get('count', 1),
+                            "position": player_data.get('position', {})
+                        })
+                        logger.info(f"🔧 {current_player_name} used item: {item_data.get('id', 'unknown')}")
                     
-                    logger.info(f"🟩 Block placed: {block_type} near ({block_x}, {block_y}, {block_z}) by {player_name}")
-                
-                elif header.get('eventName') == 'BlockBroken' and header.get('messagePurpose') == 'event':
-                    player_pos = body.get('player', {}).get('position', {})
-                    block_x = int(player_pos.get('x', 0))
-                    block_y = int(player_pos.get('y', 0))
-                    block_z = int(player_pos.get('z', 0))
+                    elif event_name == 'ItemCrafted':
+                        item_data = body.get('item', {})
+                        record_event("item_crafted", {
+                            "player_id": current_player_id,
+                            "player_name": current_player_name,
+                            "item": f"{item_data.get('namespace', 'minecraft')}:{item_data.get('id', 'unknown')}",
+                            "count": body.get('count', 1)
+                        })
+                        logger.info(f"🔨 {current_player_name} crafted: {item_data.get('id', 'unknown')}")
                     
-                    block_info = body.get('block', {})
-                    block_id = block_info.get('id', 'unknown')
-                    block_namespace = block_info.get('namespace', 'minecraft')
-                    block_type = f"{block_namespace}:{block_id}"
+                    elif event_name == 'ItemEquipped':
+                        item_data = body.get('item', {})
+                        record_event("item_equipped", {
+                            "player_id": current_player_id,
+                            "player_name": current_player_name,
+                            "item": f"{item_data.get('namespace', 'minecraft')}:{item_data.get('id', 'unknown')}",
+                            "slot": body.get('slot', 'unknown')
+                        })
                     
-                    # Record block broken event
-                    record_event("block_broken", {
-                        "player_id": player_id,
-                        "player_name": player_name,
-                        "block_type": block_type,
-                        "player_position": {"x": player_pos.get('x', 0), "y": player_pos.get('y', 0), "z": player_pos.get('z', 0)},
-                        "estimated_block_position": {"x": block_x, "y": block_y, "z": block_z}
-                    })
+                    elif event_name == 'ItemDropped':
+                        item_data = body.get('item', {})
+                        record_event("item_dropped", {
+                            "player_id": current_player_id,
+                            "player_name": current_player_name,
+                            "item": f"{item_data.get('namespace', 'minecraft')}:{item_data.get('id', 'unknown')}",
+                            "count": body.get('count', 1),
+                            "position": player_data.get('position', {})
+                        })
                     
-                    await broadcast_to_web({
-                        'type': 'block_break',
-                        'x': player_pos.get('x', 0),
-                        'y': player_pos.get('y', 0),
-                        'z': player_pos.get('z', 0),
-                        'blockPos': {
-                            'x': block_x,
-                            'y': block_y,
-                            'z': block_z
-                        },
-                        'blockType': block_type,
-                        'playerName': player_name or 'Unknown'
-                    })
+                    elif event_name == 'ItemPickedUp':
+                        item_data = body.get('item', {})
+                        record_event("item_picked_up", {
+                            "player_id": current_player_id,
+                            "player_name": current_player_name,
+                            "item": f"{item_data.get('namespace', 'minecraft')}:{item_data.get('id', 'unknown')}",
+                            "count": body.get('count', 1),
+                            "position": player_data.get('position', {})
+                        })
                     
-                    logger.info(f"🟥 Block broken: {block_type} near ({block_x}, {block_y}, {block_z}) by {player_name}")
+                    # Handle combat events
+                    elif event_name == 'PlayerDied':
+                        death_cause = body.get('cause', 'unknown')
+                        killer = body.get('killer', {})
+                        record_event("player_died", {
+                            "player_id": current_player_id,
+                            "player_name": current_player_name,
+                            "cause": death_cause,
+                            "killer": killer.get('name', 'unknown') if killer else 'environment',
+                            "position": player_data.get('position', {})
+                        })
+                        logger.info(f"💀 {current_player_name} died: {death_cause}")
+                        
+                        # Broadcast death event
+                        await broadcast_to_web({
+                            'type': 'player_event',
+                            'eventType': 'death',
+                            'playerId': current_player_id,
+                            'playerName': current_player_name,
+                            'details': f"died from {death_cause}"
+                        })
+                    
+                    elif event_name == 'MobKilled':
+                        mob_data = body.get('mob', {})
+                        record_event("mob_killed", {
+                            "player_id": current_player_id,
+                            "player_name": current_player_name,
+                            "mob_type": mob_data.get('id', 'unknown'),
+                            "mob_name": mob_data.get('name', ''),
+                            "weapon": body.get('weapon', 'unknown'),
+                            "position": player_data.get('position', {})
+                        })
+                        logger.info(f"⚔️ {current_player_name} killed {mob_data.get('id', 'mob')}")
+                    
+                    elif event_name == 'PlayerHurt':
+                        damage = body.get('damage', 0)
+                        cause = body.get('cause', 'unknown')
+                        record_event("player_hurt", {
+                            "player_id": current_player_id,
+                            "player_name": current_player_name,
+                            "damage": damage,
+                            "cause": cause,
+                            "health": player_data.get('health', 0),
+                            "position": player_data.get('position', {})
+                        })
+                    
+                    # Handle interaction events
+                    elif event_name == 'DoorUsed':
+                        door_data = body.get('door', {})
+                        record_event("door_used", {
+                            "player_id": current_player_id,
+                            "player_name": current_player_name,
+                            "door_type": door_data.get('id', 'unknown'),
+                            "action": body.get('action', 'interact'),
+                            "position": body.get('block_position', player_data.get('position', {}))
+                        })
+                    
+                    elif event_name == 'ChestOpened':
+                        chest_data = body.get('chest', {})
+                        record_event("chest_opened", {
+                            "player_id": current_player_id,
+                            "player_name": current_player_name,
+                            "chest_type": chest_data.get('id', 'chest'),
+                            "position": body.get('block_position', player_data.get('position', {}))
+                        })
+                        logger.info(f"📦 {current_player_name} opened chest")
+                    
+                    # Handle movement events
+                    elif event_name in ['PlayerJump', 'PlayerSneak', 'PlayerSprint', 'PlayerSwim', 'PlayerClimb', 'PlayerGlide']:
+                        record_event(f"player_{event_name.lower().replace('player', '')}", {
+                            "player_id": current_player_id,
+                            "player_name": current_player_name,
+                            "position": player_data.get('position', {}),
+                            "duration": body.get('duration', 0)
+                        })
+                    
+                    # Handle achievements
+                    elif event_name == 'AwardAchievement':
+                        achievement = body.get('achievement', 'unknown')
+                        record_event("achievement_earned", {
+                            "player_id": current_player_id,
+                            "player_name": current_player_name,
+                            "achievement": achievement,
+                            "description": body.get('description', '')
+                        })
+                        logger.info(f"🏆 {current_player_name} earned achievement: {achievement}")
+                        
+                        # Broadcast achievement
+                        await broadcast_to_web({
+                            'type': 'player_event',
+                            'eventType': 'achievement',
+                            'playerId': current_player_id,
+                            'playerName': current_player_name,
+                            'details': f"earned {achievement}"
+                        })
+                    
+                    # Handle other events generically
+                    else:
+                        # Record any other event with full body data
+                        if event_name and event_name not in ['PlayerTravelled']:  # Skip high-frequency events
+                            record_event(event_name.lower(), {
+                                "player_id": current_player_id,
+                                "player_name": current_player_name,
+                                "event_data": body
+                            })
                 
                 # Check if we need to save
                 if len(event_buffer) > 0 and (time.time() - last_save_time > 5):
@@ -1112,6 +1252,7 @@ async def handle_minecraft_client(websocket):
                 
             except Exception as e:
                 logger.error(f"Error processing message: {e}")
+                logger.error(f"Message content: {message}")
     
     except websockets.exceptions.ConnectionClosed:
         logger.info(f"🎮 Minecraft disconnected: {player_name or 'Unknown'}")
