@@ -24,32 +24,36 @@ import base64
 # Load environment variables
 load_dotenv()
 
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
+logger = logging.getLogger(__name__)
+
 # Try to import Azure OpenAI with fallback
 try:
     from openai import AzureOpenAI
     client = AzureOpenAI(
-        api_version=os.getenv('AZURE_OPENAI_API_VERSION', '2024-12-01-preview'),
+        api_version=os.getenv('AZURE_OPENAI_API_VERSION', '2025-01-01-preview'),
         azure_endpoint=os.getenv('AZURE_OPENAI_ENDPOINT'),
         api_key=os.getenv('AZURE_OPENAI_API_KEY'),
     )
+    logger.info(f"✅ Azure OpenAI client initialized with endpoint: {os.getenv('AZURE_OPENAI_ENDPOINT')}")
+    logger.info(f"✅ Using deployment: {os.getenv('AZURE_OPENAI_DEPLOYMENT_NAME', 'gpt-4.1')}")
 except ImportError:
     # Fallback for older openai versions
     import openai
     openai.api_type = "azure"
     openai.api_key = os.getenv('AZURE_OPENAI_API_KEY')
     openai.api_base = os.getenv('AZURE_OPENAI_ENDPOINT')
-    openai.api_version = os.getenv('AZURE_OPENAI_API_VERSION', '2024-12-01-preview')
+    openai.api_version = os.getenv('AZURE_OPENAI_API_VERSION', '2025-01-01-preview')
     client = None  # We'll handle this in the analyze function
-
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
-logger = logging.getLogger(__name__)
+    logger.info("⚠️  Using fallback OpenAI client (older version)")
 
 # Global storage
 player_positions = {}
 web_clients = set()
 block_events = []
 active_players = set()  # Track active players
+latest_assessment_results = {}  # Store latest AI assessment results
 
 # Event recording
 session_events = []
@@ -363,7 +367,7 @@ Format the response in a clear, structured way with sections for different rubri
                 if client is not None:
                     # New API style
                     response = client.chat.completions.create(
-                        model=os.getenv('AZURE_OPENAI_DEPLOYMENT_NAME', 'gpt-4o'),
+                        model=os.getenv('AZURE_OPENAI_DEPLOYMENT_NAME', 'gpt-4.1'),
                         messages=[
                             {"role": "system", "content": "You are a Minecraft gameplay assessment expert. Analyze player data against the provided rubric and give constructive feedback. Be specific and reference actual gameplay data."},
                             {"role": "user", "content": prompt}
@@ -377,7 +381,7 @@ Format the response in a clear, structured way with sections for different rubri
                     # Old API style fallback
                     import openai
                     response = openai.ChatCompletion.create(
-                        engine=os.getenv('AZURE_OPENAI_DEPLOYMENT_NAME', 'gpt-4o'),
+                        engine=os.getenv('AZURE_OPENAI_DEPLOYMENT_NAME', 'gpt-4.1'),
                         messages=[
                             {"role": "system", "content": "You are a Minecraft gameplay assessment expert. Analyze player data against the provided rubric and give constructive feedback. Be specific and reference actual gameplay data."},
                             {"role": "user", "content": prompt}
