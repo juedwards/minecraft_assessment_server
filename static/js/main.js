@@ -75,33 +75,7 @@ def ensure_data_directory():
 def get_external_ip():
     """Get the external IP address of this device"""
     try:
-        # Try Azure Instance Metadata Service first (for Azure VMs)
-        import urllib.request
-        req = urllib.request.Request(
-            'http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0/publicIpAddress?api-version=2021-02-01',
-            headers={'Metadata': 'true'}
-        )
-        with urllib.request.urlopen(req, timeout=2) as response:
-            public_ip = response.read().decode('utf-8').strip()
-            if public_ip:
-                logger.info(f"🌐 Retrieved Azure VM public IP: {public_ip}")
-                return public_ip
-    except Exception as e:
-        logger.debug(f"Azure metadata service not available: {e}")
-    
-    try:
-        # Fallback: Try external service to get public IP
-        import urllib.request
-        with urllib.request.urlopen('https://api.ipify.org', timeout=5) as response:
-            public_ip = response.read().decode('utf-8').strip()
-            if public_ip:
-                logger.info(f"🌐 Retrieved public IP via ipify: {public_ip}")
-                return public_ip
-    except Exception as e:
-        logger.debug(f"Could not get public IP via ipify: {e}")
-    
-    try:
-        # Original method - gets private IP
+        # Try to connect to an external server to get our IP
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
             s.connect(("8.8.8.8", 80))
             return s.getsockname()[0]
@@ -1357,7 +1331,7 @@ async def main():
     logger.info(f"🌐 3D Viewer: Open http://{external_ip}:8080 in your browser")
     logger.info(f"   Local: http://localhost:8080")
     logger.info("🤖 AI: Click 'Analyze Players with AI' button")
-    logger.info(f"💾 JSON files saved to: {DATA_DIR}/ directory")
+    logger.info("💾 JSON files saved to: {DATA_DIR}/ directory")
     logger.info("=" * 60)
     
     # Run forever
