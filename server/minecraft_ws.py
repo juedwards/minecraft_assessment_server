@@ -42,28 +42,10 @@ async def handle_minecraft_client(websocket):
     try:
         await websocket.send(json.dumps({'header':{'messagePurpose':'commandResponse'}, 'body':{'statusMessage': f"Connected to Playtrace AI! Session: {os.path.basename(state.session_file) if state.session_file else 'N/A'}"}}))
         events_to_subscribe = ["BlockPlaced","BlockBroken","PlayerTravelled","PlayerMessage","ItemUsed","ItemInteracted","ItemCrafted","ItemSmelted","ItemEquipped","ItemDropped","ItemPickedUp","PlayerDied","MobKilled","PlayerHurt","PlayerAttack","DoorUsed","ChestOpened","ContainerClosed","ButtonPressed","LeverUsed","PressurePlateActivated","PlayerJump","PlayerSneak","PlayerSprint","PlayerSwim","PlayerClimb","PlayerGlide","PlayerTeleport","AwardAchievement","PlayerTransform","EntitySpawned","EntityRemoved","EntityInteracted","WeatherChanged","TimeChanged","GameRulesUpdated","PlayerEat","PlayerSleep","PlayerWake","CameraUsed","BookEdited","BossKilled","RaidCompleted","TradeCompleted"]
-        # events_to_subscribe.append("ChunkLoaded")
-        # events_to_subscribe.append("ChunkLoad")
 
         for event_name in events_to_subscribe:
             await websocket.send(json.dumps({'header':{'version':1,'requestId':str(uuid4()),'messageType':'commandRequest','messagePurpose':'subscribe'}, 'body':{'eventName':event_name}}))
         logger.info(f"📋 Subscribed to {len(events_to_subscribe)} event types")
-
-         # try getchunks request
-        getchunksrequestid = str(uuid4())
-        cmd = {
-            'header': {
-                'version': 1,
-                'requestId': getchunksrequestid,
-                'eventName': 'ChunkDataRequest',
-            'messageType': 'commandRequest',
-            'messagePurpose': 'commandRequest'
-            },
-            'body': {
-                'commandLine': f'getchunks overworld'
-            }
-        }
-        await websocket.send(json.dumps(cmd))
 
         position_update_counter = 0
         async for message in websocket:
@@ -108,6 +90,18 @@ async def handle_minecraft_client(websocket):
                         await send_welcome_message(websocket)
                         welcome_sent = True
                     record_event('player_join', {'player_id': player_id, 'player_name': player_name, 'address': client_addr})
+                    try:
+                        if 'position' in player_data:
+                            pos = player_data['position']
+                            pos_x = float(pos.get('x', 0))
+                            pos_y = float(pos.get('y', 0))
+                            pos_z = float(pos.get('z', 0))
+                            state.player_positions[player_id] = {'x': pos_x, 'y': pos_y, 'z': pos_z, 'name': player_name}
+                            await broadcast_to_web({'type': 'position', 'playerId': player_id, 'playerName': player_name, 'x': pos_x, 'y': pos_y, 'z': pos_z})
+                        # Always send authoritative snapshot so web clients have the canonical list
+                        await broadcast_active_players()
+                    except Exception:
+                        logger.exception('failed to broadcast initial player info')
                 if header.get('messagePurpose') == 'event':
                     player_data = body.get('player', {})
                     current_player_id = str(player_data.get('id', player_id)) if player_data else player_id
@@ -183,6 +177,25 @@ async def handle_minecraft_client(websocket):
             if player_id in state.active_players:
                 state.active_players.remove(player_id)
             await broadcast_to_web({'type':'disconnect','playerId': player_id})
+            try:
+                # Also broadcast the updated authoritative active players list after a disconnect
+                await broadcast_active_players()
+            except Exception:
+                logger.exception('failed to broadcast active players list after disconnect')
             if len(state.active_players) == 0:
                 logger.info('📤 Last player left, ending session...')
                 end_session()
+
+async def broadcast_active_players():
+    try:
+        players_list = []
+        for pid in state.active_players:
+            pname = state.player_positions.get(pid, {}).get('name', pid)
+            entry = {'playerId': pid, 'playerName': pname}
+            pos = state.player_positions.get(pid)
+            if pos:
+                entry.update({'x': pos['x'], 'y': pos['y'], 'z': pos['z']})
+            players_list.append(entry)
+        await broadcast_to_web({'type': 'active_players', 'players': players_list})
+    except Exception:
+        logger.exception('broadcast_active_players failed')

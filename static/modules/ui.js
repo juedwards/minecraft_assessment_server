@@ -340,6 +340,7 @@ export function clearSessionData() {
 
 export function wireDomHandlers() {
     try {
+        console.log('ui.wireDomHandlers: registering DOM handlers and subscriptions');
         const clearPathBtn = document.getElementById('clearPathBtn');
         if (clearPathBtn) {
             clearPathBtn.addEventListener('click', () => {
@@ -441,7 +442,32 @@ export function wireDomHandlers() {
         } catch (e) { console.error('failed to register event handlers', e); }
 
         // Register for player list changes so the UI updates when players change
-        try { if (players && typeof players.onPlayersChanged === 'function') players.onPlayersChanged(() => { updatePlayerCount(); updatePlayerList(); updatePlayerSelectionList(); }); } catch (e) {}
+        try {
+            if (players && typeof players.onPlayersChanged === 'function') {
+                players.onPlayersChanged(() => { players.updatePlayerCount(); players.updatePlayerList(); updatePlayerSelectionList(); });
+            }
+        } catch (e) { console.error('failed to register players.onPlayersChanged', e); }
 
-    } catch (e) { console.error('wireDomHandlers failure', e); }
+        // If the scene doesn't include the legacy helpers, disable/hide their UI controls
+        try {
+            const sceneObj = getScene();
+            // Ground controls
+            const showGroundElem = document.getElementById('showGround');
+            const opacitySlider = document.getElementById('groundOpacity');
+            const opacityValue = document.getElementById('opacityValue');
+            if (!sceneObj || !sceneObj.groundMesh) {
+                if (showGroundElem) { showGroundElem.disabled = true; showGroundElem.title = 'Ground not present (using chunk data)'; }
+                if (opacitySlider) { opacitySlider.disabled = true; opacitySlider.title = 'Ground not present'; }
+                if (opacityValue) { opacityValue.textContent = '—'; }
+            }
+
+            // Grid control
+            const showGridElem = document.getElementById('showGrid');
+            if (!sceneObj || !sceneObj.gridHelper) {
+                if (showGridElem) { showGridElem.disabled = true; showGridElem.title = 'Grid not present (using chunk data)'; }
+            }
+        } catch (e) {
+            // non-fatal
+        }
+    } catch (e) { console.error('ui.wireDomHandlers failed', e); }
 }

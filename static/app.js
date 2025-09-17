@@ -48,24 +48,47 @@ function init() {
     gridHelper = window.gridHelper;
     axesHelper = window.axesHelper;
 
-    // Setup ground opacity slider
+    // Setup ground opacity slider (guarded: groundMesh may be absent when using chunk data)
     const opacitySlider = document.getElementById('groundOpacity');
     const opacityValue = document.getElementById('opacityValue');
-    
-    opacitySlider.addEventListener('input', (e) => {
-        const opacity = e.target.value / 100;
-        groundMesh.material.opacity = opacity;
-        opacityValue.textContent = opacity.toFixed(2);
-    });
+    if (opacitySlider && opacityValue) {
+        opacitySlider.addEventListener('input', (e) => {
+            const opacity = e.target.value / 100;
+            if (groundMesh && groundMesh.material) {
+                groundMesh.material.opacity = opacity;
+            }
+            opacityValue.textContent = opacity.toFixed(2);
+        });
+    }
 
-    // Setup ground visibility checkbox
+    // Setup ground visibility checkbox (guarded)
     const showGroundCheckbox = document.getElementById('showGround');
-    showGroundCheckbox.addEventListener('change', (e) => {
-        groundMesh.visible = e.target.checked;
-    });
+    if (showGroundCheckbox) {
+        showGroundCheckbox.addEventListener('change', (e) => {
+            if (groundMesh) groundMesh.visible = e.target.checked;
+        });
+    }
 
     // Start animation
     animate();
+
+    // Wire DOM handlers so player-list subscribers are registered before we open the websocket
+    try {
+        if (window && window.ui && typeof window.ui.wireDomHandlers === 'function') {
+            window.ui.wireDomHandlers();
+        }
+    } catch (e) { console.error('failed to wire DOM handlers in init()', e); }
+
+    // Start the live websocket connection only after the scene and renderer are initialized
+    try {
+        if (window.websocket && typeof window.websocket.connect === 'function') {
+            window.websocket.connect();
+        } else {
+            console.warn('websocket module not available; live updates disabled');
+        }
+    } catch (e) {
+        console.error('Failed to start websocket connection from init():', e);
+    }
 }
 
 // Thin delegators to the events and UI modules (modules are authoritative)
@@ -225,7 +248,9 @@ function animate() {
 
         // Update grid visibility (safe access)
         const showGridElem = document.getElementById('showGrid');
-        gridHelper.visible = showGridElem ? showGridElem.checked : true;
+        if (gridHelper) {
+            gridHelper.visible = showGridElem ? showGridElem.checked : true;
+        }
 
         // Update session info via UI module
         updateSessionInfo();
@@ -258,21 +283,4 @@ fetchServerInfo();  // Fetch server info including external IP
 const exportButton = document.getElementById('exportButton');
 if (exportButton) {
     exportButton.disabled = true;
-}
-
-// Start the live websocket connection via the websocket module
-if (window.websocket && typeof window.websocket.connect === 'function') {
-    window.websocket.connect();
-} else {
-    console.warn('websocket module not available; live updates disabled');
-}
-
-// Export commonly used handlers to window so HTML's inline on* attributes keep working
-try {
-    // Legacy globals removed — UI handlers are wired by `ui.wireDomHandlers()` and modules.
-} catch (e) { /* ignore in failure cases */ }
-// Rubric Editor implementations migrated to `static/modules/ui.js`
-// Wire up DOM handlers via ui module (replaces inline onclick attributes)
-if (window && window.ui && typeof window.ui.wireDomHandlers === 'function') {
-    window.ui.wireDomHandlers();
 }

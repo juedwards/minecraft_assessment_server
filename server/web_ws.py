@@ -17,6 +17,19 @@ async def handle_web_client(websocket):
     try:
         if state.session_id:
             await websocket.send(json.dumps({'type':'session_info','sessionId': state.session_id,'startTime': state.session_start_time.isoformat() if state.session_start_time else None,'fileName': os.path.basename(state.session_file) if state.session_file else None}))
+        # Send the authoritative active players list (ids, names, optional positions)
+        try:
+            players_list = []
+            for pid in state.active_players:
+                pname = state.player_positions.get(pid, {}).get('name', pid)
+                entry = {'playerId': pid, 'playerName': pname}
+                pos = state.player_positions.get(pid)
+                if pos:
+                    entry.update({'x': pos['x'], 'y': pos['y'], 'z': pos['z']})
+                players_list.append(entry)
+            await websocket.send(json.dumps({'type': 'active_players', 'players': players_list}))
+        except Exception:
+            logger.exception('failed to send active players list to new web client')
         for player_id, pos in state.player_positions.items():
             await websocket.send(json.dumps({'type':'position','playerId': player_id,'playerName': pos.get('name', player_id),'x': pos['x'],'y': pos['y'],'z': pos['z']}))
         async for message in websocket:

@@ -331,6 +331,16 @@ export function connect(host = (window && window.location && window.location.hos
                 try { if (events && typeof events.triggerAnalysisResult === 'function') events.triggerAnalysisResult(data); } catch (e) { console.error('analysis_result handling failed', e); }
                 break;
 
+            case 'player_join':
+                try {
+                    if (players && typeof players.createPlayer === 'function') {
+                        players.createPlayer(data.playerId, data.playerName);
+                    }
+                } catch (e) { console.error('player_join handling failed', e); }
+                state.incrementEventCount();
+                if (events && typeof events.triggerSessionUpdated === 'function') events.triggerSessionUpdated();
+                break;
+
             default:
                 console.warn('Unhandled WS message type:', data.type);
         }
