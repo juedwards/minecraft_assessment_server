@@ -42,7 +42,30 @@ async def main():
     logger.info(f"🌐 3D Viewer: Open http://{external_ip}:{os.getenv('HTTP_PORT', '8080')} in your browser")
     logger.info('🤖 AI: Click "Analyze Players with AI" button')
     logger.info(f"💾 JSON files saved to: {os.getenv('DATA_DIR', 'data')}/ directory")
-    await asyncio.Future()
+    # After all servers are started (this is where your existing code ends)
+    # Just keep the server running without referencing undefined variables
+    
+    try:
+        # Keep the main coroutine alive
+        while True:
+            await asyncio.sleep(1)
+            
+    except asyncio.CancelledError:
+        logger.info("Shutting down servers...")
+        
+        # Add cleanup code here if you have server instances to close
+        # For example:
+        # if hasattr(web_server, 'close'):
+        #     await web_server.close()
+        # if hasattr(minecraft_server, 'close'):
+        #     await minecraft_server.close()
+        
+        await asyncio.sleep(0.5)  # Give time for cleanup
+        logger.info("Server shutdown complete")
+        
+    except Exception as e:
+        logger.error(f"Server error: {e}")
+        raise
 
 
 if __name__ == '__main__':
@@ -56,6 +79,11 @@ if __name__ == '__main__':
     root = logging.getLogger()
     if not root.handlers:
         level = getattr(logging, os.getenv('LOG_LEVEL', 'INFO').upper(), logging.INFO)
+        logging.basicConfig(level=level, format='%(asctime)s - %(message)s')
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        logging.info('👋 Server stopped')
         logging.basicConfig(level=level, format='%(asctime)s - %(message)s')
     try:
         asyncio.run(main())
