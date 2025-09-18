@@ -37,6 +37,8 @@ if __name__ == '__main__':
     try:
         from server.main import main
         asyncio.run(main())
+    except KeyboardInterrupt:
+        logging.info('👋 Server stopped by user')
     except Exception as e:
         logging.error(f'Error starting server: {e}')
         raise

@@ -3,46 +3,137 @@ import asyncio
 import logging
 import threading
 import os
+import signal
+import sys
 from .state import ensure_data_directory
 from .http import run_http_server
 from .minecraft_ws import handle_minecraft_client
 from .web_ws import handle_web_client
 import websockets
 import socket
+from .chunk_cache import ChunkCache
+from .chunk_processor import ChunkProcessor
+from .optimized_renderer import OptimizedRenderer
+from .chunk_storage import ChunkStorage
 
 logger = logging.getLogger(__name__)
 
+# Global shutdown event
+shutdown_event = asyncio.Event()
+
+
+def signal_handler(signum, frame):
+    """Handle shutdown signals"""
+    logger.info(f"🛑 Received signal {signum}, initiating graceful shutdown...")
+    shutdown_event.set()
+
 
 async def main():
-    logger.info('=' * 60)
-    logger.info('🎮 Minecraft 3D Live Tracker with AI Assessment (refactored)')
-    logger.info('=' * 60)
-    ensure_data_directory()
-    http_thread = threading.Thread(target=run_http_server, daemon=True)
-    http_thread.start()
-    minecraft_server = await websockets.serve(handle_minecraft_client, '0.0.0.0', int(os.getenv('MINECRAFT_PORT', '19131')))
-    web_server = await websockets.serve(handle_web_client, '0.0.0.0', int(os.getenv('WS_PORT', '8081')))
-    logger.info('✅ Servers started successfully!')
-    # Resolve an external IP or hostname to show to users — prefer explicit env var if provided
-    def get_external_ip():
-        # Allow override
-        env_ip = os.getenv('EXTERNAL_IP') or os.getenv('SERVER_HOST')
-        if env_ip:
-            return env_ip
-        try:
-            # Use UDP trick to determine outbound IP on machines with network access
-            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-                s.connect(("8.8.8.8", 80))
-                return s.getsockname()[0]
-        except Exception:
-            return 'localhost'
+    """Main server entry point with performance optimizations"""
+    logger.info("Starting optimized Minecraft assessment server...")
+    
+    # Set up signal handlers
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+    if sys.platform == "win32":
+        signal.signal(signal.SIGBREAK, signal_handler)
+    
+    # Initialize performance components with persistent storage
+    chunk_storage = ChunkStorage()
+    chunk_cache = ChunkCache(max_size=2000, compression_level=6, storage=chunk_storage)
+    chunk_processor = ChunkProcessor(batch_size=10, max_workers=4)
+    renderer = OptimizedRenderer(chunk_cache, chunk_processor)
+    
+    # Start processor
+    await chunk_processor.start()
+    
+    # Keep track of servers for cleanup
+    minecraft_server = None
+    web_server = None
+    
+    try:
+        logger.info('=' * 60)
+        logger.info('🎮 Minecraft 3D Live Tracker with AI Assessment (refactored)')
+        logger.info('=' * 60)
+        ensure_data_directory()
+        
+        # Log storage stats
+        map_bounds = await chunk_storage.get_map_bounds()
+        if map_bounds.get('total_chunks', 0) > 0:
+            logger.info(f"📊 Loaded {map_bounds['total_chunks']} chunks from storage")
+            logger.info(f"🗺️  Map bounds: {map_bounds['min']} to {map_bounds['max']}")
+        
+        http_thread = threading.Thread(target=run_http_server, daemon=True)
+        http_thread.start()
+        minecraft_server = await websockets.serve(handle_minecraft_client, '0.0.0.0', int(os.getenv('MINECRAFT_PORT', '19131')))
+        web_server = await websockets.serve(handle_web_client, '0.0.0.0', int(os.getenv('WS_PORT', '8081')))
+        logger.info('✅ Servers started successfully!')
+        
+        # Resolve an external IP or hostname to show to users — prefer explicit env var if provided
+        def get_external_ip():
+            # Allow override
+            env_ip = os.getenv('EXTERNAL_IP') or os.getenv('SERVER_HOST')
+            if env_ip:
+                return env_ip
+            try:
+                # Use UDP trick to determine outbound IP on machines with network access
+                with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+                    s.connect(("8.8.8.8", 80))
+                    return s.getsockname()[0]
+            except Exception:
+                return 'localhost'
 
-    external_ip = get_external_ip()
-    logger.info(f"📡 Minecraft: Connect with /connect {external_ip}:{os.getenv('MINECRAFT_PORT', '19131')}")
-    logger.info(f"🌐 3D Viewer: Open http://{external_ip}:{os.getenv('HTTP_PORT', '8080')} in your browser")
-    logger.info('🤖 AI: Click "Analyze Players with AI" button')
-    logger.info(f"💾 JSON files saved to: {os.getenv('DATA_DIR', 'data')}/ directory")
-    await asyncio.Future()
+        external_ip = get_external_ip()
+        logger.info(f"📡 Minecraft: Connect with /connect {external_ip}:{os.getenv('MINECRAFT_PORT', '19131')}")
+        logger.info(f"🌐 3D Viewer: Open http://{external_ip}:{os.getenv('HTTP_PORT', '8080')} in your browser")
+        logger.info('🤖 AI: Click "Analyze Players with AI" button')
+        logger.info(f"💾 JSON files saved to: {os.getenv('DATA_DIR', 'data')}/ directory")
+        logger.info(f"🗃️  Chunk data stored in: {chunk_storage.data_dir}")
+        logger.info("📍 Press Ctrl+C to gracefully shutdown the server")
+        
+        # Add cache statistics endpoint
+        async def get_performance_stats():
+            return await renderer.get_render_stats()
+        
+        # Wait for shutdown signal
+        await shutdown_event.wait()
+        
+        logger.info("👋 Starting graceful shutdown...")
+            
+    except Exception as e:
+        logger.error(f"❌ Server error: {e}", exc_info=True)
+        raise
+    
+    finally:
+        logger.info("🧹 Cleaning up resources...")
+        
+        # Close websocket servers
+        if minecraft_server:
+            logger.info("  • Closing Minecraft WebSocket server...")
+            minecraft_server.close()
+            await minecraft_server.wait_closed()
+        
+        if web_server:
+            logger.info("  • Closing Web WebSocket server...")
+            web_server.close()
+            await web_server.wait_closed()
+        
+        # Save final metadata
+        logger.info("  • Saving chunk metadata...")
+        await chunk_storage.save_metadata()
+        logger.info(f"  • Saved metadata for {len(chunk_storage.chunk_index)} chunks")
+        
+        # Get final stats before shutdown
+        stats = await renderer.get_render_stats()
+        cache_stats = stats.get('cache', {})
+        logger.info(f"  • Cache stats: {cache_stats.get('size', 0)} chunks in memory, "
+                   f"{cache_stats.get('hit_rate', 0):.1%} hit rate")
+        
+        # Cleanup processor
+        logger.info("  • Stopping chunk processor...")
+        await chunk_processor.stop()
+        
+        logger.info("✅ Server shutdown complete")
 
 
 if __name__ == '__main__':
@@ -60,4 +151,5 @@ if __name__ == '__main__':
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        logging.info('👋 Server stopped')
+        # This is handled by our signal handler
+        pass
