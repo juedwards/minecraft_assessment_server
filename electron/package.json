@@ -1,0 +1,48 @@
+{
+  "name": "minecraft-assessment-electron",
+  "version": "0.1.0",
+  "description": "Electron wrapper for the Minecraft Assessment Server static viewer.",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "npm run build && electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --publish never",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build:ts": "tsc -p tsconfig.json",
+    "typecheck:pilot": "tsc -p tsconfig.pilot.json",
+    "start:dev": "electron ./main.dev.js",
+    "watch:ts": "tsc -p tsconfig.json -w",
+    "start:hot": "concurrently -k \"npm:watch:ts\" \"nodemon --watch dist --exec electron .\""
+  },
+  "devDependencies": {
+    "electron": "^26.0.0",
+    "electron-builder": "^24.0.0",
+    "typescript": "^5.4.2",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "@types/node": "^18.0.0",
+    "concurrently": "^8.0.0",
+    "nodemon": "^2.0.22",
+    "@types/ws": "^8.5.0",
+    "@types/uuid": "^9.0.0"
+  },
+  "dependencies": {
+    "ws": "^8.13.0",
+    "uuid": "^9.0.0",
+    "@azure/openai": "^2.0.0",
+    "@azure/identity": "^4.12.0"
+  },
+  "build": {
+    "appId": "com.juedwards.minecraftassessment",
+    "files": [
+      "dist/**",
+      "static/**",
+      "dist/preload.js",
+      "assets/**"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  }
+}

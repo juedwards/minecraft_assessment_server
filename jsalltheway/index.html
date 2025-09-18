@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minecraft Desktop (JS All The Way)</title>
+    <style>
+      body { font-family: Arial, Helvetica, sans-serif; margin: 12px; background:#2b6d6f; color:white }
+      .panel { background: rgba(0,0,0,0.15); padding:8px; border-radius:6px }
+    </style>
+  </head>
+  <body>
+    <h2>Minecraft Desktop (JS All The Way)</h2>
+    <div class="panel">
+      <div>Players: <span id="playerCount">0</span></div>
+      <div>Status: <span id="status">Waiting for connections</span></div>
+    </div>
+    <h3>Clients</h3>
+    <div id="clientList"></div>
+    <h3>Send Command</h3>
+    <div>
+      <select id="clientSelect"></select>
+      <input id="cmdInput" placeholder='{"type":"chat","message":"hello"}' style="width:60%"/>
+      <button id="sendBtn">Send</button>
+      <button id="broadcastBtn">Broadcast</button>
+    </div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>

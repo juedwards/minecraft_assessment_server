@@ -28,6 +28,8 @@ class ChunkProcessor:
     def __init__(self, batch_size: int = 50, max_workers: int = None):
         # Increase batch size for GPU processing
         self.batch_size = batch_size if not GPU_AVAILABLE else batch_size * 5
+        # Expose module-level GPU_AVAILABLE flag on the instance for easy checks
+        self.GPU_AVAILABLE = GPU_AVAILABLE
         
         # Auto-detect optimal worker count
         if max_workers is None:
@@ -51,15 +53,41 @@ class ChunkProcessor:
     def _setup_gpu(self):
         """Setup GPU for optimal performance"""
         if GPU_AVAILABLE:
-            # Set memory pool for better performance
-            mempool = cp.get_default_memory_pool()
-            mempool.set_limit(size=4 * 1024**3)  # 4GB limit
-            
-            # Enable GPU persistent mode if available
-            cp.cuda.runtime.deviceSetCacheConfig(cp.cuda.runtime.funcCache.PreferShared)
-            
-            logger.info(f"GPU device: {cp.cuda.runtime.getDevice()}")
-            logger.info(f"GPU memory: {cp.cuda.runtime.memGetInfo()[1] / 1024**3:.2f} GB")
+            try:
+                # Configure memory pool with a safe limit based on actual GPU memory
+                mempool = cp.get_default_memory_pool()
+                try:
+                    # Try to get total GPU memory; memGetInfo returns (free, total)
+                    _, total_bytes = cp.cuda.runtime.memGetInfo()
+                    # Use up to 80% of total or 4GB, whichever is smaller
+                    limit = min(4 * 1024**3, int(total_bytes * 0.8))
+                except Exception:
+                    # Fall back to conservative default if mem info isn't available
+                    limit = 256 * 1024**2  # 256MB
+                try:
+                    mempool.set_limit(size=limit)
+                except Exception as e:
+                    logger.warning(f"Could not set CuPy mempool limit ({limit}): {e}")
+
+                # Try to set cache config if the runtime binding exists on this platform
+                try:
+                    if hasattr(cp.cuda.runtime, 'deviceSetCacheConfig') and hasattr(cp.cuda.runtime, 'funcCache'):
+                        cp.cuda.runtime.deviceSetCacheConfig(cp.cuda.runtime.funcCache.PreferShared)
+                except Exception as e:
+                    # Non-fatal: not all CuPy/driver combos expose this API
+                    logger.debug(f"Could not set CUDA cache config: {e}")
+
+                # Log device and memory info when available
+                try:
+                    logger.info(f"GPU device: {cp.cuda.runtime.getDevice()}")
+                except Exception:
+                    pass
+                try:
+                    logger.info(f"GPU memory: {cp.cuda.runtime.memGetInfo()[1] / 1024**3:.2f} GB")
+                except Exception:
+                    pass
+            except Exception as e:
+                logger.warning(f"GPU setup failed: {e}")
     
     async def start(self):
         """Start the batch processor"""

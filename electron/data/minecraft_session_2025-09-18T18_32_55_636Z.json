@@ -1,0 +1,2365 @@
+{
+  "session_info": {
+    "id": "minecraft_session_2025-09-18T18_32_55_636Z",
+    "start_time": "2025-09-18T18:32:55.636Z",
+    "last_update": "2025-09-18T18:40:31.756Z",
+    "duration_seconds": 456.12,
+    "total_events": 168,
+    "user": "juedwards",
+    "status": "ended"
+  },
+  "events": [
+    {
+      "timestamp": "2025-09-18T18:32:55.636Z",
+      "event_type": "session_start",
+      "data": {
+        "session_id": "minecraft_session_2025-09-18T18_32_55_636Z",
+        "server_version": "1.0",
+        "user": "juedwards"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:32:55.639Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -121.9018783569336,
+          "y": 72.62001037597656,
+          "z": -98.15735626220703
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:32:55.822Z",
+      "event_type": "block_broken",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "block_type": "minecraft:grass_block",
+        "player_position": {
+          "x": -121.6588668823242,
+          "y": 72.62001037597656,
+          "z": -98.98509979248047
+        },
+        "estimated_block_position": {
+          "x": -122,
+          "y": 72,
+          "z": -99
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:32:55.854Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -121.5778503417969,
+          "y": 72.62001037597656,
+          "z": -99.25659942626953
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:32:57.141Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -121.5358734130859,
+          "y": 73.37859344482422,
+          "z": -99.39724731445312
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:32:57.405Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -121.5358734130859,
+          "y": 73.04000854492188,
+          "z": -99.39724731445312
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:32:57.782Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -121.5358734130859,
+          "y": 73.64442443847656,
+          "z": -99.39724731445312
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:32:57.939Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -121.5358734130859,
+          "y": 72.62001037597656,
+          "z": -99.39724731445312
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:32:58.569Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -121.5358734130859,
+          "y": 73.62134552001953,
+          "z": -99.39724731445312
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:32:58.850Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -121.5358734130859,
+          "y": 74.84646606445312,
+          "z": -99.39724731445312
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:32:59.696Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -121.4973297119141,
+          "y": 75.81999206542969,
+          "z": -99.36699676513672
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:00.007Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -120.5493927001953,
+          "y": 75.81999206542969,
+          "z": -98.97959899902344
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:00.197Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -119.4905090332031,
+          "y": 75.81999206542969,
+          "z": -99.169921875
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:00.355Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -118.6204452514648,
+          "y": 75.9699935913086,
+          "z": -99.62332153320312
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:00.512Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -117.8199691772461,
+          "y": 76.83039093017578,
+          "z": -100.327766418457
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:00.607Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -117.3909759521484,
+          "y": 77.53373718261719,
+          "z": -100.9280853271484
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:00.701Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -117.0447082519531,
+          "y": 78.26693725585938,
+          "z": -101.6121139526367
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:00.805Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.7710266113281,
+          "y": 79.01089477539062,
+          "z": -102.3652801513672
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:00.956Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.6004409790039,
+          "y": 80.13323211669922,
+          "z": -102.8752288818359
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:01.114Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5936584472656,
+          "y": 81.25765228271484,
+          "z": -102.8954925537109
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:01.248Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.593391418457,
+          "y": 82.38253021240234,
+          "z": -102.8962936401367
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:01.397Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5933837890625,
+          "y": 83.50749969482422,
+          "z": -102.8963241577148
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:01.616Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5933837890625,
+          "y": 84.17250061035156,
+          "z": -102.8963241577148
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:01.775Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5933837890625,
+          "y": 82.9701156616211,
+          "z": -102.8963241577148
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:01.868Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5933837890625,
+          "y": 81.94904327392578,
+          "z": -102.8963241577148
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:01.931Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5933837890625,
+          "y": 80.87745666503906,
+          "z": -102.8963241577148
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:02.058Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5933837890625,
+          "y": 79.78768157958984,
+          "z": -102.8963241577148
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:02.152Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5933837890625,
+          "y": 78.69136047363281,
+          "z": -102.8963241577148
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:02.276Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5933837890625,
+          "y": 77.59268951416016,
+          "z": -102.8963241577148
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:02.339Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5933837890625,
+          "y": 76.4931640625,
+          "z": -102.8963241577148
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:02.433Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5933837890625,
+          "y": 75.3933334350586,
+          "z": -102.8963241577148
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:02.562Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5933837890625,
+          "y": 74.29338836669922,
+          "z": -102.8963241577148
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:02.625Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5933837890625,
+          "y": 73.19340515136719,
+          "z": -102.8963241577148
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:03.098Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.6824493408203,
+          "y": 72.62001037597656,
+          "z": -103.4477615356445
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:03.347Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.8616638183594,
+          "y": 72.62001037597656,
+          "z": -104.6275253295898
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:33:03.567Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.8855133056641,
+          "y": 72.62001037597656,
+          "z": -105.9387130737305
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:21.241Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.5632095336914,
+          "y": 72.62001037597656,
+          "z": -106.9313201904297
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:21.461Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.1460571289062,
+          "y": 72.62001037597656,
+          "z": -107.9991226196289
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:22.439Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2919998168945,
+          "y": 72.77001190185547,
+          "z": -107.7522354125977
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:22.597Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -114.5148773193359,
+          "y": 73.48040771484375,
+          "z": -107.3770217895508
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:22.753Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -113.5833740234375,
+          "y": 73.68785858154297,
+          "z": -107.0197601318359
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:22.942Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -112.4527130126953,
+          "y": 73.06432342529297,
+          "z": -106.81103515625
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:23.098Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -111.6909637451172,
+          "y": 71.82452392578125,
+          "z": -106.801513671875
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:23.257Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -110.9679565429688,
+          "y": 72.37320709228516,
+          "z": -106.940803527832
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:23.479Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -110.0638656616211,
+          "y": 72.79676055908203,
+          "z": -107.2745361328125
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:23.694Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -109.3400421142578,
+          "y": 71.74129486083984,
+          "z": -107.6167602539062
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:23.850Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -108.9043807983398,
+          "y": 72.37320709228516,
+          "z": -107.8408660888672
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:24.211Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -108.4649429321289,
+          "y": 72.41673278808594,
+          "z": -108.06689453125
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:24.338Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -108.3491516113281,
+          "y": 71.29647064208984,
+          "z": -108.1264572143555
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:25.283Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -108.4442901611328,
+          "y": 71.04000854492188,
+          "z": -108.3157577514648
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:25.534Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -108.9648361206055,
+          "y": 71.87220764160156,
+          "z": -108.6271743774414
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:25.784Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -109.800651550293,
+          "y": 72.04000854492188,
+          "z": -108.9457931518555
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:25.939Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -110.3955001831055,
+          "y": 73.37708282470703,
+          "z": -108.9088439941406
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:26.097Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -111.2349624633789,
+          "y": 74.54788970947266,
+          "z": -108.7863006591797
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:26.252Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -112.2601776123047,
+          "y": 75.29278564453125,
+          "z": -108.6084136962891
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:26.380Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -113.4138107299805,
+          "y": 75.84368896484375,
+          "z": -108.5578994750977
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:26.538Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -113.9351501464844,
+          "y": 76.84468078613281,
+          "z": -108.5700836181641
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:26.697Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -114.1551361083984,
+          "y": 77.79289245605469,
+          "z": -108.7802963256836
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:26.947Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -114.9605026245117,
+          "y": 78.09734344482422,
+          "z": -109.6605529785156
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:27.072Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.6300582885742,
+          "y": 78.11747741699219,
+          "z": -110.4137725830078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:27.261Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.3979568481445,
+          "y": 78.121826171875,
+          "z": -111.2857666015625
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:27.389Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -117.2399673461914,
+          "y": 78.12277221679688,
+          "z": -112.2472763061523
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:27.543Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -118.1378173828125,
+          "y": 78.12297821044922,
+          "z": -113.276237487793
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:28.233Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -118.5585403442383,
+          "y": 77.55098724365234,
+          "z": -113.7588500976562
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:28.388Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -118.5585403442383,
+          "y": 76.13383483886719,
+          "z": -113.7588500976562
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:28.513Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -118.5585403442383,
+          "y": 75.07489013671875,
+          "z": -113.7588500976562
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:28.576Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -118.5585403442383,
+          "y": 73.98966979980469,
+          "z": -113.7588500976562
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:34:28.702Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -118.5585403442383,
+          "y": 72.89498901367188,
+          "z": -113.7588500976562
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:11.389Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -117.8238220214844,
+          "y": 72.62001037597656,
+          "z": -114.1326141357422
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:11.606Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -117.1838073730469,
+          "y": 72.62001037597656,
+          "z": -115.0130310058594
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:11.759Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.6965103149414,
+          "y": 72.62001037597656,
+          "z": -115.9259948730469
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:11.885Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.2046585083008,
+          "y": 72.62001037597656,
+          "z": -116.996696472168
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:13.194Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.8608627319336,
+          "y": 72.62001037597656,
+          "z": -117.9069671630859
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:13.474Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.951286315918,
+          "y": 72.62001037597656,
+          "z": -117.7933883666992
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:13.694Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -118.0798797607422,
+          "y": 72.62001037597656,
+          "z": -118.096794128418
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:13.832Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -118.9500503540039,
+          "y": 72.62001037597656,
+          "z": -118.636344909668
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:13.989Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -119.767707824707,
+          "y": 72.62001037597656,
+          "z": -119.4113616943359
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:14.115Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -120.5448608398438,
+          "y": 72.62001037597656,
+          "z": -120.3642807006836
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:14.270Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -120.6999969482422,
+          "y": 72.62001037597656,
+          "z": -121.4512786865234
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:14.459Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -120.8106994628906,
+          "y": 72.62001037597656,
+          "z": -122.6393127441406
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:14.597Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -121.0541000366211,
+          "y": 72.62001037597656,
+          "z": -123.7000045776367
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:14.989Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -121.669563293457,
+          "y": 72.62001037597656,
+          "z": -124.5409088134766
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:15.205Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -121.351692199707,
+          "y": 72.62001037597656,
+          "z": -125.5124588012695
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:15.393Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -120.6396789550781,
+          "y": 72.62001037597656,
+          "z": -126.6522903442383
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:15.549Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -119.9231185913086,
+          "y": 72.62001037597656,
+          "z": -127.5851058959961
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:15.705Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -119.0925827026367,
+          "y": 72.77001190185547,
+          "z": -128.5665893554688
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:15.799Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -118.48974609375,
+          "y": 73.30400848388672,
+          "z": -129.2418975830078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:15.924Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -117.5281677246094,
+          "y": 73.6497573852539,
+          "z": -130.2793273925781
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:16.083Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.7127838134766,
+          "y": 73.52816009521484,
+          "z": -131.1481170654297
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:16.239Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -116.0983352661133,
+          "y": 72.72213745117188,
+          "z": -131.8028106689453
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:16.331Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.7753448486328,
+          "y": 71.82452392578125,
+          "z": -132.14697265625
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:16.489Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.4382934570312,
+          "y": 72.37320709228516,
+          "z": -132.5061187744141
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:16.830Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.0983276367188,
+          "y": 72.41673278808594,
+          "z": -132.8683471679688
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:17.881Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.0029983520508,
+          "y": 71.62001037597656,
+          "z": -132.7769317626953
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:18.127Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.1987915039062,
+          "y": 71.62001037597656,
+          "z": -131.7905120849609
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:18.532Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2482070922852,
+          "y": 72.37320709228516,
+          "z": -131.5415344238281
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:18.778Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.249137878418,
+          "y": 73.64922332763672,
+          "z": -131.5368804931641
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:18.934Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 74.7213134765625,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:19.074Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 75.83488464355469,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:19.230Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 76.9574203491211,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:19.370Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 78.0818862915039,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:19.526Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 79.2067642211914,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:19.714Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 80.33173370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:19.839Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 81.45673370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:19.991Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 82.58173370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:20.120Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 83.70673370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:20.273Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 84.83173370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:20.444Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 85.95673370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:20.569Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 87.08173370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:20.727Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 88.20673370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:20.884Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 89.33173370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:21.040Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 90.45673370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:21.195Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 91.58173370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:21.322Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 92.70673370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:21.476Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 93.83173370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:21.650Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 94.95673370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:21.784Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 96.08173370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:21.931Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 97.20673370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:22.089Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 98.33173370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:22.246Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 99.45673370361328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:22.377Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 100.5817337036133,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:22.526Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 101.7067337036133,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:22.683Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 102.8317337036133,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:22.840Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 103.9567337036133,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:24.034Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 104.595588684082,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:24.188Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 103.3336715698242,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:24.284Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 102.3021011352539,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:24.377Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 101.2267303466797,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:24.501Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 100.1355972290039,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:25.215Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 98.85651397705078,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:25.340Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 97.43936157226562,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:25.434Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 96.38041687011719,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:25.528Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 95.29519653320312,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:25.629Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 94.20051574707031,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:25.747Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 93.10243225097656,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:25.840Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 92.00312042236328,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:25.933Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 90.90337371826172,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:26.027Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 89.803466796875,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:26.121Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 88.70349884033203,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:26.248Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 87.60350799560547,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:26.342Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 86.5035171508789,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:26.436Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 85.40351867675781,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:26.530Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 84.30351257324219,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:26.623Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 83.20350646972656,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:26.748Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 82.10350036621094,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:26.843Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 81.00349426269531,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:26.937Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 79.90348815917969,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:27.029Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 78.80348205566406,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:27.152Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 77.70347595214844,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:27.246Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 76.60346984863281,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:27.310Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 75.50346374511719,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:27.435Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 74.40345764160156,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:27.529Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 73.30345153808594,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:28.248Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2491455078125,
+          "y": 72.14057922363281,
+          "z": -131.5368194580078
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:29.208Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -115.2051391601562,
+          "y": 71.62001037597656,
+          "z": -130.9105987548828
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:29.368Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -114.8534164428711,
+          "y": 71.62001037597656,
+          "z": -129.9075927734375
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:29.539Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -114.4462127685547,
+          "y": 71.62001037597656,
+          "z": -128.9606628417969
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:29.697Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -113.9494705200195,
+          "y": 71.62001037597656,
+          "z": -127.8921966552734
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:29.856Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -113.38525390625,
+          "y": 71.62001037597656,
+          "z": -126.7321472167969
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:29.965Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -112.7701950073242,
+          "y": 71.62001037597656,
+          "z": -125.5030670166016
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:30.123Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -112.1421279907227,
+          "y": 71.62001037597656,
+          "z": -124.2118835449219
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:30.281Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -111.6819229125977,
+          "y": 71.62001037597656,
+          "z": -122.8439178466797
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:30.439Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -111.4024276733398,
+          "y": 71.62001037597656,
+          "z": -121.4162139892578
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:30.594Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -111.2591094970703,
+          "y": 71.62001037597656,
+          "z": -120.2999877929688
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:31.254Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -111.5428848266602,
+          "y": 71.62001037597656,
+          "z": -119.4246673583984
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:31.442Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -111.7896118164062,
+          "y": 71.62001037597656,
+          "z": -118.24609375
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:31.569Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -111.9995803833008,
+          "y": 71.62001037597656,
+          "z": -117.1566009521484
+        },
+        "dimension": "overworld"
+      }
+    },
+    {
+      "timestamp": "2025-09-18T18:40:31.756Z",
+      "event_type": "player_position",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "position": {
+          "x": -112.2147521972656,
+          "y": 71.62001037597656,
+          "z": -115.9381256103516
+        },
+        "dimension": "overworld"
+      }
+    }
+  ]
+}

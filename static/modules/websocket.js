@@ -32,7 +32,7 @@ export function send(obj) {
     }
 }
 
-export function connect(host = (window && window.location && window.location.hostname) ? window.location.hostname : 'localhost', port = 8081, path = 'live') {
+export function connect(host = (window && window.WS_CONFIG && window.WS_CONFIG.host) ? window.WS_CONFIG.host : ((window && window.location && window.location.hostname) ? window.location.hostname : 'localhost'), port = (window && window.WS_CONFIG && window.WS_CONFIG.port) ? window.WS_CONFIG.port : 8081, path = 'live') {
     const wsUrl = `ws://${host}:${port}/${path}`;
     ws = new WebSocket(wsUrl);
 

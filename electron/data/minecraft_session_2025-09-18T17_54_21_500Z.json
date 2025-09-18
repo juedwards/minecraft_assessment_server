@@ -1,0 +1,22 @@
+{
+  "session_info": {
+    "id": "minecraft_session_2025-09-18T17_54_21_500Z",
+    "start_time": "2025-09-18T17:54:21.500Z",
+    "last_update": "2025-09-18T17:54:21.500Z",
+    "duration_seconds": 0,
+    "total_events": 1,
+    "user": "juedwards",
+    "status": "ended"
+  },
+  "events": [
+    {
+      "timestamp": "2025-09-18T17:54:21.500Z",
+      "event_type": "session_start",
+      "data": {
+        "session_id": "minecraft_session_2025-09-18T17_54_21_500Z",
+        "server_version": "1.0",
+        "user": "juedwards"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+This folder contains backups of original JavaScript sources moved during the JS→TS migration. Do not edit these files; they are retained for historical/reference purposes.

@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "checkJs": false,
+    "noEmit": true
+  },
+  "include": [
+    "server/ai_client.ts"
+  ]
+}
