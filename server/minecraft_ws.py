@@ -23,6 +23,7 @@ async def send_welcome_message(websocket):
 
 
 async def handle_minecraft_client(websocket):
+    """Handle Minecraft client connections"""
     # Use state.active_players from the shared state module
     state.minecraft_connections.add(websocket)
     try:

@@ -4,6 +4,7 @@ import logging
 import time
 import os
 import websockets
+import asyncio
 from . import state
 from .session import analyze_player_data, record_event, start_session, end_session
 from .utils import broadcast_to_web, send_message_to_minecraft, send_command_to_minecraft
@@ -12,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 async def handle_web_client(websocket):
+    """Handle web client connections with full world streaming"""
     logger.info('Web client connected for live updates')
     state.web_clients.add(websocket)
     try:
@@ -32,6 +34,25 @@ async def handle_web_client(websocket):
             logger.exception('failed to send active players list to new web client')
         for player_id, pos in state.player_positions.items():
             await websocket.send(json.dumps({'type':'position','playerId': player_id,'playerName': pos.get('name', player_id),'x': pos['x'],'y': pos['y'],'z': pos['z']}))
+        
+        # Send initial world data if renderer is available
+        renderer = getattr(handle_web_client, 'renderer', None)
+        if renderer:
+            # Start background loader if not already started
+            if not hasattr(renderer, '_loader_started'):
+                await renderer.start_background_loader()
+                renderer._loader_started = True
+            
+            # Send all currently loaded chunks
+            initial_data = await renderer.get_all_loaded_chunks()
+            await websocket.send(json.dumps({
+                'type': 'world_data',
+                'data': initial_data
+            }))
+        
+        # Start streaming new chunks
+        chunk_streamer = asyncio.create_task(stream_new_chunks(websocket, renderer)) if renderer else None
+        
         async for message in websocket:
             try:
                 msg = json.loads(message)
@@ -94,5 +115,28 @@ async def handle_web_client(websocket):
     except websockets.exceptions.ConnectionClosed:
         pass
     finally:
+        if chunk_streamer:
+            chunk_streamer.cancel()
         state.web_clients.discard(websocket)
         logger.info('Web client disconnected')
+
+
+async def stream_new_chunks(websocket, renderer):
+    """Stream newly loaded chunks to the web client"""
+    try:
+        while True:
+            # Get new chunks from the renderer
+            new_chunks = await renderer.get_new_chunks(timeout=1.0)
+            
+            if new_chunks:
+                await websocket.send(json.dumps({
+                    'type': 'new_chunks',
+                    'chunks': new_chunks
+                }))
+            
+            await asyncio.sleep(0.1)  # Small delay between checks
+            
+    except asyncio.CancelledError:
+        pass
+    except Exception as e:
+        logger.error(f"Error streaming chunks: {e}")

@@ -5,20 +5,61 @@ from collections import defaultdict
 import time
 import logging
 from concurrent.futures import ThreadPoolExecutor
+import os
+import psutil
 
+# Set up logger first
 logger = logging.getLogger(__name__)
+
+# Try to import GPU acceleration libraries
+try:
+    import cupy as cp
+    GPU_AVAILABLE = True
+    logger.info("GPU acceleration available via CuPy")
+except ImportError:
+    cp = None
+    GPU_AVAILABLE = False
+    logger.info("GPU acceleration not available, using CPU")
 
 
 class ChunkProcessor:
-    """Async chunk processor with batching and parallel processing"""
+    """Async chunk processor with GPU acceleration and optimized memory usage"""
     
-    def __init__(self, batch_size: int = 10, max_workers: int = 4):
-        self.batch_size = batch_size
+    def __init__(self, batch_size: int = 50, max_workers: int = None):
+        # Increase batch size for GPU processing
+        self.batch_size = batch_size if not GPU_AVAILABLE else batch_size * 5
+        
+        # Auto-detect optimal worker count
+        if max_workers is None:
+            max_workers = min(32, (os.cpu_count() or 1) * 2)
+        
         self.executor = ThreadPoolExecutor(max_workers=max_workers)
         self.pending_requests: Dict[Tuple[int, int, int], List[asyncio.Future]] = defaultdict(list)
         self.processing_lock = asyncio.Lock()
         self.batch_queue: asyncio.Queue = asyncio.Queue()
         self.processing_task: Optional[asyncio.Task] = None
+        
+        # Memory management
+        self.memory_info = psutil.virtual_memory()
+        self.max_memory_percent = 0.7  # Use up to 70% of available RAM
+        self.chunk_size = 16
+        
+        # GPU memory management
+        if GPU_AVAILABLE:
+            self._setup_gpu()
+    
+    def _setup_gpu(self):
+        """Setup GPU for optimal performance"""
+        if GPU_AVAILABLE:
+            # Set memory pool for better performance
+            mempool = cp.get_default_memory_pool()
+            mempool.set_limit(size=4 * 1024**3)  # 4GB limit
+            
+            # Enable GPU persistent mode if available
+            cp.cuda.runtime.deviceSetCacheConfig(cp.cuda.runtime.funcCache.PreferShared)
+            
+            logger.info(f"GPU device: {cp.cuda.runtime.getDevice()}")
+            logger.info(f"GPU memory: {cp.cuda.runtime.memGetInfo()[1] / 1024**3:.2f} GB")
     
     async def start(self):
         """Start the batch processor"""
@@ -104,37 +145,157 @@ class ChunkProcessor:
                             future.set_exception(e)
     
     def _process_chunk_batch(self, coords: List[Tuple[int, int, int]]) -> List[np.ndarray]:
-        """Process multiple chunks in parallel (CPU-bound operation)"""
+        """Process multiple chunks in parallel with GPU acceleration"""
+        if GPU_AVAILABLE:
+            return self._process_chunk_batch_gpu(coords)
+        else:
+            return self._process_chunk_batch_cpu(coords)
+    
+    def _process_chunk_batch_gpu(self, coords: List[Tuple[int, int, int]]) -> List[np.ndarray]:
+        """Process chunks on GPU for massive performance boost"""
         results = []
         
-        for x, y, z in coords:
-            # Optimize chunk data generation/processing
-            chunk_data = self._generate_optimized_chunk(x, y, z)
-            results.append(chunk_data)
+        # Process chunks in larger batches on GPU
+        batch_coords = cp.array(coords, dtype=cp.float32)
+        
+        # Allocate GPU memory for all chunks at once
+        num_chunks = len(coords)
+        chunk_data_gpu = cp.zeros((num_chunks, self.chunk_size, self.chunk_size, self.chunk_size), dtype=cp.uint8)
+        
+        # Vectorized terrain generation on GPU
+        for idx, (x, y, z) in enumerate(coords):
+            # Generate height map on GPU
+            i_coords = cp.arange(self.chunk_size)
+            j_coords = cp.arange(self.chunk_size)
+            k_coords = cp.arange(self.chunk_size)
+            
+            # Create mesh grid
+            ii, jj, kk = cp.meshgrid(i_coords, j_coords, k_coords, indexing='ij')
+            
+            # Calculate world coordinates
+            world_x = x * self.chunk_size + ii
+            world_y = y * self.chunk_size + jj
+            world_z = z * self.chunk_size + kk
+            
+            # Complex terrain generation using GPU
+            height_map = (
+                cp.sin(world_x * 0.01) * 32 +
+                cp.cos(world_z * 0.01) * 32 +
+                cp.sin(world_x * 0.05) * 8 +
+                cp.cos(world_z * 0.05) * 8 +
+                64
+            )
+            
+            # Generate terrain layers
+            chunk_gpu = cp.zeros_like(world_y, dtype=cp.uint8)
+            
+            # Bedrock layer
+            chunk_gpu[world_y < 5] = 7
+            
+            # Stone layer
+            stone_mask = (world_y >= 5) & (world_y < height_map - 5)
+            chunk_gpu[stone_mask] = 1
+            
+            # Dirt layer
+            dirt_mask = (world_y >= height_map - 5) & (world_y < height_map)
+            chunk_gpu[dirt_mask] = 2
+            
+            # Grass layer
+            grass_mask = (world_y >= height_map) & (world_y < height_map + 1)
+            chunk_gpu[grass_mask] = 3
+            
+            # Add some ore veins
+            ore_noise = cp.random.random(chunk_gpu.shape) < 0.01
+            ore_mask = stone_mask & ore_noise
+            chunk_gpu[ore_mask] = 4  # Iron ore
+            
+            chunk_data_gpu[idx] = chunk_gpu
+            
+            # Transfer back to CPU
+            results.append(cp.asnumpy(chunk_gpu))
+        
+        # Clear GPU memory
+        mempool = cp.get_default_memory_pool()
+        mempool.free_all_blocks()
         
         return results
     
-    def _generate_optimized_chunk(self, x: int, y: int, z: int) -> np.ndarray:
-        """Generate or load chunk data efficiently"""
-        # Use numpy for efficient array operations
-        # This is a placeholder - replace with actual chunk generation/loading
-        chunk_size = 16
+    def _process_chunk_batch_cpu(self, coords: List[Tuple[int, int, int]]) -> List[np.ndarray]:
+        """Process chunks on CPU with optimized memory usage"""
+        results = []
         
+        # Check available memory
+        available_memory = psutil.virtual_memory().available
+        chunk_memory = self.chunk_size ** 3 * np.dtype(np.uint8).itemsize
+        max_chunks_in_memory = int((available_memory * self.max_memory_percent) / chunk_memory)
+        
+        logger.debug(f"Processing {len(coords)} chunks, max in memory: {max_chunks_in_memory}")
+        
+        # Process in batches that fit in memory
+        for i in range(0, len(coords), max_chunks_in_memory):
+            batch = coords[i:i + max_chunks_in_memory]
+            
+            # Pre-allocate arrays for batch
+            batch_size = len(batch)
+            chunk_batch = np.zeros((batch_size, self.chunk_size, self.chunk_size, self.chunk_size), dtype=np.uint8)
+            
+            # Vectorized operations for entire batch
+            for idx, (x, y, z) in enumerate(batch):
+                chunk_batch[idx] = self._generate_optimized_chunk_cpu(x, y, z)
+            
+            results.extend(chunk_batch)
+        
+        return results
+    
+    def _generate_optimized_chunk_cpu(self, x: int, y: int, z: int) -> np.ndarray:
+        """Generate chunk data on CPU with vectorized operations"""
         # Pre-allocate array
-        chunk = np.zeros((chunk_size, chunk_size, chunk_size), dtype=np.uint8)
+        chunk = np.zeros((self.chunk_size, self.chunk_size, self.chunk_size), dtype=np.uint8)
         
-        # Vectorized operations for chunk generation
-        # Example: simple terrain generation
-        height_map = np.sin(x * 0.1) * 8 + np.cos(z * 0.1) * 8 + 64
+        # Create coordinate grids
+        i_coords = np.arange(self.chunk_size)
+        j_coords = np.arange(self.chunk_size)
+        k_coords = np.arange(self.chunk_size)
         
-        for i in range(chunk_size):
-            for j in range(chunk_size):
-                world_y = y * chunk_size + j
-                if world_y < height_map:
-                    chunk[i, j, :] = 1  # Stone
-                elif world_y < height_map + 3:
-                    chunk[i, j, :] = 2  # Dirt
-                elif world_y == int(height_map + 3):
-                    chunk[i, j, :] = 3  # Grass
+        ii, jj, kk = np.meshgrid(i_coords, j_coords, k_coords, indexing='ij')
+        
+        # Calculate world coordinates
+        world_x = x * self.chunk_size + ii
+        world_y = y * self.chunk_size + jj
+        world_z = z * self.chunk_size + kk
+        
+        # Vectorized height map calculation
+        height_map = (
+            np.sin(world_x * 0.01, dtype=np.float32) * 32 +
+            np.cos(world_z * 0.01, dtype=np.float32) * 32 +
+            np.sin(world_x * 0.05, dtype=np.float32) * 8 +
+            np.cos(world_z * 0.05, dtype=np.float32) * 8 +
+            64
+        ).astype(np.float32)
+        
+        # Vectorized terrain generation
+        # Bedrock
+        chunk[world_y < 5] = 7
+        
+        # Stone
+        stone_mask = (world_y >= 5) & (world_y < height_map - 5)
+        chunk[stone_mask] = 1
+        
+        # Dirt
+        dirt_mask = (world_y >= height_map - 5) & (world_y < height_map)
+        chunk[dirt_mask] = 2
+        
+        # Grass
+        grass_mask = (world_y >= height_map) & (world_y < height_map + 1)
+        chunk[grass_mask] = 3
         
         return chunk
+    
+    def _generate_optimized_chunk(self, x: int, y: int, z: int) -> np.ndarray:
+        """Generate or load chunk data efficiently"""
+        if GPU_AVAILABLE:
+            # Process single chunk on GPU
+            result = self._process_chunk_batch_gpu([(x, y, z)])[0]
+            return result
+        else:
+            return self._generate_optimized_chunk_cpu(x, y, z)

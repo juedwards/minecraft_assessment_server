@@ -38,14 +38,36 @@ async def main():
     if sys.platform == "win32":
         signal.signal(signal.SIGBREAK, signal_handler)
     
-    # Initialize performance components with persistent storage
+    # Initialize performance components with GPU support
     chunk_storage = ChunkStorage()
-    chunk_cache = ChunkCache(max_size=2000, compression_level=6, storage=chunk_storage)
-    chunk_processor = ChunkProcessor(batch_size=10, max_workers=4)
+    
+    # Adjust cache size based on available memory
+    import psutil
+    available_memory_gb = psutil.virtual_memory().available / (1024**3)
+    cache_size = min(10000, int(2000 + available_memory_gb * 500))  # Scale with memory
+    
+    chunk_cache = ChunkCache(max_size=cache_size, compression_level=6, storage=chunk_storage)
+    
+    # Increase batch size for better GPU utilization
+    batch_size = 100 if os.environ.get('CUDA_VISIBLE_DEVICES') is not None else 10
+    chunk_processor = ChunkProcessor(batch_size=batch_size)
+    
     renderer = OptimizedRenderer(chunk_cache, chunk_processor)
+    
+    # Log system capabilities
+    logger.info(f"💻 System: {psutil.cpu_count()} CPUs, {available_memory_gb:.1f} GB available RAM")
+    logger.info(f"📦 Cache size: {cache_size} chunks")
+    if hasattr(chunk_processor, 'GPU_AVAILABLE') and chunk_processor.GPU_AVAILABLE:
+        logger.info("🎮 GPU acceleration enabled")
+    else:
+        logger.info("💻 Using CPU processing (install cupy for GPU acceleration)")
     
     # Start processor
     await chunk_processor.start()
+    
+    # Inject renderer into web_ws handler for streaming
+    from . import web_ws
+    web_ws.handle_web_client.renderer = renderer
     
     # Keep track of servers for cleanup
     minecraft_server = None
@@ -68,6 +90,9 @@ async def main():
         minecraft_server = await websockets.serve(handle_minecraft_client, '0.0.0.0', int(os.getenv('MINECRAFT_PORT', '19131')))
         web_server = await websockets.serve(handle_web_client, '0.0.0.0', int(os.getenv('WS_PORT', '8081')))
         logger.info('✅ Servers started successfully!')
+        
+        # Start background chunk loader
+        await renderer.start_background_loader()
         
         # Resolve an external IP or hostname to show to users — prefer explicit env var if provided
         def get_external_ip():
