@@ -6,9 +6,3 @@ openai>=1.0.0
 python-docx>=0.8.11
 websockets>=10.0
 azure-identity>=1.12.0
-# Performance optimizations
-ujson>=5.8.0  # Faster JSON parsing
-aiofiles>=23.2.1  # Async file operations
-msgpack>=1.0.5  # Binary serialization for cache
-lz4>=4.3.2  # Fast compression
-psutil>=5.9.5  # System monitoring
