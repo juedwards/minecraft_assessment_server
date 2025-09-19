@@ -168,6 +168,9 @@ export async function analyzeWithChatGPT() {
     if (backdrop) backdrop.classList.add('show');
     if (resultsDiv) { resultsDiv.style.display = 'block'; resultsDiv.classList.add('show'); }
     if (contentDiv) contentDiv.innerHTML = '<div class="loading-spinner"></div><p style="text-align:center;">Analyzing player data with AI...</p>';
+
+    console.log('analyzeWithChatGPT: websocket object', websocket, 'isOpen?', (websocket && (websocket as any).isOpen && (websocket as any).isOpen()));
+
     try {
         if (websocket && (websocket as any).isOpen && (websocket as any).isOpen()) {
             websocket.send({ type: 'analyze_request' });
@@ -237,12 +240,25 @@ export function clearSessionData() {
     } catch (e) { console.error('clearSessionData failed', e); }
 }
 
+export function closeAssessment() {
+    try {
+        const resultsDiv = document.getElementById('assessmentResults');
+        const backdrop = document.getElementById('assessmentBackdrop');
+        const button = document.getElementById('assessmentButton') as HTMLButtonElement | null;
+        if (resultsDiv) { resultsDiv.style.display = 'none'; resultsDiv.classList.remove('show'); }
+        if (backdrop) backdrop.classList.remove('show');
+        if (button) { button.disabled = false; button.textContent = 'Analyze Players with AI'; }
+    } catch (e) { console.error('closeAssessment failed', e); }
+}
+
 export function wireDomHandlers() {
     try {
         console.log('ui.wireDomHandlers: registering DOM handlers and subscriptions');
         const clearPathBtn = document.getElementById('clearPathBtn'); if (clearPathBtn) clearPathBtn.addEventListener('click', () => { try { if (window && (window as any).players && typeof (window as any).players.clearPath === 'function') (window as any).players.clearPath(); } catch (e) {} });
         const clearBlocksBtn = document.getElementById('clearBlocksBtn'); if (clearBlocksBtn) clearBlocksBtn.addEventListener('click', () => { try { if (window && (window as any).events && typeof (window as any).events.clearBlocks === 'function') (window as any).events.clearBlocks(); } catch (e) {} });
         const assessmentBtn = document.getElementById('assessmentButton'); if (assessmentBtn) assessmentBtn.addEventListener('click', analyzeWithChatGPT);
+        const closeAssessmentBtn = document.getElementById('closeAssessmentBtn'); if (closeAssessmentBtn) closeAssessmentBtn.addEventListener('click', closeAssessment);
+        const assessmentBackdrop = document.getElementById('assessmentBackdrop'); if (assessmentBackdrop) assessmentBackdrop.addEventListener('click', closeAssessment);
         const editRubricBtn = document.getElementById('editRubricButton'); if (editRubricBtn) editRubricBtn.addEventListener('click', openRubricEditor);
         const gameControlsBtn = document.getElementById('gameControlsButton'); if (gameControlsBtn) gameControlsBtn.addEventListener('click', openGameControls);
         const sendMsgBtn = document.getElementById('sendMessageButton'); if (sendMsgBtn) { sendMsgBtn.addEventListener('click', () => { const input = document.getElementById('messageInput') as HTMLInputElement | null; if (!input) return; const msg = input.value.trim(); if (!msg) return; try { if (websocket && (websocket as any).isOpen && (websocket as any).isOpen()) { websocket.send({ type: 'send_message', message: msg }); input.value = ''; if (events && typeof (events as any).addEventToLog === 'function') (events as any).addEventToLog(`<span style="color: #2196F3;">📨</span> Message sent: "${msg}"`); } else { alert('WebSocket not connected. Cannot send message.'); } } catch (e) { console.error('send message failed', e); } }); }

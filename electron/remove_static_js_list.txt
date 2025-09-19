@@ -1,0 +1,20 @@
+# Files proposed for removal (electron/static)
+
+electron/static/app.js
+electron/static/config.js
+electron/static/viewer.js
+
+electron/static/modules/bootstrap.js
+electron/static/modules/chunk_mesher.js
+electron/static/modules/chunks.js
+electron/static/modules/events.js
+electron/static/modules/main.js
+electron/static/modules/players.js
+electron/static/modules/scene.js
+electron/static/modules/state.js
+electron/static/modules/ui.js
+electron/static/modules/utils.js
+electron/static/modules/websocket.js
+
+# Note: These files currently have corresponding .ts sources under the same directories.
+# This list is intended for review and to be used by a deletion script/PR; no files were removed by this script.

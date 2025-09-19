@@ -20,6 +20,7 @@ export function getWs() { return ws; }
 export function send(obj: any) {
     try {
         if (isOpen()) {
+            console.log('websocket.send(): sending', obj);
             (ws as any).send(JSON.stringify(obj));
         } else {
             console.warn('websocket.send(): socket not open', obj);
@@ -117,10 +118,11 @@ export function connect(host: string = (window as any).WS_CONFIG && (window as a
                 state.incrementEventCount();
                 if (events && typeof events.triggerSessionUpdated === 'function') events.triggerSessionUpdated();
 
+                // Debug position markers/logs (enable via window.DEBUG_POSITION = true in dev console)
+                const POSITION_DEBUG = typeof window !== 'undefined' && !!(window as any).DEBUG_POSITION;
                 try {
                     const sceneRef = getScene();
                     const rawThree = ((utils as any).mcToThreeCoords) ? (utils as any).mcToThreeCoords(data.x, data.y, data.z) : { x: data.x, y: data.y, z: data.z };
-                    console.log('POSITION DEBUG', { playerId: data.playerId, raw: {x:data.x,y:data.y,z:data.z}, rawThree });
                     if (sceneRef) {
                         const rawMarker = new THREE.Mesh(new THREE.SphereGeometry(0.2), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
                         rawMarker.position.set(rawThree.x, rawThree.y, rawThree.z); rawMarker.userData = { debugMarker: true }; sceneRef.add(rawMarker);
@@ -262,6 +264,16 @@ export function connect(host: string = (window as any).WS_CONFIG && (window as a
                     // init_done received (no-op for renderer); session updated event will be triggered below
                      if (events && typeof events.triggerSessionUpdated === 'function') events.triggerSessionUpdated();
                 } catch (e) { console.error('init_done handling failed', e); }
+                break;
+
+            case 'analysis_result':
+                try {
+                    // Log a small preview for debugging
+                    const preview = (data && data.analyses) ? Object.keys(data.analyses).slice(0,5) : null;
+                    console.log('WS analysis_result received - preview:', preview);
+                    if (events && typeof (events as any).triggerAnalysisResult === 'function') events.triggerAnalysisResult(data);
+                    console.log('WS analysis_result handled');
+                } catch (e) { console.error('analysis_result handling failed', e); }
                 break;
 
             default:

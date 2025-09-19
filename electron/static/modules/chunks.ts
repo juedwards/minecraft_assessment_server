@@ -122,7 +122,7 @@ export function renderChunkAsBlocks(record: any) {
             const mcY = heightVal;
             const pos = utils.mcToThreeCoords(mcX, mcY, mcZ);
             const mesh = new THREE.Mesh(blockGeomCache, mat);
-            mesh.position.set(pos.x, pos.y + 0.5, pos.z);
+            mesh.position.set(pos.x + 0.5, pos.y + 3, pos.z + 0.5);
             mesh.userData = { isChunkBlock: true, chunk: key, colIdx: idx };
             group.add(mesh);
         }
@@ -178,7 +178,7 @@ export function updateChunkBlockFromEvent(blockPos: any, action: string, blockTy
             if (!mat) { mat = new THREE.MeshLambertMaterial({ color: colorKey }); materialCache.set(colorKey, mat); }
             const mesh = new THREE.Mesh(blockGeomCache, mat);
             const pos = utils.mcToThreeCoords(mcX, mcY, mcZ);
-            mesh.position.set(pos.x, pos.y + 0.5, pos.z);
+            mesh.position.set(pos.x + 0.5, pos.y-2.5, pos.z + 0.5);
             mesh.userData = { isChunkBlock: true, chunk: key, colIdx: idx };
             group.add(mesh);
             try { chunkMeshes.set(chunkMeshKey, group); } catch (e) {}
