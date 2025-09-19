@@ -1,0 +1,2978 @@
+{
+  "session_info": {
+    "id": "minecraft_session_2025-09-19T15_06_45_517Z",
+    "start_time": "2025-09-19T15:06:45.517Z",
+    "last_update": "2025-09-19T15:06:51.623Z",
+    "duration_seconds": 6.106,
+    "total_events": 91,
+    "user": "juedwards",
+    "status": "ended"
+  },
+  "events": [
+    {
+      "timestamp": "2025-09-19T15:06:45.517Z",
+      "event_type": "session_start",
+      "data": {
+        "session_id": "minecraft_session_2025-09-19T15_06_45_517Z",
+        "server_version": "1.0",
+        "user": "juedwards"
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.521Z",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "block_type": "minecraft:dandelion",
+        "player_position": {
+          "x": -148.4330596923828,
+          "y": 82.62001037597656,
+          "z": -136.3183288574219
+        },
+        "estimated_block_position": {
+          "x": -149,
+          "y": 83,
+          "z": -137
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.523Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4330596923828,
+              "y": 82.62001037597656,
+              "z": -136.3183288574219
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -35.98580932617188
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.524Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 0,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4330596923828,
+              "y": 82.62001037597656,
+              "z": -136.3183288574219
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -35.98580932617188
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.773Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4330596923828,
+              "y": 82.62001037597656,
+              "z": -136.3183288574219
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -36.232177734375
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.773Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4330596923828,
+              "y": 82.62001037597656,
+              "z": -136.3183288574219
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -36.232177734375
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.773Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4330596923828,
+              "y": 82.62001037597656,
+              "z": -136.3183288574219
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -36.232177734375
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.773Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4330596923828,
+              "y": 82.62001037597656,
+              "z": -136.3183288574219
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -36.232177734375
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.774Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4330596923828,
+              "y": 82.62001037597656,
+              "z": -136.3183288574219
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -36.232177734375
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.803Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4040985107422,
+              "y": 82.62001037597656,
+              "z": -136.27880859375
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -35.98580932617188
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.803Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4040985107422,
+              "y": 82.62001037597656,
+              "z": -136.27880859375
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -35.98580932617188
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.803Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4040985107422,
+              "y": 82.62001037597656,
+              "z": -136.27880859375
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -35.98580932617188
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.866Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.3487854003906,
+              "y": 82.62001037597656,
+              "z": -136.2033081054688
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -35.24667358398438
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.866Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.3487854003906,
+              "y": 82.62001037597656,
+              "z": -136.2033081054688
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -35.24667358398438
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.867Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.3487854003906,
+              "y": 82.62001037597656,
+              "z": -136.2033081054688
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -35.24667358398438
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.867Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.3487854003906,
+              "y": 82.62001037597656,
+              "z": -136.2033081054688
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -35.24667358398438
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.899Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.2696533203125,
+              "y": 82.62001037597656,
+              "z": -136.094970703125
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -24.40605163574219
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.899Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.2696533203125,
+              "y": 82.62001037597656,
+              "z": -136.094970703125
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -24.40605163574219
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.899Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.2696533203125,
+              "y": 82.62001037597656,
+              "z": -136.094970703125
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -24.40605163574219
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.901Z",
+      "event_type": "playertransform",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.1747436523438,
+              "y": 82.62001037597656,
+              "z": -135.9530334472656
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -24.40605163574219
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.961Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.1747436523438,
+              "y": 82.62001037597656,
+              "z": -135.9530334472656
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 1.956314086914062
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.961Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.1747436523438,
+              "y": 82.62001037597656,
+              "z": -135.9530334472656
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 1.956314086914062
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.961Z",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "block_type": "minecraft:dandelion",
+        "player_position": {
+          "x": -148.1747436523438,
+          "y": 82.62001037597656,
+          "z": -135.9530334472656
+        },
+        "estimated_block_position": {
+          "x": -149,
+          "y": 83,
+          "z": -136
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.962Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.1747436523438,
+              "y": 82.62001037597656,
+              "z": -135.9530334472656
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 1.956314086914062
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.962Z",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "block_type": "minecraft:dandelion",
+        "player_position": {
+          "x": -148.1747436523438,
+          "y": 82.62001037597656,
+          "z": -135.9530334472656
+        },
+        "estimated_block_position": {
+          "x": -149,
+          "y": 83,
+          "z": -136
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:45.963Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.1747436523438,
+              "y": 82.62001037597656,
+              "z": -135.9530334472656
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 1.956314086914062
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.146Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -147.9743804931641,
+              "y": 82.62001037597656,
+              "z": -135.0758666992188
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 39.15939331054688
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.147Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -147.9743804931641,
+              "y": 82.62001037597656,
+              "z": -135.0758666992188
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 39.15939331054688
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.147Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -147.9743804931641,
+              "y": 82.62001037597656,
+              "z": -135.0758666992188
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 39.15939331054688
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.147Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -147.9743804931641,
+              "y": 82.62001037597656,
+              "z": -135.0758666992188
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 39.15939331054688
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.179Z",
+      "event_type": "playertransform",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -147.9939575195312,
+              "y": 82.62001037597656,
+              "z": -134.8036193847656
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 39.15939331054688
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.211Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -147.9939575195312,
+              "y": 82.62001037597656,
+              "z": -134.8036193847656
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.211Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -147.9939575195312,
+              "y": 82.62001037597656,
+              "z": -134.8036193847656
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.212Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -147.9939575195312,
+              "y": 82.62001037597656,
+              "z": -134.8036193847656
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.273Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.0436859130859,
+              "y": 82.62001037597656,
+              "z": -134.5187072753906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.273Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.0436859130859,
+              "y": 82.62001037597656,
+              "z": -134.5187072753906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.273Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.0436859130859,
+              "y": 82.62001037597656,
+              "z": -134.5187072753906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.273Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.0436859130859,
+              "y": 82.62001037597656,
+              "z": -134.5187072753906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.274Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.0436859130859,
+              "y": 82.62001037597656,
+              "z": -134.5187072753906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.337Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.120849609375,
+              "y": 82.62001037597656,
+              "z": -134.2222595214844
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.337Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.120849609375,
+              "y": 82.62001037597656,
+              "z": -134.2222595214844
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.337Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.120849609375,
+              "y": 82.62001037597656,
+              "z": -134.2222595214844
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.337Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.120849609375,
+              "y": 82.62001037597656,
+              "z": -134.2222595214844
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.366Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.2229919433594,
+              "y": 82.62001037597656,
+              "z": -133.9153137207031
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.367Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.2229919433594,
+              "y": 82.62001037597656,
+              "z": -133.9153137207031
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.367Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.2229919433594,
+              "y": 82.62001037597656,
+              "z": -133.9153137207031
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.411Z",
+      "event_type": "playertransform",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.3478546142578,
+              "y": 82.62001037597656,
+              "z": -133.5987854003906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.411Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.3478546142578,
+              "y": 82.62001037597656,
+              "z": -133.5987854003906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.412Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.3478546142578,
+              "y": 82.62001037597656,
+              "z": -133.5987854003906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.412Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.3478546142578,
+              "y": 82.62001037597656,
+              "z": -133.5987854003906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.412Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.3478546142578,
+              "y": 82.62001037597656,
+              "z": -133.5987854003906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.473Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4933929443359,
+              "y": 82.62001037597656,
+              "z": -133.2735900878906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.473Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4933929443359,
+              "y": 82.62001037597656,
+              "z": -133.2735900878906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.473Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4933929443359,
+              "y": 82.62001037597656,
+              "z": -133.2735900878906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.474Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.4933929443359,
+              "y": 82.62001037597656,
+              "z": -133.2735900878906
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.534Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.6577453613281,
+              "y": 82.62001037597656,
+              "z": -132.9404602050781
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.535Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.6577453613281,
+              "y": 82.62001037597656,
+              "z": -132.9404602050781
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.535Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.6577453613281,
+              "y": 82.62001037597656,
+              "z": -132.9404602050781
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.535Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.6577453613281,
+              "y": 82.62001037597656,
+              "z": -132.9404602050781
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.536Z",
+      "event_type": "playertransform",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.8392181396484,
+              "y": 82.62001037597656,
+              "z": -132.6001281738281
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.565Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.8392181396484,
+              "y": 82.62001037597656,
+              "z": -132.6001281738281
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.565Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.8392181396484,
+              "y": 82.62001037597656,
+              "z": -132.6001281738281
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.566Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.8392181396484,
+              "y": 82.62001037597656,
+              "z": -132.6001281738281
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.566Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -148.8392181396484,
+              "y": 82.62001037597656,
+              "z": -132.6001281738281
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.626Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -149.0362701416016,
+              "y": 82.62001037597656,
+              "z": -132.2532348632812
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.626Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -149.0362701416016,
+              "y": 82.62001037597656,
+              "z": -132.2532348632812
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.627Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -149.0362701416016,
+              "y": 82.62001037597656,
+              "z": -132.2532348632812
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.658Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -149.2474975585938,
+              "y": 82.62001037597656,
+              "z": -131.900390625
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.658Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -149.2474975585938,
+              "y": 82.62001037597656,
+              "z": -131.900390625
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.658Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -149.2474975585938,
+              "y": 82.62001037597656,
+              "z": -131.900390625
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.659Z",
+      "event_type": "playertransform",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -149.4716186523438,
+              "y": 82.62001037597656,
+              "z": -131.5421142578125
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:46.877Z",
+      "event_type": "playertransform",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0203704833984,
+              "y": 82.62001037597656,
+              "z": -130.6971130371094
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 40.63768005371094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:49.028Z",
+      "event_type": "block_broken",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "block_type": "minecraft:grass_block",
+        "player_position": {
+          "x": -150.0333251953125,
+          "y": 82.62001037597656,
+          "z": -130.6771850585938
+        },
+        "estimated_block_position": {
+          "x": -151,
+          "y": 82,
+          "z": -131
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:49.403Z",
+      "event_type": "block_broken",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "block_type": "minecraft:grass_block",
+        "player_position": {
+          "x": -150.0333251953125,
+          "y": 82.62001037597656,
+          "z": -130.6771850585938
+        },
+        "estimated_block_position": {
+          "x": -151,
+          "y": 82,
+          "z": -131
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:49.812Z",
+      "event_type": "block_broken",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "block_type": "minecraft:grass_block",
+        "player_position": {
+          "x": -150.0333251953125,
+          "y": 82.62001037597656,
+          "z": -130.6771850585938
+        },
+        "estimated_block_position": {
+          "x": -151,
+          "y": 82,
+          "z": -131
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:50.301Z",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "block_type": "minecraft:dandelion",
+        "player_position": {
+          "x": -150.0333251953125,
+          "y": 82.62001037597656,
+          "z": -130.6771850585938
+        },
+        "estimated_block_position": {
+          "x": -151,
+          "y": 83,
+          "z": -131
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:50.302Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 163.0874633789062
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:50.302Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 0,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 163.0874633789062
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:50.675Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 148.0584716796875
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:50.676Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 0,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 148.0584716796875
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:50.706Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 148.0584411621094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:50.707Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 148.0584411621094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:50.707Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 148.0584411621094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:50.739Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 148.0584716796875
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:50.739Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 148.0584716796875
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:50.739Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 148.0584716796875
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:50.739Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 148.0584716796875
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:51.106Z",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "block_type": "minecraft:dandelion",
+        "player_position": {
+          "x": -150.0333251953125,
+          "y": 82.62001037597656,
+          "z": -130.6771850585938
+        },
+        "estimated_block_position": {
+          "x": -151,
+          "y": 83,
+          "z": -131
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:51.107Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 125.8844604492188
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:51.107Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 0,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 125.8844604492188
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T15:06:51.623Z",
+      "event_type": "iteminteracted",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "count": 1,
+          "item": {
+            "aux": 0,
+            "enchantments": [],
+            "freeStackSize": 63,
+            "id": "dandelion",
+            "maxStackSize": 64,
+            "namespace": "minecraft",
+            "stackSize": 1
+          },
+          "method": 1,
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -150.0333251953125,
+              "y": 82.62001037597656,
+              "z": -130.6771850585938
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 145.1019592285156
+          }
+        }
+      }
+    }
+  ]
+}

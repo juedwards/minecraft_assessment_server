@@ -54,7 +54,15 @@ export function endSession(): void {
 }
 
 export function recordEvent(eventType: string, data: any): void {
-  if (!state.sessionId) return;
+  // Auto-start a session if none exists so events aren't silently dropped
+  if (!state.sessionId) {
+    try {
+      startSession();
+      console.info('Auto-started session because recordEvent was called without an active session');
+    } catch (e) {
+      console.error('Failed to auto-start session in recordEvent', e);
+    }
+  }
   const ev = { timestamp: nowUtcIso(), event_type: eventType, data };
   state.sessionEvents.push(ev);
   state.eventBuffer.push(ev);
@@ -112,7 +120,7 @@ export async function analyzePlayerData(): Promise<any> {
 
     // If no player data was found, return a helpful error so the UI can explain why nothing is being analyzed
     if (Object.keys(playerAnalysis).length === 0) {
-      const errMsg = `No player events recorded for analysis. sessionEvents=${(state.sessionEvents||[]).length}, activePlayers=${(state.activePlayers ? state.activePlayers.size : 0)}. Ensure players are connected and generating events, and that a session has been started.`;
+      const errMsg = `No player events recorded for analysis. sessionEvents=${(state.sessionEvents||[]).length}, activePlayers=${(state.activePlayers ? state.activePlayers.size : 0)}, playerPositions=${Object.keys(state.playerPositions||{}).length}. Ensure players are connected and generating events, and that a session has been started.`;
       console.warn(errMsg);
       return { analyses: {}, error: errMsg };
     }

@@ -1,0 +1,239 @@
+{
+  "session_info": {
+    "id": "minecraft_session_2025-09-19T14_49_39_110Z",
+    "start_time": "2025-09-19T14:49:39.110Z",
+    "last_update": "2025-09-19T14:49:45.612Z",
+    "duration_seconds": 6.502,
+    "total_events": 11,
+    "user": "juedwards",
+    "status": "ended"
+  },
+  "events": [
+    {
+      "timestamp": "2025-09-19T14:49:39.110Z",
+      "event_type": "session_start",
+      "data": {
+        "session_id": "minecraft_session_2025-09-19T14_49_39_110Z",
+        "server_version": "1.0",
+        "user": "juedwards"
+      }
+    },
+    {
+      "timestamp": "2025-09-19T14:49:39.114Z",
+      "event_type": "playertransform",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -145.3198394775391,
+              "y": 80.62001037597656,
+              "z": -145.9970703125
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -101.3528594970703
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T14:49:39.389Z",
+      "event_type": "playertransform",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -144.0409393310547,
+              "y": 80.62001037597656,
+              "z": -146.0901489257812
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -76.46873474121094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T14:49:39.548Z",
+      "event_type": "playertransform",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -143.0116119384766,
+              "y": 80.62001037597656,
+              "z": -146.0111083984375
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -76.46873474121094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T14:49:39.580Z",
+      "event_type": "chunkloaded",
+      "data": {
+        "player_id": null,
+        "player_name": null,
+        "event_data": {
+          "chunk": {
+            "dimension": 0,
+            "x": 3,
+            "z": -50
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T14:49:39.581Z",
+      "event_type": "chunkloaded",
+      "data": {
+        "player_id": null,
+        "player_name": null,
+        "event_data": {
+          "chunk": {
+            "dimension": 0,
+            "x": 2,
+            "z": -50
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T14:49:39.675Z",
+      "event_type": "playertransform",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -141.8446044921875,
+              "y": 80.62001037597656,
+              "z": -145.8573608398438
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -76.46873474121094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T14:49:39.832Z",
+      "event_type": "playertransform",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -140.5738677978516,
+              "y": 80.62001037597656,
+              "z": -145.6473388671875
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -76.46873474121094
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T14:49:40.005Z",
+      "event_type": "playertransform",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -139.2689971923828,
+              "y": 80.62001037597656,
+              "z": -145.3215942382812
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": -17.58451843261719
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T14:49:40.129Z",
+      "event_type": "playertransform",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "event_data": {
+          "player": {
+            "color": "ffededed",
+            "dimension": 0,
+            "id": -4294967295,
+            "name": "MESS_TestingT",
+            "position": {
+              "x": -138.2213134765625,
+              "y": 80.62001037597656,
+              "z": -144.6993408203125
+            },
+            "type": "minecraft:player",
+            "variant": 0,
+            "yRot": 5.574981689453125
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-09-19T14:49:45.612Z",
+      "event_type": "block_placed",
+      "data": {
+        "player_id": "-4294967295",
+        "player_name": "MESS_TestingT",
+        "block_type": "minecraft:dandelion",
+        "player_position": {
+          "x": -137.7904205322266,
+          "y": 80.62001037597656,
+          "z": -144.3699951171875
+        },
+        "estimated_block_position": {
+          "x": -138,
+          "y": 81,
+          "z": -145
+        }
+      }
+    }
+  ]
+}

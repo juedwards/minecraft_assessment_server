@@ -16,22 +16,23 @@
     "start:hot": "concurrently -k \"npm:watch:ts\" \"nodemon --watch dist --exec electron .\""
   },
   "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/uuid": "^9.0.0",
+    "@types/ws": "^8.5.0",
+    "concurrently": "^8.0.0",
     "electron": "^26.0.0",
     "electron-builder": "^24.0.0",
-    "typescript": "^5.4.2",
+    "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "@types/node": "^18.0.0",
-    "concurrently": "^8.0.0",
-    "nodemon": "^2.0.22",
-    "@types/ws": "^8.5.0",
-    "@types/uuid": "^9.0.0"
+    "typescript": "^5.4.2"
   },
   "dependencies": {
-    "ws": "^8.13.0",
-    "uuid": "^9.0.0",
+    "@azure/identity": "^4.12.0",
     "@azure/openai": "^2.0.0",
-    "@azure/identity": "^4.12.0"
+    "openai": "^4.104.0",
+    "uuid": "^9.0.0",
+    "ws": "^8.13.0"
   },
   "build": {
     "appId": "com.juedwards.minecraftassessment",
