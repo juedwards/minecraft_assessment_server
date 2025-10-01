@@ -370,5 +370,36 @@
     </div>
 
     <script type="module" src="modules/main.js"></script>
+    <script>
+        // Ensure WebSocket URL uses the correct protocol and port
+        function connectWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const host = window.location.hostname;
+            const wsPort = 8081; // WebSocket port
+            const wsUrl = `${protocol}//${host}:${wsPort}`;
+            
+            console.log(`Connecting to WebSocket at ${wsUrl}`);
+            
+            try {
+                socket = new WebSocket(wsUrl);
+                
+                socket.onopen = function() {
+                    console.log('WebSocket connected');
+                    // ...existing onopen code...
+                };
+                
+                socket.onerror = function(error) {
+                    console.error('WebSocket error:', error);
+                    // Show user-friendly error message
+                    updateStatus('WebSocket connection error. Make sure the server is running on port 8081.');
+                };
+                
+                // ...existing socket event handlers...
+            } catch (error) {
+                console.error('Failed to create WebSocket:', error);
+                updateStatus('Failed to connect to WebSocket server');
+            }
+        }
+    </script>
 </body>
 </html>

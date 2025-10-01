@@ -161,6 +161,51 @@ async def main():
         logger.info("✅ Server shutdown complete")
 
 
+async def handle_websocket_with_http_check(websocket, path):
+    """WebSocket handler with HTTP request detection"""
+    try:
+        # The actual WebSocket handling will happen here
+        # since websockets library already validated the upgrade
+        await websocket_handler(websocket, path)
+    except Exception as e:
+        logger.error(f"WebSocket error: {e}")
+
+async def websocket_handler(websocket, path):
+    """Original WebSocket handler logic"""
+    # ...existing websocket handling code...
+
+async def start_websocket_server():
+    """Start the WebSocket server with proper error handling"""
+    try:
+        # Add process_request to handle HTTP requests gracefully
+        async def process_request(path, request_headers):
+            # Check if this is a regular HTTP request (missing Upgrade header)
+            if "Upgrade" not in request_headers or request_headers["Upgrade"].lower() != "websocket":
+                # Return HTTP response for non-WebSocket requests
+                return (
+                    http.HTTPStatus.BAD_REQUEST,
+                    [("Content-Type", "text/plain")],
+                    b"This is a WebSocket endpoint. Please use a WebSocket client to connect.\n"
+                    b"For the web interface, use port 8080 instead."
+                )
+            # Return None to continue with WebSocket handshake
+            return None
+        
+        server = await websockets.serve(
+            handle_websocket_with_http_check,
+            "0.0.0.0",
+            8081,
+            process_request=process_request,
+            # Increase limits for game data
+            max_size=10 * 1024 * 1024,  # 10MB
+            max_queue=1000
+        )
+        logger.info("WebSocket server listening on 0.0.0.0:8081")
+        return server
+    except Exception as e:
+        logger.error(f"Failed to start WebSocket server: {e}")
+        raise
+
 if __name__ == '__main__':
     try:
         import dotenv

@@ -36,6 +36,12 @@ logger = logging.getLogger(__name__)
 if __name__ == '__main__':
     try:
         from server.main import main
+        logger.info("=" * 60)
+        logger.info("Starting Minecraft Assessment Server")
+        logger.info("=" * 60)
+        logger.info("📡 HTTP Server will run on: http://0.0.0.0:8080")
+        logger.info("🔌 WebSocket Server will run on: ws://0.0.0.0:8081")
+        logger.info("=" * 60)
         asyncio.run(main())
     except KeyboardInterrupt:
         logging.info('👋 Server stopped by user')
