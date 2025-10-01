@@ -20,8 +20,14 @@ class SimpleHTTPHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
-            external_ip = 'localhost'
-            info = {'external_ip': external_ip, 'minecraft_port': 19131, 'connection_string': f'/connect {external_ip}:19131'}
+            # Use the external IP from environment or server detection
+            external_ip = os.getenv('EXTERNAL_IP') or os.getenv('SERVER_HOST') or 'localhost'
+            info = {
+                'external_ip': external_ip,
+                'minecraft_port': int(os.getenv('MINECRAFT_PORT', '19131')),
+                'ws_port': int(os.getenv('WS_PORT', '8081')),
+                'connection_string': f'/connect {external_ip}:{os.getenv("MINECRAFT_PORT", "19131")}'
+            }
             self.wfile.write(json.dumps(info).encode())
             return
         if self.path.startswith('/api/export-session/'):

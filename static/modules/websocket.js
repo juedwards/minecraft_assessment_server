@@ -32,8 +32,23 @@ export function send(obj) {
     }
 }
 
-export function connect(host = (window && window.location && window.location.hostname) ? window.location.hostname : 'localhost', port = 8081, path = 'live') {
+export async function connect(host = null, port = null, path = 'live') {
+    // If host/port not provided, try to get from server info
+    if (!host || !port) {
+        try {
+            const response = await fetch('/api/server-info');
+            const info = await response.json();
+            host = host || window.location.hostname;
+            port = port || info.ws_port || 8081;
+        } catch (e) {
+            console.warn('Failed to fetch server info, using defaults', e);
+            host = host || window.location.hostname;
+            port = port || 8081;
+        }
+    }
+    
     const wsUrl = `ws://${host}:${port}/${path}`;
+    console.log('Connecting to WebSocket:', wsUrl);
     ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {
